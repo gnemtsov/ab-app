@@ -1,0 +1,8 @@
+.extra_link {
+	margin: 0 0 0 20px;
+	cursor: pointer;
+}
+
+.g-recaptcha>div {
+	margin: 0 auto;
+}

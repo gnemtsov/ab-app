@@ -1,0 +1,16 @@
+{
+  "name": "aberp-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ERP-LAB",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.1.1",
+    "mysql2": "^1.5.3",
+    "rand-token": "^0.4.0"
+  }
+}
