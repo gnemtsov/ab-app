@@ -44,17 +44,20 @@ const ROUTER = {
                     }                    
                 }
 
-                self.updatePath();
+                self.updatePath(page);
                 $container.html(html);
             });
 
         } else {
+            //TODO
             console.log('404');
         }
     },
 
-    updatePath: function(){
-        //TODO
+    updatePath: function(newPath){
+        if(newPath !== window.location.pathname) { 
+            history.pushState({}, null, newPath);
+        }        
     }
 
 }

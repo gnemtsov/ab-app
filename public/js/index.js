@@ -1,10 +1,13 @@
+$('#user-login').text(abAuth.tokenData.login);
+$('#user-details').html(big_preloader_html);
+
 $.ajax({
     method: "GET",
-    url: "http://127.0.0.1:3000/test/secret",
+    url: `${API_ENDPOINT}/test/secret`,
     success: function(data){
-        $('body').append('<pre>' + JSON.stringify(data) + '</pre>' );
+        $('#user-details').html('<pre>' + JSON.stringify(data) + '</pre>' );
     },
     error: function(error) {
         console.log(error);
     }
-});    
+});

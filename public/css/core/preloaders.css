@@ -1,0 +1,83 @@
+/*---------------------------------------------------------*/
+/*-------------------------preloaders----------------------*/
+/*---------------------------------------------------------*/
+
+.preloader {
+    display: inline-block;
+    overflow: hidden;
+    height: 1.3em;
+    line-height: 1.5em;
+    vertical-align: text-bottom;
+    font-size: 48px;
+    margin-top: 100px;
+    transform: rotate(90deg);
+}
+
+.preloader::after {
+	display: inline-table;
+	white-space: pre;
+	text-align: left;
+}
+
+.preloader::after {
+	content: "⠋\A⠙\A⠹\A⠸\A⠼\A⠴\A⠦\A⠧\A⠇\A⠏";
+	animation: spin 2s steps(10) infinite;
+}
+
+@keyframes spin  { to { transform: translateY( -15.0em); } }
+
+.small-preloader {
+	width: 40px;
+	text-align: center;
+}
+
+.small-preloader > div {
+	width: 8px;
+	height: 8px;
+	margin: 1px;
+	background-color: #606060;
+
+	border-radius: 100%;
+	display: inline-block;
+	animation: sk-bouncedelay 0.9s infinite ease-in-out both;
+}
+
+.small-preloader .bounce1, .big-preloader .bounce1 {
+	animation-delay: -0.30s;
+}
+
+.small-preloader .bounce2, .big-preloader .bounce2 {
+	animation-delay: -0.15s;
+}
+
+.big-preloader {
+	width: 60px;
+}
+
+#main-container > div.big-preloader {
+margin: 10rem auto 0 auto;
+}
+
+
+.big-preloader > div {
+  width: 16px;
+  height: 16px;
+  margin: 2px;
+  background-color: #606060;
+
+  border-radius: 100%;
+  display: inline-block;
+  animation: sk-bouncedelay 0.9s infinite ease-in-out both;
+}
+
+@keyframes sk-bouncedelay {
+  0%{ 
+	  transform: scale(0);
+  }
+  50% { 
+	  transform: scale(1.0);
+  }
+  100% { 
+	  transform: scale(0.0);
+  }
+}

@@ -7,7 +7,7 @@
 (function (g, $) {
 
 	// function creates object (calls abAuth.init - constructor)
-	var abAuth = function () {
+	let abAuth = function () {
 		return new abAuth.init();
 	};
 
@@ -15,18 +15,18 @@
 	abAuth.prototype = {
 
 		loggedIn: function(){
-	        var self = this;
+	        let self = this;
 			self.isAuthenticated = 1;
 			$.ajaxSetup({
 				headers: { "x-access-token": self.tokens.accessToken }
 			});
 
-			TIMER.set(() => self.refreshToken(), 8 * 1000, 'auth'); //50 * 60 * 1000
+			TIMER.set(() => self.refreshToken(), 50 * 60 * 1000, 'auth'); //every 50 minutes
 			return self;
 		}, 
 
 		loggedOut: function(){
-	        var self = this;
+	        let self = this;
 			self.isAuthenticated = 0;
 			$.ajaxSetup({
 				headers: {}
@@ -36,10 +36,10 @@
 		}, 
 
 		refreshToken: function(){
-	        var self = this;
+	        let self = this;
 			return $.ajax({
 				method: "POST",
-				url: "http://127.0.0.1:3000/auth/token",
+				url: `${API_ENDPOINT}/auth/token`,
 				dataType: 'json',
 				data: JSON.stringify({ 
 					sub: self.tokenData.sub,
@@ -47,8 +47,7 @@
 				}),
 				error: function(xhr, status, error) {
 					console.log('auth.js: Error while refreshing token. Logging out..');
-					localStorage.setItem('tokens', JSON.stringify({}));
-					self.loggedOut();
+					self.logOut();
 				},
 				success: function(data){
 					console.log('auth.js: Access token refreshed, logging in..');
@@ -59,9 +58,17 @@
 			});
 		}, 
 
+		logOut: function(){
+	        let self = this;
+			delete self.tokens;
+			delete self.tokenData;
+			localStorage.setItem('tokens', JSON.stringify({}));
+			return self.loggedOut();
+		},
+
 		parseToken: function(){
-	        var self = this;
-			var base64Url = self.tokens.accessToken.split('.')[1],
+	        let self = this;
+			let base64Url = self.tokens.accessToken.split('.')[1],
 				base64 = base64Url.replace('-', '+').replace('_', '/');
 			self.tokenData = JSON.parse( g.atob(base64) );
 			return self;
@@ -70,7 +77,7 @@
 
 	//** constructor **/
 	abAuth.init = function() {
-        var self = this;
+        let self = this;
 		self.isAuthenticated = 0;
 
         self.promise = new Promise((resolve, reject) => {
@@ -104,3 +111,5 @@
 	$.fn.abAuth = abAuth;
 
 }(window, jQuery));  //pass external dependencies just for convenience, in case their names change outside later
+
+let abAuth = $.fn.abAuth();
