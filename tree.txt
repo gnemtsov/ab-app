@@ -1,0 +1,567 @@
+Структура папок тома Cloud
+Серийный номер тома: FA01-18B5
+H:.
++---lambda
+|   +---api
+|   +---core
+|   \---node_modules
+|       +---.bin
+|       +---ansicolors
+|       |   \---test
+|       +---base64url
+|       |   +---dist
+|       |   \---typings
+|       |       \---globals
+|       |           \---node
+|       +---bcryptjs
+|       |   +---.vscode
+|       |   +---bin
+|       |   +---dist
+|       |   +---externs
+|       |   +---scripts
+|       |   +---src
+|       |   |   \---bcrypt
+|       |   |       +---prng
+|       |   |       \---util
+|       |   \---tests
+|       +---buffer-equal-constant-time
+|       +---cardinal
+|       |   +---bin
+|       |   +---examples
+|       |   +---lib
+|       |   +---test
+|       |   |   \---fixtures
+|       |   \---themes
+|       +---core-util-is
+|       |   \---lib
+|       +---denque
+|       |   +---benchmark
+|       |   \---test
+|       +---ecdsa-sig-formatter
+|       |   \---src
+|       +---esprima
+|       |   +---bin
+|       |   \---dist
+|       +---generate-function
+|       +---iconv-lite
+|       |   +---encodings
+|       |   |   \---tables
+|       |   \---lib
+|       +---inherits
+|       +---isarray
+|       +---jsonwebtoken
+|       |   \---lib
+|       +---jwa
+|       +---jws
+|       |   \---lib
+|       +---lodash.includes
+|       +---lodash.isboolean
+|       +---lodash.isinteger
+|       +---lodash.isnumber
+|       +---lodash.isplainobject
+|       +---lodash.isstring
+|       +---lodash.once
+|       +---long
+|       |   +---dist
+|       |   \---src
+|       +---lru-cache
+|       +---ms
+|       +---mysql2
+|       |   \---lib
+|       |       +---commands
+|       |       +---constants
+|       |       +---packets
+|       |       \---parsers
+|       +---named-placeholders
+|       |   +---node_modules
+|       |   |   \---lru-cache
+|       |   |       +---lib
+|       |   |       \---test
+|       |   \---test
+|       +---object-assign
+|       +---process-nextick-args
+|       +---pseudomap
+|       |   \---test
+|       +---rand-token
+|       |   \---test
+|       +---readable-stream
+|       |   +---doc
+|       |   |   \---wg-meetings
+|       |   \---lib
+|       |       \---internal
+|       |           \---streams
+|       +---redeyed
+|       |   +---examples
+|       |   |   +---browser
+|       |   |   \---sources
+|       |   \---test
+|       +---safe-buffer
+|       +---seq-queue
+|       |   +---lib
+|       |   \---test
+|       +---sqlstring
+|       |   \---lib
+|       +---string_decoder
+|       |   \---lib
+|       +---util-deprecate
+|       +---xtend
+|       \---yallist
++---node_modules
+|   +---.bin
+|   +---accepts
+|   +---ansi-regex
+|   +---ansi-styles
+|   +---anymatch
+|   +---arr-diff
+|   +---arr-flatten
+|   +---array-flatten
+|   +---array-unique
+|   +---async-each
+|   +---babel-cli
+|   |   +---bin
+|   |   +---lib
+|   |   |   \---babel
+|   |   \---scripts
+|   +---babel-code-frame
+|   |   \---lib
+|   +---babel-core
+|   |   \---lib
+|   |       +---api
+|   |       +---helpers
+|   |       +---tools
+|   |       \---transformation
+|   |           +---file
+|   |           |   \---options
+|   |           \---internal-plugins
+|   +---babel-generator
+|   |   \---lib
+|   |       +---generators
+|   |       \---node
+|   +---babel-helper-builder-binary-assignment-operator-visitor
+|   |   \---lib
+|   +---babel-helper-call-delegate
+|   |   \---lib
+|   +---babel-helper-define-map
+|   |   \---lib
+|   +---babel-helper-explode-assignable-expression
+|   |   \---lib
+|   +---babel-helper-function-name
+|   |   \---lib
+|   +---babel-helper-get-function-arity
+|   |   \---lib
+|   +---babel-helper-hoist-variables
+|   |   \---lib
+|   +---babel-helper-optimise-call-expression
+|   |   \---lib
+|   +---babel-helper-regex
+|   |   \---lib
+|   +---babel-helper-remap-async-to-generator
+|   |   \---lib
+|   +---babel-helper-replace-supers
+|   |   \---lib
+|   +---babel-helpers
+|   |   \---lib
+|   +---babel-messages
+|   |   \---lib
+|   +---babel-plugin-check-es2015-constants
+|   |   \---lib
+|   +---babel-plugin-syntax-async-functions
+|   |   \---lib
+|   +---babel-plugin-syntax-exponentiation-operator
+|   |   \---lib
+|   +---babel-plugin-syntax-trailing-function-commas
+|   |   \---lib
+|   +---babel-plugin-transform-async-to-generator
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-arrow-functions
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-block-scoped-functions
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-block-scoping
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-classes
+|   |   \---lib
+|   |       \---lib
+|   +---babel-plugin-transform-es2015-computed-properties
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-destructuring
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-duplicate-keys
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-for-of
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-function-name
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-literals
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-modules-amd
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-modules-commonjs
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-modules-systemjs
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-modules-umd
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-object-super
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-parameters
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-shorthand-properties
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-spread
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-sticky-regex
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-template-literals
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-typeof-symbol
+|   |   \---lib
+|   +---babel-plugin-transform-es2015-unicode-regex
+|   |   \---lib
+|   +---babel-plugin-transform-exponentiation-operator
+|   |   \---lib
+|   +---babel-plugin-transform-regenerator
+|   |   \---lib
+|   +---babel-plugin-transform-strict-mode
+|   |   \---lib
+|   +---babel-polyfill
+|   |   +---dist
+|   |   +---lib
+|   |   +---node_modules
+|   |   |   \---regenerator-runtime
+|   |   \---scripts
+|   +---babel-preset-env
+|   |   +---.github
+|   |   +---.idea
+|   |   |   \---inspectionProfiles
+|   |   +---data
+|   |   \---lib
+|   +---babel-register
+|   |   \---lib
+|   +---babel-runtime
+|   |   +---core-js
+|   |   |   +---array
+|   |   |   +---error
+|   |   |   +---json
+|   |   |   +---math
+|   |   |   +---number
+|   |   |   +---object
+|   |   |   +---reflect
+|   |   |   +---regexp
+|   |   |   +---string
+|   |   |   +---symbol
+|   |   |   \---system
+|   |   +---helpers
+|   |   \---regenerator
+|   +---babel-template
+|   |   \---lib
+|   +---babel-traverse
+|   |   \---lib
+|   |       +---path
+|   |       |   +---inference
+|   |       |   \---lib
+|   |       \---scope
+|   |           \---lib
+|   +---babel-types
+|   |   \---lib
+|   |       \---definitions
+|   +---babylon
+|   |   +---bin
+|   |   \---lib
+|   +---balanced-match
+|   +---binary-extensions
+|   +---body-parser
+|   |   \---lib
+|   |       \---types
+|   +---brace-expansion
+|   +---braces
+|   +---browserslist
+|   +---bytes
+|   +---caniuse-lite
+|   |   +---data
+|   |   |   +---features
+|   |   |   \---regions
+|   |   \---dist
+|   |       +---lib
+|   |       \---unpacker
+|   +---chalk
+|   +---chokidar
+|   |   \---lib
+|   +---commander
+|   |   \---typings
+|   +---concat-map
+|   |   +---example
+|   |   \---test
+|   +---content-disposition
+|   +---content-type
+|   +---convert-source-map
+|   +---cookie
+|   +---cookie-signature
+|   +---core-js
+|   |   +---build
+|   |   +---client
+|   |   +---core
+|   |   +---es5
+|   |   +---es6
+|   |   +---es7
+|   |   +---fn
+|   |   |   +---array
+|   |   |   |   \---virtual
+|   |   |   +---date
+|   |   |   +---dom-collections
+|   |   |   +---error
+|   |   |   +---function
+|   |   |   |   \---virtual
+|   |   |   +---json
+|   |   |   +---map
+|   |   |   +---math
+|   |   |   +---number
+|   |   |   |   \---virtual
+|   |   |   +---object
+|   |   |   +---promise
+|   |   |   +---reflect
+|   |   |   +---regexp
+|   |   |   +---set
+|   |   |   +---string
+|   |   |   |   \---virtual
+|   |   |   +---symbol
+|   |   |   +---system
+|   |   |   +---typed
+|   |   |   +---weak-map
+|   |   |   \---weak-set
+|   |   +---library
+|   |   |   +---core
+|   |   |   +---es5
+|   |   |   +---es6
+|   |   |   +---es7
+|   |   |   +---fn
+|   |   |   |   +---array
+|   |   |   |   |   \---virtual
+|   |   |   |   +---date
+|   |   |   |   +---dom-collections
+|   |   |   |   +---error
+|   |   |   |   +---function
+|   |   |   |   |   \---virtual
+|   |   |   |   +---json
+|   |   |   |   +---map
+|   |   |   |   +---math
+|   |   |   |   +---number
+|   |   |   |   |   \---virtual
+|   |   |   |   +---object
+|   |   |   |   +---promise
+|   |   |   |   +---reflect
+|   |   |   |   +---regexp
+|   |   |   |   +---set
+|   |   |   |   +---string
+|   |   |   |   |   \---virtual
+|   |   |   |   +---symbol
+|   |   |   |   +---system
+|   |   |   |   +---typed
+|   |   |   |   +---weak-map
+|   |   |   |   \---weak-set
+|   |   |   +---modules
+|   |   |   +---stage
+|   |   |   \---web
+|   |   +---modules
+|   |   |   \---library
+|   |   +---stage
+|   |   \---web
+|   +---core-util-is
+|   |   \---lib
+|   +---debug
+|   |   \---src
+|   +---depd
+|   |   \---lib
+|   |       +---browser
+|   |       \---compat
+|   +---destroy
+|   +---detect-indent
+|   +---ee-first
+|   +---electron-to-chromium
+|   +---encodeurl
+|   +---escape-html
+|   +---escape-string-regexp
+|   +---esutils
+|   |   \---lib
+|   +---etag
+|   +---expand-brackets
+|   +---expand-range
+|   +---express
+|   |   \---lib
+|   |       +---middleware
+|   |       \---router
+|   +---extglob
+|   +---filename-regex
+|   +---fill-range
+|   +---finalhandler
+|   +---for-in
+|   +---for-own
+|   +---forwarded
+|   +---fresh
+|   +---fs-readdir-recursive
+|   +---fs.realpath
+|   +---glob
+|   +---glob-base
+|   +---glob-parent
+|   +---globals
+|   +---graceful-fs
+|   +---has-ansi
+|   +---home-or-tmp
+|   +---http-errors
+|   |   \---node_modules
+|   |       +---depd
+|   |       |   \---lib
+|   |       |       +---browser
+|   |       |       \---compat
+|   |       \---setprototypeof
+|   +---iconv-lite
+|   |   +---encodings
+|   |   |   \---tables
+|   |   \---lib
+|   +---inflight
+|   +---inherits
+|   +---invariant
+|   +---ipaddr.js
+|   |   +---lib
+|   |   +---src
+|   |   \---test
+|   +---is-binary-path
+|   +---is-buffer
+|   |   \---test
+|   +---is-dotfile
+|   +---is-equal-shallow
+|   +---is-extendable
+|   +---is-extglob
+|   +---is-finite
+|   +---is-glob
+|   +---is-number
+|   +---is-posix-bracket
+|   +---is-primitive
+|   +---isarray
+|   +---isobject
+|   +---js-tokens
+|   +---jsesc
+|   |   +---bin
+|   |   \---man
+|   +---json5
+|   |   \---lib
+|   +---kind-of
+|   +---lodash
+|   |   \---fp
+|   +---loose-envify
+|   +---media-typer
+|   +---merge-descriptors
+|   +---methods
+|   +---micromatch
+|   |   \---lib
+|   +---mime
+|   |   \---build
+|   +---mime-db
+|   +---mime-types
+|   +---minimatch
+|   +---minimist
+|   |   +---example
+|   |   \---test
+|   +---mkdirp
+|   |   +---bin
+|   |   +---examples
+|   |   \---test
+|   +---ms
+|   +---negotiator
+|   |   \---lib
+|   +---normalize-path
+|   +---number-is-nan
+|   +---object-assign
+|   +---object.omit
+|   +---on-finished
+|   +---once
+|   +---os-homedir
+|   +---os-tmpdir
+|   +---output-file-sync
+|   +---parse-glob
+|   +---parseurl
+|   +---path-is-absolute
+|   +---path-to-regexp
+|   +---preserve
+|   +---private
+|   +---process-nextick-args
+|   +---proxy-addr
+|   +---qs
+|   |   +---dist
+|   |   +---lib
+|   |   \---test
+|   +---randomatic
+|   |   \---node_modules
+|   |       +---is-number
+|   |       |   \---node_modules
+|   |       |       \---kind-of
+|   |       \---kind-of
+|   +---range-parser
+|   +---raw-body
+|   +---readable-stream
+|   |   +---doc
+|   |   |   \---wg-meetings
+|   |   \---lib
+|   |       \---internal
+|   |           \---streams
+|   +---readdirp
+|   |   +---examples
+|   |   \---test
+|   |       \---bed
+|   |           +---root_dir1
+|   |           |   \---root_dir1_subdir1
+|   |           \---root_dir2
+|   +---regenerate
+|   +---regenerator-runtime
+|   +---regenerator-transform
+|   |   +---lib
+|   |   \---src
+|   +---regex-cache
+|   +---regexpu-core
+|   |   \---data
+|   +---regjsgen
+|   +---regjsparser
+|   |   +---bin
+|   |   \---node_modules
+|   |       +---.bin
+|   |       \---jsesc
+|   |           +---bin
+|   |           \---man
+|   +---remove-trailing-separator
+|   +---repeat-element
+|   +---repeat-string
+|   +---repeating
+|   +---safe-buffer
+|   +---semver
+|   |   \---bin
+|   +---send
+|   +---serve-static
+|   +---set-immediate-shim
+|   +---setprototypeof
+|   +---slash
+|   +---source-map
+|   |   +---dist
+|   |   \---lib
+|   +---source-map-support
+|   +---statuses
+|   +---string_decoder
+|   |   \---lib
+|   +---strip-ansi
+|   +---supports-color
+|   +---to-fast-properties
+|   +---trim-right
+|   +---type-is
+|   +---unpipe
+|   +---user-home
+|   +---util-deprecate
+|   +---utils-merge
+|   +---v8flags
+|   +---vary
+|   \---wrappy
+\---public
+    +---css
+    |   \---core
+    +---img
+    +---js
+    |   \---core
+    \---views
