@@ -7,15 +7,11 @@ AB-ERP architecture
 
 App has two main folders: **lambda** and **public**. Lambda folder contains backend code and public contains static content (frontend code).
 
-## Installation
-1. Install database (MariaDB)
-2. Install Node.js
-3. Install NPM
-4. Install docker
-5. Install [sam-local](https://github.com/awslabs/aws-sam-local)
-6. Create project folder and git clone project source 
-7. Import mysql.dump.sql in your MariaDB instance
-8. Run `npm install` both in project root folder and in lambda folder
-9. Run `sam local start-api` to start local API Gateway (set --docker-volume-basedir parameter, if you use remote docker)
-10. Run `node abserver.js` from the project root folder to start small express http-server for SPA
-11. Have fun! :smiley:
+## Installation and usage
+1. Install database (MariaDB), Node.js, NPM, docker and [sam-local](https://github.com/awslabs/aws-sam-local)
+2. Create project folder and git clone project source 
+3. Import mysql.dump.sql in your MariaDB instance, set your local DB instance IP in lambda/index.js
+4. Run `npm install` both in project root folder and in lambda folder
+5. Run docker and then run `sam local start-api` to start local API Gateway (set --docker-volume-basedir parameter, if you use remote docker)
+6. Run `node abserver.js` in your project root folder to start small local express http-server for SPA
+7. Have fun! :smiley:
