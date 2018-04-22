@@ -1,4 +1,3 @@
 .idea/
 .vscode/
-node_modules/
-lambda/**/node_modules
+*node_modules/
