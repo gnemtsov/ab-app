@@ -1,0 +1,27 @@
+[
+    {
+        "data": "d_id",
+        "title": "ID",
+        "name": "d_id"
+    },
+    {
+        "data": "d_title",
+        "title": "Title",
+        "name": "d_title"
+    },
+    {
+        "data": "d_head",
+        "title": "Head",
+        "name": "d_head"
+    },
+    {
+        "data": "d_size",
+        "title": "Size",
+        "name": "d_size"
+    },
+    {
+        "data": "d_created",
+        "title": "Created",
+        "name": "d_created"
+    }
+]

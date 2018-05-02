@@ -1,10 +1,12 @@
 'use strict';
 
 /******************************************************************/
-/************************DepartmentsAPI****************************/
+/************************Departments API***************************/
 /******************************************************************/
+const fs = require("fs");
+const {DB, HTTP} = require('core/index');
 
-module.exports = (HTTP, DB) => {
+module.exports = () => {
 
     let api = {};
 
@@ -13,11 +15,21 @@ module.exports = (HTTP, DB) => {
     //Returns departments list for authenticated users
     api.list = (event, context, callback) => {
         DB.query(
-            'SELECT * FROM departments ORDER BY d_title',
+            'SELECT * FROM `departments` ORDER BY d_title',
 
             (error, result) => {
-                if (error) return callback(null, HTTP.response(500));
-                else return callback(null, HTTP.response(200, result));
+                if (error) {
+                    return callback(null, HTTP.response(500));
+                } else {
+                    let table = {
+                        conf: {
+                            page: 3
+                        },
+                        cols: JSON.parse(fs.readFileSync(`tables/descriptions/departments.json`, 'utf8')),
+                        rows: result
+                    };
+                    return callback(null, HTTP.response(200, table));
+                }
             }
         );
     }
