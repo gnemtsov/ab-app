@@ -16,7 +16,7 @@ exports.response = (code = 200, body = {}) => {
         statusCode: code,
         headers: { 
             "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-            "Access-Control-Allow-Headers": "x-access-token",
+            "Access-Control-Allow-Headers": "x-access-token, Content-Type",
             "Access-Control-Allow-Origin" : "*" 
         },
         body: JSON.stringify(body)

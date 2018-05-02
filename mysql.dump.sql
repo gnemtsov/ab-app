@@ -4,12 +4,26 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-INSERT INTO `mysql`.`user` (`Host`, `User`, `Password`, `Select_priv`, `Insert_priv`, `Update_priv`, `Delete_priv`, `Create_priv`, `Drop_priv`, `Reload_priv`, `Shutdown_priv`, `Process_priv`, `File_priv`, `Grant_priv`, `References_priv`, `Index_priv`, `Alter_priv`, `Show_db_priv`, `Super_priv`, `Create_tmp_table_priv`, `Lock_tables_priv`, `Execute_priv`, `Repl_slave_priv`, `Repl_client_priv`, `Create_view_priv`, `Show_view_priv`, `Create_routine_priv`, `Alter_routine_priv`, `Create_user_priv`, `Event_priv`, `Trigger_priv`, `Create_tablespace_priv`, `ssl_cipher`,`x509_issuer`, `x509_subject`, `authentication_string`) VALUES ('%', 'ab-erp', PASSWORD('ab-erp'), 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '', '', '', '');
+CREATE DATABASE IF NOT EXISTS `abapp` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `abapp`;
 
-FLUSH PRIVILEGES;
+CREATE TABLE IF NOT EXISTS `departments` (
+  `d_id` int(11) NOT NULL AUTO_INCREMENT,
+  `d_title` varchar(128) DEFAULT NULL,
+  `d_head` varchar(128) DEFAULT NULL,
+  `d_size` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'Number of employees',
+  `d_created` date DEFAULT NULL,
+  PRIMARY KEY (`d_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
-CREATE DATABASE IF NOT EXISTS `ab-erp` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `ab-erp`;
+/*!40000 ALTER TABLE `departments` DISABLE KEYS */;
+INSERT INTO `departments` (`d_id`, `d_title`, `d_head`, `d_size`, `d_created`) VALUES
+	(1, 'Linear happiness', 'Kivrin Fedor', 12, '2018-04-28'),
+	(2, 'Sense of life', 'Kristobalt Hunta', 52, '2018-04-28'),
+	(3, 'Absolute knowledge', 'Pupkoff-zadniy Moris', 32, '2018-04-28'),
+	(4, 'Eternal youth', NULL, 63, '2018-04-28'),
+	(5, 'Defensive magic', NULL, 0, NULL);
+/*!40000 ALTER TABLE `departments` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `refreshtokens` (
   `rt_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -20,7 +34,10 @@ CREATE TABLE IF NOT EXISTS `refreshtokens` (
   `rt_expires` datetime NOT NULL,
   `rt_ip` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`rt_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*!40000 ALTER TABLE `refreshtokens` DISABLE KEYS */;
+/*!40000 ALTER TABLE `refreshtokens` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `users` (
   `u_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -36,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`u_id`, `u_login`, `u_password`, `u_firstname`, `u_lastname`, `u_timezone`, `u_access`) VALUES
-	(1, 'admin', '$2b$10$uVlRw/eP08DN3dK5uL3DOOPuyFo8tilaqDUBQ.76CSIGdF8eCAhzK', 'Dmitri', 'Nekhludoff', 'Europe/Moscow', 1);
+	(1, 'admin', '$2a$10$HW2PzCg5PHKpkVcZBjkflevMgogqZmmh5EvKeHZwMYfG/zLP.xuYK', 'Dmitri', 'Nekhludoff', 'Europe/Moscow', 1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

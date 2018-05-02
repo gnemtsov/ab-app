@@ -7,9 +7,9 @@ if(process.env.PROD === undefined){
     process.env.PROD = 0;
     process.env.SECRET = 'SOME_SECRET_CODE_672967256';
     process.env.DB_HOST = '192.168.1.5';
-    process.env.DB_NAME = 'ab-erp';
-    process.env.DB_USER = 'ab-erp';
-    process.env.DB_PASSWORD = 'ab-erp';
+    process.env.DB_NAME = 'abapp';
+    process.env.DB_USER = 'abapp';
+    process.env.DB_PASSWORD = 'abapp';
 }
 
 //core modules
