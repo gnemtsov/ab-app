@@ -10,15 +10,13 @@ App has two main folders: **backend** and **frontend**. Backend folder contains 
 Demo app is a site of "Scientific Research Institute of Sorcery and Wizardry" from the famous novel by Boris and Arkady Strugatsky "Monday Begins on Saturday". App exposes the list of institute departments for authenticated users.
 
 ## Installation
-1. Install database (MariaDB)
-2. Install Node.js
-3. Install NPM
-4. Install docker
-5. Install [sam-local](https://github.com/awslabs/aws-sam-local)
-6. Create project folder and git clone project source 
-7. Create user **abapp** with password **abapp** in your mysql.user table and give appropriate rights to allow lambda backend to connect and work with your DB
-8. Import mysql.dump.sql in your MariaDB instance
-9. Run `npm install` both in frontend and backend folders
-10. Run `sam local start-api` to start local API Gateway (set --docker-volume-basedir parameter to your .../backend dir, if you use remote docker)
-11. Run `npm start` in frontend folder to start webpack development server
-12. Have fun! :smiley:
+1. Install database (MariaDB), Node.js, NPM, docker and [sam-local](https://github.com/awslabs/aws-sam-local)
+2. Git clone project source
+3. Run `npm install` both in frontend and backend folders
+4. Import mysql.dump.sql in your MariaDB instance, set your local DB instance IP in backend/index.js
+5. Create user **abapp** with password **abapp** in your mysql.user table and give appropriate rights to allow lambda backend to connect and work with your DB
+
+## Starting AB-APP locally
+1. Run docker and then run `sam local start-api` to start local API Gateway (set --docker-volume-basedir parameter to your .../backend dir, if you use remote docker)
+2. Run `npm start` in frontend folder to start webpack development server
+3. Have fun! :smiley:
