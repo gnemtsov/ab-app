@@ -10,7 +10,7 @@ App has two main folders: **backend** and **frontend**. Backend folder contains 
 Demo app is a site of "Scientific Research Institute of Sorcery and Wizardry" from the famous novel by Boris and Arkady Strugatsky "Monday Begins on Saturday". App exposes the list of institute departments for authenticated users.
 
 ## Installation
-1. Install database (MariaDB), Node.js, NPM, docker and [sam-local](https://github.com/awslabs/aws-sam-local)
+1. Install database (MariaDB), Node.js, NPM, docker, [sam-local](https://github.com/awslabs/aws-sam-local) and [Redux DevTools extension](https://github.com/zalmoxisus/redux-devtools-extension)
 2. Git clone project source
 3. Run `npm install` both in frontend and backend folders
 4. Import mysql.dump.sql in your MariaDB instance, set your local DB instance IP in backend/index.js
