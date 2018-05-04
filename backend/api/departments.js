@@ -15,7 +15,7 @@ module.exports = () => {
     //Returns departments list for authenticated users
     api.list = (event, context, callback) => {
         DB.query(
-            'SELECT * FROM `departments` ORDER BY d_title',
+            'SELECT * FROM `departments` ORDER BY d_id',
 
             (error, result) => {
                 if (error) {
@@ -23,7 +23,7 @@ module.exports = () => {
                 } else {
                     let table = {
                         conf: {
-                            page: 3
+                            rowsPerPage: 7
                         },
                         cols: JSON.parse(fs.readFileSync(`tables/descriptions/departments.json`, 'utf8')),
                         rows: result
