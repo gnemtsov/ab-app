@@ -3,12 +3,13 @@
 /******************************************************************/
 /***************************Auth API*******************************/
 /******************************************************************/
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const randtoken = require('rand-token');
 
-module.exports = (HTTP, DB) => {
+const { DB, HTTP } = require('core/index');
 
-    const bcrypt = require('bcryptjs');
-    const jwt = require('jsonwebtoken');
-    const randtoken = require('rand-token');
+module.exports = () => {
 
     let api = {};
 
@@ -17,34 +18,34 @@ module.exports = (HTTP, DB) => {
     //Checks login and password, provides new tokens for valid user
     api.login = (event, context, callback) => {
 
-        const {login, password} = JSON.parse(event.body);
+        const { login, password } = JSON.parse(event.body);
 
         DB.execute(
             `SELECT u_id, u_login, u_firstname, u_lastname, u_password, u_timezone 
             FROM users 
-            WHERE u_login = ? AND u_access = 1`, 
+            WHERE u_login = ? AND u_access = 1`,
 
-            [login], 
+            [login],
 
             (error, rows, fields) => {
 
-                if (error){
+                if (error) {
                     console.log(error);
                     return callback(null, HTTP.response(500));
                 } else if (!rows.length) {
-                    return callback(null, HTTP.response(403, {error: 'User not found.'}));
+                    return callback(null, HTTP.response(403, { error: 'User not found.' }));
                 } else if (!bcrypt.compareSync(password, rows[0].u_password)) {
-                    return callback(null, HTTP.response(403, {error: 'Wrong password.'}));
+                    return callback(null, HTTP.response(403, { error: 'Wrong password.' }));
                 } else {
 
                     const accessToken = jwt.sign(
-                        { 
-                            login : rows[0].u_login,
+                        {
+                            login: rows[0].u_login,
                             name: rows[0].u_lastname + ' ' + rows[0].u_firstname,
                             timezone: rows[0].u_timezone
-                        }, 
-                        process.env.SECRET, 
-                        { 
+                        },
+                        process.env.SECRET,
+                        {
                             subject: rows[0].u_id.toString(),
                             expiresIn: 60 * 60
                         }
@@ -52,14 +53,14 @@ module.exports = (HTTP, DB) => {
                     const refreshToken = randtoken.uid(256);
 
                     DB.query(
-                       `INSERT into refreshtokens(rt_user_id, rt_token, rt_created, rt_updated, rt_expires, rt_ip) 
+                        `INSERT into refreshtokens(rt_user_id, rt_token, rt_created, rt_updated, rt_expires, rt_ip) 
                         VALUES (${rows[0].u_id}, '${refreshToken}', NOW(), NOW(), NOW() + INTERVAL 1 MONTH, '${event.requestContext.identity.sourceIp}')`,
 
                         (error, result) => {
-                            if(error) return callback(null, HTTP.response(500));
-                            else return callback(null, HTTP.response(200, { 
-                                accessToken: accessToken, 
-                                refreshToken: refreshToken 
+                            if (error) return callback(null, HTTP.response(500));
+                            else return callback(null, HTTP.response(200, {
+                                accessToken: accessToken,
+                                refreshToken: refreshToken
                             }));
                         }
                     );
@@ -76,30 +77,30 @@ module.exports = (HTTP, DB) => {
     //Provides new access token if provided refresh token is valid and belongs to specified user
     api.token = (event, context, callback) => {
 
-        const {sub, refreshToken} = JSON.parse(event.body);
+        const { sub, refreshToken } = JSON.parse(event.body);
 
         DB.execute(
-           `SELECT rt_id, u_id, u_login, u_firstname, u_lastname, u_timezone
+            `SELECT rt_id, u_id, u_login, u_firstname, u_lastname, u_timezone
            FROM refreshtokens 
            LEFT JOIN users ON u_id = rt_user_id
-           WHERE rt_user_id = ? AND rt_token = ? AND rt_expires > NOW()`, 
+           WHERE rt_user_id = ? AND rt_token = ? AND rt_expires > NOW()`,
 
-            [sub, refreshToken], 
+            [sub, refreshToken],
 
             (error, rows, fields) => {
-                if (error){
+                if (error) {
                     return callback(null, HTTP.response(500));
                 } else if (!rows.length || rows.length > 1) {
-                    return callback(null, HTTP.response(401, {error: 'Refresh token unknown, expired or ambigous.'}));
+                    return callback(null, HTTP.response(401, { error: 'Refresh token unknown, expired or ambigous.' }));
                 } else {
                     const newAccessToken = jwt.sign(
-                        { 
-                            login : rows[0].u_login,
+                        {
+                            login: rows[0].u_login,
                             name: rows[0].u_lastname + ' ' + rows[0].u_firstname,
                             timezone: rows[0].u_timezone
-                        }, 
-                        process.env.SECRET, 
-                        { 
+                        },
+                        process.env.SECRET,
+                        {
                             subject: rows[0].u_id.toString(),
                             expiresIn: 60 * 60
                         }
@@ -113,10 +114,10 @@ module.exports = (HTTP, DB) => {
                             rt_ip =  '${event.requestContext.identity.sourceIp}'
                         WHERE rt_id = ${rows[0].rt_id}`,
                         (error, result) => {
-                            if(error) return callback(null, HTTP.response(500));
-                            else return callback(null, HTTP.response(200, { 
-                                accessToken: newAccessToken, 
-                                refreshToken: newRefreshToken 
+                            if (error) return callback(null, HTTP.response(500));
+                            else return callback(null, HTTP.response(200, {
+                                accessToken: newAccessToken,
+                                refreshToken: newRefreshToken
                             }));
                         }
                     );

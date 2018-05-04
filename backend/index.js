@@ -13,8 +13,7 @@ if(process.env.PROD === undefined){
 }
 
 //core modules
-const HTTP = require('core/http');
-const DB = require('core/db');
+const {DB, HTTP} = require('core/index');
 
 //main handler
 exports.handler = (event, context, callback) => {
@@ -32,7 +31,7 @@ exports.handler = (event, context, callback) => {
 
     //require resource module
     try {
-        api = require('api/' + resource)(HTTP, DB);
+        api = require('api/' + resource)();
     } catch(e) {
         if (e.code === 'MODULE_NOT_FOUND') {
             return callback(null, HTTP.response(404, {error: 'Resource not found.'}));

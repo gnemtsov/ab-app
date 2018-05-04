@@ -10,7 +10,7 @@ export function* initDepartaments(action) {
 
         yield put({
             type: actionTypes.R_SET_DEPARTMENTS,
-            departments: deps
+            departments: deps.data
         });
     } catch (error) {
         yield put({

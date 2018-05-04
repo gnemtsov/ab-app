@@ -1,6 +1,6 @@
 import React from 'react';
 
-import appLogo from '../../assets/images/aberp-logo-black.png';
+import appLogo from '../../assets/images/abapp-logo-black.png';
 import classes from './Logo.css';
 
 const logo = (props) => (

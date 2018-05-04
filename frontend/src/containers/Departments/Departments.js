@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Aux from '../../hoc/Auxillary/Auxillary';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import Table from '../../components/UI/Table/Table';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actionTypes from "../../store/actionTypes";
 import axios from 'axios';
@@ -17,7 +18,7 @@ export class Departments extends Component {
         let departments = this.props.error ? <p>Departments can't be loaded!</p> : <Spinner />;
 
         if (this.props.departments) {
-            departments = JSON.stringify(this.props.departments);
+            departments = <Table data={this.props.departments} />;
         }
 
         return (
