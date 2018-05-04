@@ -2,16 +2,81 @@ import React, { Component } from 'react';
 import Aux from '../../../hoc/Auxillary/Auxillary';
 import Paginator from './Paginator/Paginator';
 
+import * as utility from '../../../shared/utility';
+
 import classes from './Table.css';
 
 export class Table extends Component {
 
     state = {
         currentPage: 1,
-        selected: []
+        selected: [],
+        sorted: []
     }
 
-    rowMouseDownHandler = (event, row, pageFirstRow, pageLastRow) => {
+    setDefaultSorting() {
+        const data = this.props.data;
+
+        let sortCols = data.cols.filter(col => col.sortDirection !== undefined);
+        if (sortCols.length) {
+            sortCols.sort((a, b) => a.sortOrder - b.sortOrder);
+
+            const sorted = sortCols.map((col) => ({
+                name: col.name,
+                dir: col.sortDirection
+            }));
+
+            this.setState({
+                ...this.state,
+                sorted
+            });
+        }
+    }
+
+    componentDidMount() {
+        this.setDefaultSorting();
+    }
+
+    headerMouseDownHandler = (event, colName) => { //sort handler
+        event.preventDefault();
+
+        let sorted = this.state.sorted.slice();
+        let sortIndex = sorted.findIndex(el => el.name === colName);
+
+        if (event.shiftKey) {
+            if (sortIndex === -1) {
+                sorted.push({
+                    name: colName,
+                    dir: 'ASC'
+                });
+            } else if (sorted[sortIndex].dir === 'ASC') {
+                sorted[sortIndex].dir = 'DESC';
+            } else {
+                sorted.splice(sortIndex, 1);
+            }
+        } else {
+            if (sortIndex === -1) {
+                sorted = [{
+                    name: colName,
+                    dir: 'ASC'
+                }];
+            } else if (sorted[sortIndex].dir === 'ASC') {
+                sorted = [{
+                    name: colName,
+                    dir: 'DESC'
+                }];
+            } else {
+                sorted = [];
+            }
+        }
+
+        this.setState({
+            ...this.state,
+            sorted
+        });
+    }
+
+    rowMouseDownHandler = (event, row, pageFirstRow, pageLastRow) => { //select handler
         event.preventDefault();
 
         let selected = this.state.selected.slice();
@@ -33,14 +98,14 @@ export class Table extends Component {
                 }
             }
 
-            if(row > lastSelectedRow){
+            if (row > lastSelectedRow) {
                 for (let i = lastSelectedRow; i <= row; i++) {
                     selectAction(i);
                 }
             } else {
                 for (let i = lastSelectedRow; i >= row; i--) {
                     selectAction(i);
-                }                
+                }
             }
         } else {
             selected = selected.filter(row => row < pageFirstRow || row > pageLastRow);
@@ -53,7 +118,7 @@ export class Table extends Component {
         });
     }
 
-    pageClickHandler = (event, page) => {
+    pageClickHandler = (event, page) => { //paginator handler
         event.preventDefault();
 
         let newPage = page;
@@ -71,7 +136,7 @@ export class Table extends Component {
 
     render() {
         const data = this.props.data;
-        console.log('Components, UI, Table: starting', data);
+        console.log('Components, UI, Table: rendering', data);
 
         let table = 'No data specified';
         let totalPages = 0;
@@ -81,10 +146,32 @@ export class Table extends Component {
 
             totalPages = Math.ceil(data.rows.length / data.conf.rowsPerPage);
 
+            //sort
+            if (this.state.sorted.length) {
+                const cols = this.state.sorted.map((col) => col.name);
+                const dirs = this.state.sorted.map((col) => col.dir);
+                data.rows = utility.multiSort(data.rows, cols, dirs);
+            }
+
             //head
             let cells = [];
             data.cols.forEach((col, key) => {
-                cells.push(<th key={`th${key}`}>{col.title}</th>);
+                let sortObj = this.state.sorted.find(el => el.name === col.name);
+                let sort = '';
+                if (sortObj !== undefined) {
+                    switch (sortObj.dir) {
+                        case 'ASC': sort = '\u2197'; break;
+                        case 'DESC': sort = '\u2198'; break;
+                        default: sort = '';
+                    }
+                }
+                cells.push(
+                    <th
+                        key={`th${key}`}
+                        onMouseDown={event => this.headerMouseDownHandler(event, col.name)}>
+                        {[col.title, sort]}
+                    </th>
+                );
             });
             thead = <tr key="thr">{cells}</tr>;
 

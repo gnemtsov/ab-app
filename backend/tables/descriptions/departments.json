@@ -2,12 +2,16 @@
     {
         "data": "d_id",
         "title": "ID",
-        "name": "d_id"
+        "name": "d_id",
+        "sortOrder": 2,
+        "sortDirection": "DESC"
     },
     {
         "data": "d_title",
         "title": "Title",
-        "name": "d_title"
+        "name": "d_title",
+        "sortOrder": 1,
+        "sortDirection": "ASC"
     },
     {
         "data": "d_head",

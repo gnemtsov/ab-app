@@ -24,7 +24,7 @@ module.exports = () => {
                     let table = {
                         conf: {
                             rowsPerPage: 7,
-                            selectable: false
+                            selectable: true
                         },
                         cols: JSON.parse(fs.readFileSync(`tables/descriptions/departments.json`, 'utf8')),
                         rows: result
