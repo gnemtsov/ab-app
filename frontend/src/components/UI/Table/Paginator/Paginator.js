@@ -12,8 +12,8 @@ const Paginator = (props) => {
         <button
             key={`pback`}
             className={(cp === 1 ? classes.Disabled : '')}
-            onClick={event => props.pageClickHandler(event, 'back')}>
-            &lt;
+            onClick={(cp === 1 ? null : event => props.pageClickHandler(event, 'back'))}>
+            &larr;
                 </button>
     );
 
@@ -35,7 +35,7 @@ const Paginator = (props) => {
                 <button
                     key={`p${i}`}
                     className={(i === cp ? classes.Active + ' ' + classes.Disabled : '')}
-                    onClick={event => props.pageClickHandler(event, i)}>
+                    onClick={(i === cp ? null : event => props.pageClickHandler(event, i))}>
                     {i}
                 </button>
             );
@@ -47,8 +47,8 @@ const Paginator = (props) => {
         <button
             key={`pforward`}
             className={(cp === tp ? classes.Disabled : '')}
-            onClick={event => props.pageClickHandler(event, 'forward')}>
-            &gt;
+            onClick={(cp === tp ? null : event => props.pageClickHandler(event, 'forward'))}>
+            &rarr;
                 </button>
     );
 

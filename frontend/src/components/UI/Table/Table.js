@@ -9,75 +9,148 @@ import classes from './Table.css';
 export class Table extends Component {
 
     state = {
+        data: {
+            conf: {
+                rowsPerPage: 15,
+                selectable: false
+            },
+            cols: [],
+            rows: []
+        },
+        totalPages: 1,
         currentPage: 1,
         selected: [],
-        sorted: []
+        sortParams: [],
+        defaultSortParams: []
     }
 
-    setDefaultSorting() {
-        const data = this.props.data;
+    constructor(props) { //constructor updates initial state
+        super(props);
 
+        const data = props.data; //table data provided
+        if (data === undefined || data.cols === undefined || !data.cols.length) {
+            return;
+        }
+
+        data.conf = {
+            ...this.state.data.conf,
+            ...data.conf
+        }
+
+        const totalPages = Math.ceil(data.rows.length / data.conf.rowsPerPage);
+
+        let defaultSortParams = [];
         let sortCols = data.cols.filter(col => col.sortDirection !== undefined);
         if (sortCols.length) {
             sortCols.sort((a, b) => a.sortOrder - b.sortOrder);
 
-            const sorted = sortCols.map((col) => ({
+            defaultSortParams = sortCols.map((col) => ({
                 name: col.name,
                 dir: col.sortDirection
             }));
-
-            this.setState({
-                ...this.state,
-                sorted
-            });
         }
+
+        if (defaultSortParams.length) {
+            const cols = defaultSortParams.map((col) => col.name);
+            const dirs = defaultSortParams.map((col) => col.dir);
+            data.rows = utility.multiSort(data.rows, cols, dirs);
+        }
+
+        this.state = {
+            ...this.state,
+            data,
+            totalPages,
+            sortParams: defaultSortParams,
+            defaultSortParams
+        };
     }
 
-    componentDidMount() {
-        this.setDefaultSorting();
+    exportToCSV = () => { //export data as comma-separated text
+        const data = this.state.data;
+        
+        let table = 'No data specified';
+        if (data !== undefined && !data.length) {
+            //head
+            const thead = data.cols.map(col => '"' + String(col.title) + '"').join(';');
+
+            //body
+            let tbody = [];
+            for (let i = 0; i < data.rows.length; i++) {
+                let cells = [];
+                const row = data.rows[i];
+                for (var col in row) {
+                    if (row.hasOwnProperty(col)) {
+                        cells.push('"' + String(row[col]).replace(/"/g, '""') + '"');
+                    } else {
+                        cells.push('" "');
+                    }
+                }
+                tbody.push(cells.join(';'));
+            }
+
+            table = `${thead}\r\n${tbody.join("\r\n")}`;
+        }
+
+        const uri = 'data:application/csv;charset=utf-8;base64,';
+        const base64 = (s) => window.btoa(unescape(encodeURIComponent(s)));
+
+        let link = document.createElement("a");
+        link.download = "export.csv";
+        link.href = uri + base64(table);
+        link.click();
     }
 
     headerMouseDownHandler = (event, colName) => { //sort handler
         event.preventDefault();
 
-        let sorted = this.state.sorted.slice();
-        let sortIndex = sorted.findIndex(el => el.name === colName);
+        let sortParams = this.state.sortParams.slice();
+        let sortIndex = sortParams.findIndex(el => el.name === colName);
 
         if (event.shiftKey) {
             if (sortIndex === -1) {
-                sorted.push({
+                sortParams.push({
                     name: colName,
                     dir: 'ASC'
                 });
-            } else if (sorted[sortIndex].dir === 'ASC') {
-                sorted[sortIndex].dir = 'DESC';
+            } else if (sortParams[sortIndex].dir === 'ASC') {
+                sortParams[sortIndex].dir = 'DESC';
             } else {
-                sorted.splice(sortIndex, 1);
+                sortParams.splice(sortIndex, 1);
             }
         } else {
             if (sortIndex === -1) {
-                sorted = [{
+                sortParams = [{
                     name: colName,
                     dir: 'ASC'
                 }];
-            } else if (sorted[sortIndex].dir === 'ASC') {
-                sorted = [{
+            } else if (sortParams[sortIndex].dir === 'ASC') {
+                sortParams = [{
                     name: colName,
                     dir: 'DESC'
                 }];
             } else {
-                sorted = [];
+                sortParams = [];
             }
         }
 
+        const cols = sortParams.map((col) => col.name);
+        const dirs = sortParams.map((col) => col.dir);
+        const rows = this.state.data.rows.slice();
+        const sortedRows = utility.multiSort(rows, cols, dirs);
+        const updatedSelected = this.state.selected.map(i => sortedRows.indexOf(rows[i])); //remap selected values after sort
+
         this.setState({
             ...this.state,
-            sorted
+            data: {
+                ...this.state.data,
+                rows: sortedRows
+            },
+            selected: updatedSelected,
+            sortParams: sortParams
         });
     }
 
     rowMouseDownHandler = (event, row, pageFirstRow, pageLastRow) => { //select handler
-        event.preventDefault();
 
         let selected = this.state.selected.slice();
 
@@ -85,6 +158,7 @@ export class Table extends Component {
             const selectedRowIndex = selected.indexOf(row);
             selectedRowIndex === -1 ? selected.push(row) : selected.splice(selectedRowIndex, 1);
         } else if (event.shiftKey) {
+            event.preventDefault();
             const selectedRowIndex = selected.indexOf(row);
             const selectedOnPage = selected.filter(i => i >= pageFirstRow && i <= pageLastRow);
             const lastSelectedRow = selectedOnPage.length ? selectedOnPage[selectedOnPage.length - 1] : row;
@@ -135,28 +209,18 @@ export class Table extends Component {
     }
 
     render() {
-        const data = this.props.data;
+        const data = this.state.data;
         console.log('Components, UI, Table: rendering', data);
 
         let table = 'No data specified';
-        let totalPages = 0;
         if (data !== undefined && !data.length) {
             let thead = [];
             let tbody = [];
 
-            totalPages = Math.ceil(data.rows.length / data.conf.rowsPerPage);
-
-            //sort
-            if (this.state.sorted.length) {
-                const cols = this.state.sorted.map((col) => col.name);
-                const dirs = this.state.sorted.map((col) => col.dir);
-                data.rows = utility.multiSort(data.rows, cols, dirs);
-            }
-
             //head
             let cells = [];
             data.cols.forEach((col, key) => {
-                let sortObj = this.state.sorted.find(el => el.name === col.name);
+                let sortObj = this.state.sortParams.find(el => el.name === col.name);
                 let sort = '';
                 if (sortObj !== undefined) {
                     switch (sortObj.dir) {
@@ -184,6 +248,8 @@ export class Table extends Component {
                 for (var col in row) {
                     if (row.hasOwnProperty(col)) {
                         cells.push(<td key={`td${i}${col}`}>{row[col]}</td>);
+                    } else {
+                        cells.push(<td key={`td${i}${col}`}></td>);
                     }
                 }
                 tbody.push(
@@ -207,7 +273,8 @@ export class Table extends Component {
         return (
             <Aux>
                 {table}
-                <Paginator currentPage={this.state.currentPage} totalPages={totalPages} pageClickHandler={this.pageClickHandler} />
+                <button onClick={this.exportToCSV}>Export to csv</button>
+                <Paginator currentPage={this.state.currentPage} totalPages={this.state.totalPages} pageClickHandler={this.pageClickHandler} />
             </Aux>
         );
     }

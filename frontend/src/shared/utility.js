@@ -40,8 +40,8 @@ export const multiSort = (arr, cols, dirs) => {
     const sortRecursive = (a, b, cols, dirs, index) => {
         const col = cols[index];
         const dir = dirs[index];
-        let x = a[col];
-        let y = b[col];
+        let x = a.data[col];
+        let y = b.data[col];
 
         if(typeof x === 'string' || typeof y === 'string'){
             x = x === null ? '' : x.toLowerCase();
@@ -56,8 +56,10 @@ export const multiSort = (arr, cols, dirs) => {
             return dir === 'DESC' ? -1 : 1;
         }
 
-        return cols.length - 1 > index ? sortRecursive(a, b, cols, dirs, index + 1) : 0;
+        return cols.length - 1 > index ? sortRecursive(a, b, cols, dirs, index + 1) : a.i - b.i;
     }
 
-    return arr.sort((a, b) => sortRecursive(a, b, cols, dirs, 0));
+    let sortArr = arr.map((data, i) => ({data, i})); //mapping needed to make sort stable for equal values
+    sortArr.sort((a, b) => sortRecursive(a, b, cols, dirs, 0));
+    return sortArr.map(el => el.data);
 }
