@@ -7,6 +7,10 @@ AB-APP architecture
 
 App has two main folders: **backend** and **frontend**. Backend folder contains backend code and frontend contains static content (frontend code). AB-APP backend is written in Node.js. AB-APP frontend is written with React, Redux and Redux-Saga.
 
+Features implemented:
+1. JWT authentication with tokens refresh
+2. Tables (backend logic + React component with pagination, row selection and sorting)
+
 Demo app is a site of "Scientific Research Institute of Sorcery and Wizardry" from the famous novel by Boris and Arkady Strugatsky "Monday Begins on Saturday". App exposes the list of institute departments for authenticated users.
 
 ## Installation
