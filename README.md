@@ -9,7 +9,7 @@ App has two main folders: **backend** and **frontend**. Backend folder contains 
 
 Features implemented:
 1. JWT authentication with tokens refresh
-2. Tables (backend logic + React component with pagination, row selection and sorting)
+2. Tables (backend logic + React component with pagination, row selection, sorting and csv export)
 
 Demo app is a site of "Scientific Research Institute of Sorcery and Wizardry" from the famous novel by Boris and Arkady Strugatsky "Monday Begins on Saturday". App exposes the list of institute departments for authenticated users.
 
