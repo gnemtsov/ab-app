@@ -19,7 +19,6 @@ module.exports = () => {
     //Checks login and password, provides new tokens for valid user
     api.login.POST = (event, context, callback) => {
 
-		console.log(event.body);
         const { login, password } = JSON.parse(event.body);
 
         DB.execute(
@@ -32,7 +31,6 @@ module.exports = () => {
             (error, rows, fields) => {
 
                 if (error) {
-                    console.log(error);
                     return callback(null, HTTP.response(500));
                 } else if (!rows.length) {
                     return callback(null, HTTP.response(403, { error: 'User not found.' }));

@@ -10,7 +10,7 @@ module.exports = () => {
 
     let api = {};
 
-	apt.list = {};
+	api.list = {};
     //Method: GET
     //Params: -
     //Returns departments list for authenticated users
@@ -40,13 +40,8 @@ module.exports = () => {
     //Params: -
     //Returns form config for adding department
     api.add.GET = (event, context, callback) => {
-		if (event.httpMethod === 'GET') {
-			console.log(event, context);
-			formData = require();
-			return callback(null, HTTP.response(200, formData));
-		}
-		
-		return callback(null, HTTP.response(405));
+		formData = require();
+		return callback(null, HTTP.response(200, formData));
 	}
 
     return api;
