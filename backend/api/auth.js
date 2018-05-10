@@ -13,11 +13,13 @@ module.exports = () => {
 
     let api = {};
 
+	api.login = {};
     //Method: POST
     //Params: login, password
     //Checks login and password, provides new tokens for valid user
-    api.login = (event, context, callback) => {
+    api.login.POST = (event, context, callback) => {
 
+		console.log(event.body);
         const { login, password } = JSON.parse(event.body);
 
         DB.execute(
@@ -72,10 +74,11 @@ module.exports = () => {
     }
     api.login.protected = 0;
 
+	api.token = {};
     //Method: POST
     //Params: login, refreshToken
     //Provides new access token if provided refresh token is valid and belongs to specified user
-    api.token = (event, context, callback) => {
+    api.token.POST = (event, context, callback) => {
 
         const { sub, refreshToken } = JSON.parse(event.body);
 

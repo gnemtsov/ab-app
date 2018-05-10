@@ -4,16 +4,17 @@
 /************************Departments API***************************/
 /******************************************************************/
 const fs = require("fs");
-const {DB, HTTP} = require('core/index');
+const {DB, HTTP, FORM} = require('core/index');
 
 module.exports = () => {
 
     let api = {};
 
+	apt.list = {};
     //Method: GET
     //Params: -
     //Returns departments list for authenticated users
-    api.list = (event, context, callback) => {
+    api.list.GET = (event, context, callback) => {
         DB.query(
             'SELECT * FROM `departments` ORDER BY d_id',
 
@@ -33,6 +34,20 @@ module.exports = () => {
             }
         );
     }
+    
+    api.add = {};
+    //Method: GET
+    //Params: -
+    //Returns form config for adding department
+    api.add.GET = (event, context, callback) => {
+		if (event.httpMethod === 'GET') {
+			console.log(event, context);
+			formData = require();
+			return callback(null, HTTP.response(200, formData));
+		}
+		
+		return callback(null, HTTP.response(405));
+	}
 
     return api;
 }
