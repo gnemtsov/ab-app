@@ -43,6 +43,38 @@ module.exports = () => {
 		const formData = FORM.clientJSON('departments');
 		return callback(null, HTTP.response(200, formData));
 	}
+	
+	api.edit = {};
+	//Method: GET
+	//Params: id
+	//Returns form config for editing department with specified id
+	api.edit.GET = (event, context, callback) => {
+		if ( !event.queryStringParameters.hasOwnProperty('id') ) {
+			return callback(null, HTTP.response(422));
+		}
+		
+		const id = event.queryStringParameters['id'];
+		DB.execute(
+			'SELECT * FROM `departments` WHERE d_id = ?',
+			[id],
+			
+			(error, result) => {
+                if (error) {
+                    return callback(null, HTTP.response(500));
+                } else {
+                    if (result.length === 0) {
+						return callback(null, HTTP.response(404));
+					}
+					
+					const formData = FORM.clientJSON('departments', {
+						departments: result[0]
+					});
+					
+                    return callback(null, HTTP.response(200, formData));
+                }				
+			}
+		);
+	}
 
     return api;
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-const clientJSON = (formName) => {
+const clientJSON = (formName, data) => {
 	// Loading full config from file
 	const fullConfig = require('forms/configs/' + formName + '.json');
 
@@ -13,10 +13,6 @@ const clientJSON = (formName) => {
 		
 		if ( field.hasOwnProperty('type') ) {
 			clientField.type = field.type;
-		}
-		
-		if ( field.hasOwnProperty('value') ) {
-			clientField.value = field.value;
 		}
 
 		if ( field.hasOwnProperty('nullable') ) {
@@ -31,6 +27,21 @@ const clientJSON = (formName) => {
 			
 			if ( validators.hasOwnProperty('both') ) {
 				clientField.validators = validators.both;
+			}
+		}
+		
+		// Setting clientField.value if data is provided
+		if (data) {
+			if ( field.hasOwnProperty('db_table') ) {
+				const db_table = field.db_table;
+				
+				if ( field.hasOwnProperty('db_column') ) {
+					const db_column = field.db_column;
+					
+					if ( data.hasOwnProperty(db_table) && data[db_table].hasOwnProperty(db_column) ) {
+						clientField.value = data[db_table][db_column];
+					}
+				}
 			}
 		}
 	}
