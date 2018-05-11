@@ -24,3 +24,36 @@ Demo app is a site of "Scientific Research Institute of Sorcery and Wizardry" fr
 1. Run docker and then run `sam local start-api` to start local API Gateway (set --docker-volume-basedir parameter to your .../backend dir, if you use remote docker)
 2. Run `npm start` in frontend folder to start webpack development server
 3. Have fun! :smiley:
+
+## How to contribute
+1. Click the "Fork" button.
+2. Clone your fork to your local machine:
+```shell
+git clone https://github.com/YOUR_USERNAME/ab-app.git
+```
+3. Add 'upstream' repo to keep your form up to date:
+```shell
+git remote add upstream https://github.com/gnemtsov/ab-app.git
+```
+4. Fetch latest upstream changes:
+```shell
+git fetch upstream
+```
+5. Checkout your master branch and merge the upstream repo's master branch:
+```shell
+git checkout master
+git merge upstream/master
+```
+6. Create a new branch and start working on it:
+```shell
+git checkout -b NEW_FEATURE
+```
+7. Push your changes to github.
+8. Go to your fork's GitHub page and click the pull request button.
+
+### Further reading
+* [How to contribute to a project on Github](https://gist.github.com/MarcDiethelm/7303312)
+* [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962)
+* [Fork A Repo - User Documentation](https://help.github.com/articles/fork-a-repo/)
+* [Development workflow with Git: Fork, Branching, Commits, and Pull Request](https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/Development-workflow-with-Git:-Fork,-Branching,-Commits,-and-Pull-Request)
+
