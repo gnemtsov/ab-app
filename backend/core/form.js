@@ -18,6 +18,10 @@ const clientJSON = (formName) => {
 		if ( field.hasOwnProperty('value') ) {
 			clientField.value = field.value;
 		}
+
+		if ( field.hasOwnProperty('nullable') ) {
+			clientField.nullable = field.nullable;
+		}
 		
 		// Unlike fullConfig from *.json,
 		// clientConfig's validators don't have 'both' and 'backend' subobjects
