@@ -1,9 +1,10 @@
 'use strict';
 
 const length = (value, minLength, maxLength) => value.length >= minLength && value.length <= maxLength;
-const email = (value) => throw('Not implemented');
 
 module.exports = {
 	length: length,
-	email: email
+	email: (value) => throw('Not implemented'),
+	greaterOrEqual: (value, a) => value >= a,
+	after: (value, date) => throw('Not implemented')
 };

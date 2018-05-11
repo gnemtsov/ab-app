@@ -40,7 +40,7 @@ module.exports = () => {
     //Params: -
     //Returns form config for adding department
     api.add.GET = (event, context, callback) => {
-		const formData = FORM.clientJSON('helloworld');
+		const formData = FORM.clientJSON('departments');
 		return callback(null, HTTP.response(200, formData));
 	}
 
