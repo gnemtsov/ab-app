@@ -1,18 +1,12 @@
 .Button {
     background-color: transparent;
-    border: none;
-    color: white;
+    border: 1px solid #dddddd;
+    color: black;
     outline: none;
+    text-align: center;
     cursor: pointer;
     font: inherit;
-    padding: 10px;
-    margin: 10px;
-    font-weight: bold;
-}
-
-.Button:first-of-type {
-    margin-left: 0;
-    padding-left: 0;
+    padding: 0.5rem 0.7rem;
 }
 
 .Button:disabled {

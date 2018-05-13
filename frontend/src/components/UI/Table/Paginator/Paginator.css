@@ -1,6 +1,3 @@
-.Active{
-    font-weight: bold;
-}
-.Disabled{
-
+.Paginator{
+    display: flex;
 }

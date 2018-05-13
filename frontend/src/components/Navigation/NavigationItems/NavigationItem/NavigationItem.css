@@ -1,27 +1,25 @@
 .NavigationItem {
-    margin: 10px 0;
-    box-sizing: border-box;
+    margin: 0.7rem;
     display: block;
     width: 100%;
 }
 
 .NavigationItem a {
-    color: #8F5C2C;
+    color: #2534e4;
     text-decoration: none;
     width: 100%;
-    box-sizing: border-box;
     display: block;
 }
 
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
-    color: #40A4C8;
+    color: #FF9800;
 }
 
 @media (min-width: 500px) {
     .NavigationItem {
-        margin: 0;
+        margin: 0.7rem;
         display: flex;
         height: 100%;
         width: auto;
@@ -31,15 +29,13 @@
     .NavigationItem a {
         color: white;
         height: 100%;
-        padding: 16px 10px;
-        border-bottom: 4px solid transparent;
+        padding: 0.2rem;
+        border-bottom: 2px solid transparent;
     }
     
     .NavigationItem a:hover,
     .NavigationItem a:active,
     .NavigationItem a.active {
-        background-color: #8F5C2C;
-        border-bottom: 4px solid #40A4C8;
-        color: white;
+        border-bottom: 2px solid #FF9800;
     }
 }

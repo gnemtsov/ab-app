@@ -37,7 +37,8 @@ export class Table extends Component {
             ...data.conf
         }
 
-        const totalPages = Math.ceil(data.rows.length / data.conf.rowsPerPage);
+        const totalRows = data.rows.length;
+        const totalPages = Math.ceil(totalRows / data.conf.rowsPerPage);
 
         let defaultSortParams = [];
         let sortCols = data.cols.filter(col => col.sortDirection !== undefined);
@@ -67,15 +68,17 @@ export class Table extends Component {
 
     exportToCSV = () => { //export data as comma-separated text
         const data = this.state.data;
-        
+
         let table = 'No data specified';
         if (data !== undefined && !data.length) {
+            const totalRows = data.rows.length;
+
             //head
             const thead = data.cols.map(col => '"' + String(col.title) + '"').join(';');
 
             //body
             let tbody = [];
-            for (let i = 0; i < data.rows.length; i++) {
+            for (let i = 0; i < totalRows; i++) {
                 let cells = [];
                 const row = data.rows[i];
                 for (var col in row) {
@@ -214,11 +217,14 @@ export class Table extends Component {
 
         let table = 'No data specified';
         if (data !== undefined && !data.length) {
-            let thead = [];
-            let tbody = [];
+            const totalCols = data.cols.length;
+            const totalRows = data.rows.length;
+            const pageFirstRow = (this.state.currentPage - 1) * data.conf.rowsPerPage;
+            const pageLastRow = totalRows < pageFirstRow + data.conf.rowsPerPage ? totalRows : pageFirstRow + data.conf.rowsPerPage;
+            let cells = [];
 
             //head
-            let cells = [];
+            let thead = [];
             data.cols.forEach((col, key) => {
                 let sortObj = this.state.sortParams.find(el => el.name === col.name);
                 let sort = '';
@@ -239,12 +245,24 @@ export class Table extends Component {
             });
             thead = <tr key="thr">{cells}</tr>;
 
+            //footer
+            let tfoot =
+                <tr key="tfr">
+                    <td colSpan={totalCols}>
+                        <div class={classes.Footer}>
+                            <div>Rows {pageFirstRow + 1} to {pageLastRow} of {totalRows}</div>
+                            <Paginator currentPage={this.state.currentPage} totalPages={this.state.totalPages} pageClickHandler={this.pageClickHandler} />
+                        </div>
+                    </td>
+                </tr>;
+
             //body
-            const pageFirstRow = (this.state.currentPage - 1) * data.conf.rowsPerPage;
-            const pageLastRow = data.rows.length < pageFirstRow + data.conf.rowsPerPage ? data.rows.length : pageFirstRow + data.conf.rowsPerPage;
+            let tbody = [];
             for (let i = pageFirstRow; i < pageLastRow; i++) {
+                let attachedClasses = [];
                 cells = [];
                 const row = data.rows[i];
+
                 for (var col in row) {
                     if (row.hasOwnProperty(col)) {
                         cells.push(<td key={`td${i}${col}`}>{row[col]}</td>);
@@ -252,19 +270,31 @@ export class Table extends Component {
                         cells.push(<td key={`td${i}${col}`}></td>);
                     }
                 }
+
+                if (this.state.selected.indexOf(i) !== -1) {
+                    attachedClasses.push(classes.Selected);
+                }
+                if (i % 2 === 0) {
+                    attachedClasses.push(classes.Odd);
+                }
+
                 tbody.push(
                     <tr
                         key={`tbr${i}`}
-                        className={this.state.selected.indexOf(i) === -1 ? '' : classes.Selected}
+                        className={attachedClasses.join(' ')}
                         onMouseDown={data.conf.selectable ? event => this.rowMouseDownHandler(event, i, pageFirstRow, pageLastRow) : null}>
                         {cells}
                     </tr>
                 );
             }
 
+
+
+
             table = (
-                <table>
+                <table className={classes.Table}>
                     <thead>{thead}</thead>
+                    <tfoot>{tfoot}</tfoot>
                     <tbody>{tbody}</tbody>
                 </table>
             );
@@ -273,8 +303,6 @@ export class Table extends Component {
         return (
             <Aux>
                 {table}
-                <button onClick={this.exportToCSV}>Export to csv</button>
-                <Paginator currentPage={this.state.currentPage} totalPages={this.state.totalPages} pageClickHandler={this.pageClickHandler} />
             </Aux>
         );
     }

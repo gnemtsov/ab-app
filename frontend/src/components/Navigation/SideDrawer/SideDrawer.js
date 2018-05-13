@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Logo from '../../Logo/Logo';
+import blackLogo from '../../../assets/images/abapp-logo-black.png';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import classes from './SideDrawer.css';
 import Backdrop from '../../UI/Backdrop/Backdrop';
@@ -15,9 +15,7 @@ const sideDrawer = ( props ) => {
         <Aux>
             <Backdrop show={props.open} clicked={props.closed}/>
             <div className={attachedClasses.join(' ')} onClick={props.closed}>
-                <div className={classes.Logo}>
-                    <Logo />
-                </div>
+                <img className={classes.Logo} src={blackLogo} alt="AB-APP logo" />
                 <nav>
                     <NavigationItems isAuthenticated={props.isAuth} />
                 </nav>

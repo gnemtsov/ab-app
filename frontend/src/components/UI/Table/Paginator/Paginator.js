@@ -1,6 +1,7 @@
 import React from 'react';
 
 import classes from './Paginator.css';
+import Button from '../../Button/Button';
 
 const Paginator = (props) => {
     let paginator = [];
@@ -9,12 +10,12 @@ const Paginator = (props) => {
     const cp = props.currentPage;
 
     paginator.push(
-        <button
+        <Button
             key={`pback`}
-            className={(cp === 1 ? classes.Disabled : '')}
-            onClick={(cp === 1 ? null : event => props.pageClickHandler(event, 'back'))}>
+            disabled={cp === 1}
+            clicked={(cp === 1 ? null : event => props.pageClickHandler(event, 'back'))}>
             &larr;
-                </button>
+                </Button>
     );
 
     let flag;
@@ -25,35 +26,35 @@ const Paginator = (props) => {
             paginator.push(
                 <button
                     key={`p${i}`}
-                    className={classes.Disabled}>
+                    disabled={true}>
                     ...
                 </button>
             );
         } else if (!dots) {
             flag = true;
             paginator.push(
-                <button
+                <Button
                     key={`p${i}`}
-                    className={(i === cp ? classes.Active + ' ' + classes.Disabled : '')}
-                    onClick={(i === cp ? null : event => props.pageClickHandler(event, i))}>
+                    disabled={i === cp}
+                    clicked={(i === cp ? null : event => props.pageClickHandler(event, i))}>
                     {i}
-                </button>
+                </Button>
             );
 
         }
     }
 
     paginator.push(
-        <button
+        <Button
             key={`pforward`}
-            className={(cp === tp ? classes.Disabled : '')}
-            onClick={(cp === tp ? null : event => props.pageClickHandler(event, 'forward'))}>
+            disabled={cp === tp}
+            clicked={(cp === tp ? null : event => props.pageClickHandler(event, 'forward'))}>
             &rarr;
-                </button>
+                </Button>
     );
 
     return (
-        <div>
+        <div className={classes.Paginator}>
             {paginator}
         </div>
     );
