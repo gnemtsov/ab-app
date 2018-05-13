@@ -13,10 +13,11 @@ module.exports = () => {
 
     let api = {};
 
+	api.login = {};
     //Method: POST
     //Params: login, password
     //Checks login and password, provides new tokens for valid user
-    api.login = (event, context, callback) => {
+    api.login.POST = (event, context, callback) => {
 
         const { login, password } = JSON.parse(event.body);
 
@@ -30,7 +31,6 @@ module.exports = () => {
             (error, rows, fields) => {
 
                 if (error) {
-                    console.log(error);
                     return callback(null, HTTP.response(500));
                 } else if (!rows.length) {
                     return callback(null, HTTP.response(403, { error: 'User not found.' }));
@@ -72,10 +72,11 @@ module.exports = () => {
     }
     api.login.protected = 0;
 
+	api.token = {};
     //Method: POST
     //Params: login, refreshToken
     //Provides new access token if provided refresh token is valid and belongs to specified user
-    api.token = (event, context, callback) => {
+    api.token.POST = (event, context, callback) => {
 
         const { sub, refreshToken } = JSON.parse(event.body);
 
