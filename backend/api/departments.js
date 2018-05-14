@@ -50,7 +50,7 @@ module.exports = () => {
 	//Returns form config for editing department with specified id
 	api.edit.GET = (event, context, callback) => {
 		if ( !event.queryStringParameters.hasOwnProperty('id') ) {
-			return callback(null, HTTP.response(422));
+			return callback(null, HTTP.response(400));
 		}
 		
 		const id = event.queryStringParameters['id'];
