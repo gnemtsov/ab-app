@@ -1,6 +1,6 @@
 'use strict';
 
-const clientJSON = (formName, data) => {
+exports.clientJSON = (formName, data) => {
 	// Loading full config from file
 	const fullConfig = require('forms/configs/' + formName + '.json');
 
@@ -46,8 +46,4 @@ const clientJSON = (formName, data) => {
 		}
 	}
 	return clientConfig;
-};
-
-module.exports = {
-	clientJSON: clientJSON
 };
