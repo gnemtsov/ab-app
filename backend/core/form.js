@@ -6,6 +6,10 @@ exports.getAsObject = (formName, data) => {
 
 	let frontendConfig = {};
 	for (let fieldName in fullConfig) {
+		if ( !fullConfig.hasOwnProperty(fieldName) ) {
+			continue;
+		}
+		
 		// For each field taking only properties needed for client
 		let frontendField = {};
 		frontendConfig[fieldName] = frontendField;
