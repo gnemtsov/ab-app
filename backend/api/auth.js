@@ -13,7 +13,7 @@ module.exports = () => {
 
     let api = {};
 
-	api.login = {};
+    api.login = { protected: 0 };
     //Method: POST
     //Params: login, password
     //Checks login and password, provides new tokens for valid user
@@ -70,9 +70,8 @@ module.exports = () => {
         );
 
     }
-    api.login.protected = 0;
 
-	api.token = {};
+    api.token = { protected: 0 };
     //Method: POST
     //Params: login, refreshToken
     //Provides new access token if provided refresh token is valid and belongs to specified user
@@ -127,7 +126,6 @@ module.exports = () => {
         );
 
     }
-    api.token.protected = 0;
 
     return api;
 }

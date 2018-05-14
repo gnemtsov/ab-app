@@ -26,7 +26,7 @@ module.exports = () => {
                         conf: {
                             selectable: true
                         },
-                        cols: JSON.parse(fs.readFileSync(`tables/descriptions/departments.json`, 'utf8')),
+                        cols: require('tables/descriptions/departments.json'),
                         rows: result
                     };
                     return callback(null, HTTP.response(200, table));
