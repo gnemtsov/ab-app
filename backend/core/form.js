@@ -3,29 +3,49 @@
 const fs = require("fs");
 const DB = require('core/db');
 
+// tables - {"table_name_1": "row_id_1", "table_name_2": "row_id_2", ...}
 // returns promise: Ok - frontendConfig, Error - HTTP response
-exports.getAsObject = (formName, id) => {
+exports.getAsObject = (formName, tables) => {
 	// Loading full config from file
 	const fullConfig = require(`forms/configs/${formName}.json`);
 
-	// If no id was given, no DB call will happen
+	// If no "tables" object was given, no DB call will happen
 	let dataPromise = Promise.resolve(null);
 	// Otherwise load data from DB
-	if (id !== undefined) {
-		const sql = fs.readFileSync(`forms/sql/${formName}.sql`, 'utf8');
-		
-		dataPromise = new Promise( (resolve, reject) => {
-			DB.execute(sql, [id], (error, result) => {
-				if (error) {
-					reject(HTTP.response(500));
-				} else {
-					let data = {};
-					data[formName] = result[0];
-					
-					resolve(data);
-				}
+	if (tables !== undefined) {
+		// data - {"table_name_1": row_1, "table_name_2": row_2, ...}
+		// "data" object if filled by promises added to DBPromises array
+		let data = {};
+		let DBPromises = [];
+		// For every "tableName" in "tables" object
+		// make a DB query, add result to "data" object
+		for (let tableName in tables) {
+			if ( !tables.hasOwnProperty(tableName) ) {
+				continue;
+			}
+			
+			let promise = new Promise( (resolve, reject) => {
+				fs.readFile(`forms/sql/${tableName}.sql`, 'utf8', (error, sql) => {
+					if (error) {
+						return reject(HTTP.response(500));
+					}
+					DB.execute(sql, [ tables[tableName] ], (error, result) => {
+						if (error) {
+							return reject(HTTP.response(500));
+						}
+						
+						data[tableName] = result[0];
+						resolve(null);
+					});
+				});
 			});
-		});
+			
+			DBPromises.push(promise);
+		}
+		
+		// When all promises from "DBPromises" are done,
+		// "data" object is ready
+		dataPromise = Promise.all(DBPromises).then( () => data );
 	}
 
 	return dataPromise
@@ -64,7 +84,6 @@ exports.getAsObject = (formName, id) => {
 				
 				// Setting frontendField.value if data is provided
 				if (data) {
-					console.log(field);
 					if ( field.hasOwnProperty('db_table') ) {
 						const db_table = field.db_table;
 						

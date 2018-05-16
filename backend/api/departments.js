@@ -60,7 +60,7 @@ module.exports = () => {
 		
 		const id = event.queryStringParameters['id'];
 
-		FORM.getAsObject('departments', id)
+		FORM.getAsObject('departments', {departments: id})
 			.then( (formData) => {
 				callback(null, HTTP.response(200, formData));
 			})
