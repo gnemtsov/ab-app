@@ -39,9 +39,14 @@ module.exports = () => {
     //Method: GET
     //Params: -
     //Returns form config for adding department
-    api.add.GET = (event, context, callback) => {
-		const formData = FORM.getAsObject('departments');
-		return callback(null, HTTP.response(200, formData));
+    api.add.GET = (event, context, callback) => {		
+		FORM.getAsObject('departments')
+			.then( (formData) => {
+				callback(null, HTTP.response(200, formData));
+			})
+			.catch( (httpErrResopnse) => {
+				callback(null, httpErrResponse);
+			});
 	}
 	
 	api.edit = {};
@@ -54,26 +59,14 @@ module.exports = () => {
 		}
 		
 		const id = event.queryStringParameters['id'];
-		DB.execute(
-			'SELECT * FROM `departments` WHERE d_id = ?',
-			[id],
-			
-			(error, result) => {
-                if (error) {
-                    return callback(null, HTTP.response(500));
-                } else {
-                    if (result.length === 0) {
-						return callback(null, HTTP.response(404));
-					}
-					
-					const formData = FORM.getAsObject('departments', {
-						departments: result[0]
-					});
-					
-                    return callback(null, HTTP.response(200, formData));
-                }				
-			}
-		);
+
+		FORM.getAsObject('departments', id)
+			.then( (formData) => {
+				callback(null, HTTP.response(200, formData));
+			})
+			.catch( (httpErrResopnse) => {
+				callback(null, httpErrResponse);
+			});
 	}
 
     return api;

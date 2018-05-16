@@ -1,0 +1,1 @@
+SELECT * FROM `departments` WHERE d_id = ?
