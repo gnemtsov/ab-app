@@ -249,7 +249,7 @@ export class Table extends Component {
             let tfoot =
                 <tr key="tfr">
                     <td colSpan={totalCols}>
-                        <div class={classes.Footer}>
+                        <div className={classes.Footer}>
                             <div>Rows {pageFirstRow + 1} to {pageLastRow} of {totalRows}</div>
                             <Paginator currentPage={this.state.currentPage} totalPages={this.state.totalPages} pageClickHandler={this.pageClickHandler} />
                         </div>

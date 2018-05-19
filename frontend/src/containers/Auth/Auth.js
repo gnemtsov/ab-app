@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import Input from '../../components/UI/Input/Input';
-import Button from '../../components/UI/Button/Button';
+import Button from '../../components/UI/Form/Button/Button';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Auth.css';
 import * as actionTypes from "../../store/actionTypes";
@@ -102,7 +102,7 @@ class Auth extends Component {
                 {errorMessage}
                 <form onSubmit={this.submitHandler}>
                     {form}
-                    <Button btnType="Success">SUBMIT</Button>
+                    <Button btnType="Primary">Submit</Button>
                 </form>
             </div>
         );

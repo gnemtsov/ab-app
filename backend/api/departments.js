@@ -43,7 +43,16 @@ module.exports = () => {
 		const formData = FORM.clientJSON('departments');
 		return callback(null, HTTP.response(200, formData));
 	}
-	
+
+    api.test = {};
+    //Method: GET
+    //Params: -
+    //Returns form config for adding department
+    api.test.GET = (event, context, callback) => {
+		const formData = require('../forms/configs/departments_frontend.json');
+		return callback(null, HTTP.response(200, formData));
+	}
+
 	api.edit = {};
 	//Method: GET
 	//Params: id

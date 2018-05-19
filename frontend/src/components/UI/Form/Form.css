@@ -1,0 +1,15 @@
+.Form {
+    padding: 1rem;
+    width: 100%;
+    max-width: 36rem;
+    display: grid;
+    grid-auto-rows: min-content;
+}
+
+@media (min-width: 40rem) {
+    .Form {
+        margin: auto;
+        grid-template-columns: 10rem auto;
+        grid-column-gap: 0.5rem;
+    }
+}

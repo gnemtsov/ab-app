@@ -1,0 +1,33 @@
+.Button {
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    color: #000;
+    padding: 0.5rem 0.7rem;
+    border-radius: 3px;
+    background-color: #fcfcfc;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.Button:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.Primary {
+    color: #fff;
+    background-color: #333db3;
+    background-image: linear-gradient(#1d2583, #5f6cff);
+    border-color: #333db3 #0b4075 #0b4075;
+}
+
+.Primary:hover {
+    background-image: linear-gradient(#565ca2, #333db3);
+    border-color: #333db3 #333db3 #5f6cff;
+}
+
+.Danger {
+    background-color: #944317;
+}

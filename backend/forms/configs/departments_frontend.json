@@ -1,0 +1,34 @@
+{
+	"title": {
+        "label": "Title",
+        "placeholder": "Department title",
+		"type": "String",
+        "required": true,
+		"validators": {
+            "length": {
+                "params": [6, 64],
+                "message":"Value must be bigger than 6 and smaller than 64",
+                "creator": ["value", "minLength", "maxLength", "return value.length >= minLength && value.length <= maxLength"]
+            }
+		}
+	},
+	"type": {
+        "label": "Type",
+        "placeholder": "Department type",
+        "description": "The type of the departments (select from available options)",
+		"type": "String",
+        "allowedValues": ["administrative", "financial", "general"],
+        "default": "general"
+	},
+	"active": {
+        "label": "Active",
+        "description": "Whether department is working or not",
+		"type": "Boolean"
+	},
+	"computersUsed": {
+        "label": "Computers used",
+		"type": "String",
+        "allowedValues": ["desktops", "laptops"],
+        "default": "desktops"
+	}
+}

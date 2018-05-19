@@ -12,6 +12,10 @@ const asyncAuth = asyncComponent(() => {
     return import('./containers/Auth/Auth');
 });
 
+const asyncAdd = asyncComponent(() => {
+    return import('./containers/Add/Add');
+});
+
 class App extends Component {
     componentDidMount() {
         this.props.onTryAutoSignin();
@@ -21,7 +25,8 @@ class App extends Component {
         let routes = (
             <Switch>
                 <Route path="/auth" component={asyncAuth} />
-                <Route path="/" exact render={()=><p>Please, authenticate to see departments list.</p>} />
+                <Route path="/add" render={() => <p>Please, authenticate add departments.</p>} />
+                <Route path="/" exact render={() => <p>Please, authenticate to see departments list.</p>} />
                 <Redirect to="/" />
             </Switch>
         );
@@ -30,7 +35,7 @@ class App extends Component {
             routes = (
                 <Switch>
                     <Route path="/logout" component={Logout} />
-                    <Route path="/auth" component={asyncAuth} />
+                    <Route path="/add" component={asyncAdd} />
                     <Route path="/" exact component={Departments} />
                     <Redirect to="/" />
                 </Switch>
