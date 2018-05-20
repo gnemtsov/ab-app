@@ -18,16 +18,11 @@
 
 .Primary {
     color: #fff;
-    background-color: #333db3;
-    background-image: linear-gradient(#1d2583, #5f6cff);
-    border-color: #333db3 #0b4075 #0b4075;
+    background-color: #2c39cd;
 }
-
 .Primary:hover {
-    background-image: linear-gradient(#565ca2, #333db3);
-    border-color: #333db3 #333db3 #5f6cff;
+    background-color: #222ca4;
 }
-
-.Danger {
-    background-color: #944317;
+.Primary:disabled {
+    background-color: #575970;
 }

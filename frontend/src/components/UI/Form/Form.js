@@ -14,20 +14,44 @@ export class Form extends Component {
         event.preventDefault();
     }
 
+    isFormReady = () => {
+        for (let key in this.state) {
+            if ((this.state[key].required && this.state[key].value === '') || this.state[key].message !== '') {
+                return false;
+            }
+        }
+        return true;
+    }
+
     componentDidMount() {
         axios.get(this.props.source).then((result) => {
             let form = result.data;
+
             for (let key in form) {
-                form[key].value = '';
-                form[key].message = '';
-                if (form[key].validators !== undefined) {
-                    for (let name in form[key].validators) {
-                        const params = [...form[key].validators[name].params];
-                        const message = form[key].validators[name].message;
+                let field = form[key];
+                field.message = '';
+
+                if (field.value === undefined) {
+                    switch (field.type) {
+                        case 'checkbox':
+                            field.value = false;
+                            break;
+                        default:
+                            field.value = '';
+                    }
+                }
+
+                if (field.validators !== undefined) {
+                    for (let name in field.validators) {
+                        let params = [];
+                        if (field.validators[name].params !== undefined && field.validators[name].params.length) {
+                            params = [...field.validators[name].params];
+                        }
+                        const message = field.validators[name].message;
                         // eslint-disable-next-line no-new-func
-                        form[key].validators[name] = new Function(...form[key].validators[name].creator);
-                        form[key].validators[name].params = params;
-                        form[key].validators[name].message = message;
+                        field.validators[name] = new Function(...form[key].validators[name].creator);
+                        field.validators[name].params = params;
+                        field.validators[name].message = message;
                     }
                 }
             }
@@ -40,10 +64,13 @@ export class Form extends Component {
 
 
     inputChangedHandler = (event, key) => {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+
         let formField = {};
         formField[key] = {
             ...this.state[key],
-            value: event.target.value
+            value: value
         };
         let field = formField[key];
 
@@ -65,8 +92,8 @@ export class Form extends Component {
 
     render() {
         let form = <Spinner />;
-        let formElements = [];
 
+        let formElements = [];
         for (let key in this.state) {
             formElements.push(
                 <FormElement
@@ -84,8 +111,14 @@ export class Form extends Component {
                     className={classes.Form}
                     onSubmit={null}>
                     {formElements}
-                    <span></span>
-                    <div><Button btnType="Primary">Submit</Button></div>
+                    <div></div>
+                    <div>
+                        <Button
+                            btnType="Primary"
+                            disabled={!this.isFormReady()}>
+                            Submit
+                        </Button>
+                    </div>
                 </form >;
         }
 

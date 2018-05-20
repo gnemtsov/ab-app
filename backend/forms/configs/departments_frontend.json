@@ -22,7 +22,14 @@
 	},
 	"active": {
         "label": "Active",
+        "value": true,
         "description": "Whether department is working or not",
+		"validators": {
+            "active": {
+                "message":"Department must be active",
+                "creator": ["value", "return value"]
+            }
+		},
 		"type": "Boolean"
 	},
 	"computersUsed": {

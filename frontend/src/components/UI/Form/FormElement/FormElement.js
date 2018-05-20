@@ -2,66 +2,42 @@ import React from 'react';
 
 import classes from './FormElement.css';
 
-const FormElement = (props) => {
-    let element = [];
-    let inputClasses = [classes.Input];
+import Icon from '../../Icon/Icon';
+import ReactTooltip from 'react-tooltip';
 
+const FormElement = (props) => {
+    let inputClasses = [classes.Input];
     if (props.message.length) {
         inputClasses.push(classes.Invalid);
     }
 
+    //input
+    let inputField = [];
     switch (props.type) {
 
         case 'String':
-            element.push(
-                <label
-                    key={props.id + '_label'}
-                    className={classes.Label}
-                    htmlFor={props.id}>
-                    {props.label}
-                </label>
-            );
-            element.push(
-                <div key={props.id + '_input'}>
-                    <input
-                        type="text"
-                        className={inputClasses.join(' ')}
-                        id={props.id}
-                        placeholder={props.placeholder}
-                        value={props.value}
-                        required={props.required ? true : false}
-                        onChange={props.changed} />
-
-                    <div
-                        className={classes.Message}>
-                        {props.message}
-                    </div>
-                </div>
+            inputField.push(
+                <input
+                    key={props.id + '_input'}
+                    type="text"
+                    className={inputClasses.join(' ')}
+                    id={props.id}
+                    placeholder={props.placeholder}
+                    value={props.value}
+                    required={props.required ? true : false}
+                    onChange={props.changed} />
             );
             break;
 
         case 'Boolean':
-            element.push(
-                <label
-                    key={props.id + '_label'}
-                    className={classes.Label}
-                    htmlFor={props.id}>
-                    {props.label}
-                </label>
-            );
-            element.push(
-                <div key={props.id + '_input'}>
-                    <input
-                        type="checkbox"
-                        className={inputClasses.join(' ')}
-                        id={props.id}
-                        value={props.value ? 'on' : 'off'}
-                        onChange={props.changed} />
-                    <div
-                        className={classes.Message}>
-                        {props.message}
-                    </div>
-                </div>
+            inputField.push(
+                <input
+                    key={props.id + '_input'}
+                    type="checkbox"
+                    className={inputClasses.join(' ')}
+                    id={props.id}
+                    checked={Boolean(props.value)}
+                    onChange={props.changed} />
             );
             break;
 
@@ -88,11 +64,52 @@ const FormElement = (props) => {
                     );
                     break; */
         default:
-            element = 'Undefined';
+            inputField.push(<span key={props.id + '_unrecognized'}>Unrecognized field type</span>);
     }
 
-    return element;
+    //icon with description
+    if (props.description !== undefined && props.description.length) {
+        inputField.push(
+            <Icon
+                key={props.id + '_infoIcon'}
+                data-tip={props.description}
+                name="info"
+                width="26"
+                height="26"
+                stroke="#666666" />
+        );
 
+        inputField.push(
+            <ReactTooltip
+                key={props.id + '_ReactTooltip'}
+                type="info"
+                place="right"
+                className={classes.Tooltip} />
+        );
+    }
+
+    //validators' messages container
+    inputField.push(
+        <div
+            key={props.id + '_validatorMessage'}
+            className={classes.Message}>
+            {props.message}
+        </div>
+    );
+
+    return [
+        <label
+            key={props.id + '_label'}
+            className={classes.Label}
+            htmlFor={props.id}>
+            {props.label + (props.required ? '*' : '')}
+        </label>,
+        <div
+            key={props.id + '_inputContainer'}
+            className={classes.inputContainer}>
+            {inputField}
+        </div>
+    ];
 };
 
 export default FormElement;
