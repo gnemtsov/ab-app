@@ -67,6 +67,8 @@ export class Form extends Component {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
 
+        console.log(key, value);
+
         let formField = {};
         formField[key] = {
             ...this.state[key],
@@ -111,8 +113,8 @@ export class Form extends Component {
                     className={classes.Form}
                     onSubmit={null}>
                     {formElements}
-                    <div></div>
-                    <div>
+                    <div
+                        className={classes.SubmitButton}>
                         <Button
                             btnType="Primary"
                             disabled={!this.isFormReady()}>

@@ -1,15 +1,23 @@
 .Form {
-    padding: 1rem;
     width: 100%;
-    max-width: 36rem;
+    max-width: 42rem;
     display: grid;
     grid-auto-rows: min-content;
+    grid-template-columns: auto 30px;
+    grid-column-gap: 0.5rem;
+}
+
+.SubmitButton {
+    justify-self: start;
+    grid-column: 1 / 2;
 }
 
 @media (min-width: 40rem) {
     .Form {
-        margin: auto;
-        grid-template-columns: 10rem auto;
+        grid-template-columns: 14rem auto 30px;
         grid-column-gap: 0.5rem;
+    }
+    .SubmitButton {
+        grid-column: 2 / 3;
     }
 }

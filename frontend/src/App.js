@@ -25,7 +25,7 @@ class App extends Component {
         let routes = (
             <Switch>
                 <Route path="/auth" component={asyncAuth} />
-                <Route path="/add" render={() => <p>Please, authenticate add departments.</p>} />
+                <Route path="/add" render={() => <p>Please, authenticate to add departments.</p>} />
                 <Route path="/" exact render={() => <p>Please, authenticate to see departments list.</p>} />
                 <Redirect to="/" />
             </Switch>

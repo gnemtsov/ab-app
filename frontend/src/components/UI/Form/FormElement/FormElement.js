@@ -6,20 +6,94 @@ import Icon from '../../Icon/Icon';
 import ReactTooltip from 'react-tooltip';
 
 const FormElement = (props) => {
-    let inputClasses = [classes.Input];
+    let formRow = [];
+
+    //------->label
+    formRow.push(
+        <label
+            key={props.id + '_label'}
+            className={classes.Label}
+            htmlFor={props.id}>
+            {props.label + (props.required ? '*' : '')}
+        </label>
+    );
+
+    //------->input
+    let inputClasses = [];
     if (props.message.length) {
         inputClasses.push(classes.Invalid);
     }
-
-    //input
     let inputField = [];
     switch (props.type) {
 
         case 'String':
+
+            if (props.allowedValues !== undefined && props.allowedValues.length) {
+                if (props.allowedValues.length === 2) { //radio buttons
+                    let radios = props.allowedValues.map(
+                        (value, index) =>
+                            <label
+                                key={props.id + '_radio' + index}
+                                className={classes.InputRadioContainer}>
+                                <input
+                                    type="radio"
+                                    className={classes.InputRadio}
+                                    id={props.id + index}
+                                    value={value}
+                                    checked={value === props.value}
+                                    onChange={props.changed} />
+                                {value}
+                            </label>
+                    );
+                    inputField = inputField.concat(radios);
+                } else { //select
+                    inputClasses.push(classes.Select);
+                    inputField.push(
+                        <select
+                            key={props.id + '_select'}
+                            className={inputClasses.join(' ')}
+                            id={props.id}
+                            required={props.required ? true : false}
+                            value={props.value}
+                            onChange={props.changed}>
+                            {props.allowedValues.map((value, i) => <option key={i}>{value}</option>)}
+                        </select>
+                    );
+                }
+            } else { //input type="text"
+                inputClasses.push(classes.InputText);
+                inputField.push(
+                    <input
+                        key={props.id + '_input'}
+                        type={props.noEcho ? "password" : "text"}
+                        className={inputClasses.join(' ')}
+                        id={props.id}
+                        placeholder={props.placeholder}
+                        value={props.value}
+                        required={props.required ? true : false}
+                        onChange={props.changed} />
+                );
+            }
+            break;
+
+        case 'Boolean': //checkbox
+            inputField.push(
+                <input
+                    key={props.id + '_check'}
+                    type="checkbox"
+                    className={classes.InputCheck}
+                    id={props.id}
+                    checked={Boolean(props.value)}
+                    onChange={props.changed} />
+            );
+            break;
+
+        case 'Number': //input type="text"
+            inputClasses.push(classes.InputText);
             inputField.push(
                 <input
                     key={props.id + '_input'}
-                    type="text"
+                    type={"text"}
                     className={inputClasses.join(' ')}
                     id={props.id}
                     placeholder={props.placeholder}
@@ -29,47 +103,51 @@ const FormElement = (props) => {
             );
             break;
 
-        case 'Boolean':
+        case 'Text': //textarea
+            inputClasses.push(classes.Textarea);
             inputField.push(
-                <input
-                    key={props.id + '_input'}
-                    type="checkbox"
+                <textarea
+                    key={props.id + '_textarea'}
                     className={inputClasses.join(' ')}
                     id={props.id}
-                    checked={Boolean(props.value)}
+                    placeholder={props.placeholder}
+                    value={props.value}
+                    required={props.required ? true : false}
                     onChange={props.changed} />
             );
             break;
 
-        /* 
-                case ('textarea'):
-                    inputElement = <textarea
-                        className={inputClasses.join(' ')}
-                        {...props.elementConfig}
-                        value={props.value}
-                        onChange={props.changed} />;
-                    break;
-                case ('select'):
-                    inputElement = (
-                        <select
-                            className={inputClasses.join(' ')}
-                            value={props.value}
-                            onChange={props.changed}>
-                            {props.elementConfig.options.map(option => (
-                                <option key={option.value} value={option.value}>
-                                    {option.displayValue}
-                                </option>
-                            ))}
-                        </select>
-                    );
-                    break; */
         default:
-            inputField.push(<span key={props.id + '_unrecognized'}>Unrecognized field type</span>);
+            inputField.push(
+                <span
+                    key={props.id + '_unrecognized'}
+                    className={classes.Unrecognized}>
+                    Unrecognized field type
+                </span>
+            );
     }
 
-    //icon with description
+    inputField.push(  //validators' messages container
+        <div
+            key={props.id + '_validatorMessage'}
+            className={classes.Message}>
+            {props.message}
+        </div>
+    );
+
+    formRow.push(
+        <div
+            key={props.id + '_inputContainer'}
+            className={classes.InputContainer}>
+            {inputField}
+        </div>
+    );
+
+
+    //------->info icon with description
+    let infoIcon = [];
     if (props.description !== undefined && props.description.length) {
-        inputField.push(
+        infoIcon.push(
             <Icon
                 key={props.id + '_infoIcon'}
                 data-tip={props.description}
@@ -79,7 +157,7 @@ const FormElement = (props) => {
                 stroke="#666666" />
         );
 
-        inputField.push(
+        infoIcon.push(
             <ReactTooltip
                 key={props.id + '_ReactTooltip'}
                 type="info"
@@ -88,28 +166,15 @@ const FormElement = (props) => {
         );
     }
 
-    //validators' messages container
-    inputField.push(
+    formRow.push(
         <div
-            key={props.id + '_validatorMessage'}
-            className={classes.Message}>
-            {props.message}
+            key={props.id + '_iconContainer'}
+            className={classes.IconContainer}>
+            {infoIcon}
         </div>
     );
 
-    return [
-        <label
-            key={props.id + '_label'}
-            className={classes.Label}
-            htmlFor={props.id}>
-            {props.label + (props.required ? '*' : '')}
-        </label>,
-        <div
-            key={props.id + '_inputContainer'}
-            className={classes.inputContainer}>
-            {inputField}
-        </div>
-    ];
+    return formRow;
 };
 
 export default FormElement;

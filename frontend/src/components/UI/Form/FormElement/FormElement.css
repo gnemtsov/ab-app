@@ -1,43 +1,103 @@
 .Label {
-    justify-self: start;
     font-weight: bold;
-    line-height: 2rem;
+    line-height: 1.2rem;
+    text-align: left;
+    padding-bottom: 0.5rem;
 }
 
 @media (min-width: 40rem) {
     .Label {
-        justify-self: end;
+        text-align: right;
+        padding-top: 0.42rem;
+        padding-bottom: 1rem;
+        padding-right: 0.4rem;
     }
 }
 
-.Input:not([type=checkbox]) {
+.InputContainer input[type="text"],
+.InputContainer input[type="password"],
+.InputContainer select,
+.InputContainer textarea {
+    font-family: 'Arimo', sans-serif;
+    font-size: 1rem;
     outline: none;
-    height: 2rem;
-    width: calc(100% - 30px);
-    padding: 0.2rem 0.3rem 0 0.3rem;
+    width: 100%;
     vertical-align: top;
+    background-color: transparent;
+    border: 1px solid #666;
 }
 
-.Input[type=checkbox] {
+.InputText {
+    line-height: 2rem;
+    padding: 0 0.3rem;
+}
+
+.Select {
+    line-height: 2rem;
+    padding-left: 0.3rem;
+    padding-right: 1.2rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAJ1BMVEVmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmaP/QSjAAAADHRSTlMAAgMJC0uWpKa6wMxMdjkoAAAANUlEQVR4AeXJyQEAERAAsNl7Hf3X6xt0QL6JpZWq30pdvdadme+0PMdzvHm8YThHcT1H7K0BtOMDniZhWOgAAAAASUVORK5CYII=);
+    -webkit-background-size: 1rem 1rem;
+    background-size: 1rem;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 0.1rem) 50%;
+}
+
+.Textarea {
+    padding: 0.4rem 0.3rem;
+    height: 8rem;
+}
+
+.InputCheck {
     height: 1.5rem;
-    width: 1rem;
-    margin: 0.25rem calc(100% - 1rem - 30px) 0 0;
+    width: 1.3rem;
+    margin: 0.25rem 0 0 0;
     vertical-align: top;
 }
 
-.inputContainer svg {
-    margin: 0.1rem 0 0 0.2rem;
+.InputRadioContainer {
+    line-height: 1.5rem;
+    margin-right: 1.5rem;
+    white-space: nowrap;
+    vertical-align: bottom;
+}
+
+.InputRadio {
+    height: 1.5rem;
+    width: 1.3rem;
+    margin: 0.25rem 0.25rem 0 0;
+    vertical-align: top;
+}
+
+.Unrecognized {
+    display: inline-block;
+    line-height: 2rem;
+    width: 100%;
+    padding: 0 0.3rem;
+    vertical-align: top;
+    color: red;
+    font-size: 1rem;
+    border: 1px dashed red;
+}
+
+.IconContainer svg {
+    margin-top: 0.1rem;
 }
 
 .Message {
-    color: #f65846;
+    color: red;
     line-height: 0.75rem;
     font-size: 0.75rem;
     min-height: 0.75rem;
     margin: 0.1rem 0 0.75rem 0;
 }
 
-.Input.Invalid {
+.InputText.Invalid,
+.InputSelect.Invalid,
+.Textarea.Invalid {
     border: 1px solid red;
     background-color: #FDA49A;
 }
@@ -56,4 +116,27 @@
     border-right-color: transparent !important;
     border-bottom-color: transparent !important;
     border-left-color: transparent !important;
+}
+
+/*Positioning elements in the form grid*/
+
+.Label,
+.InputContainer {
+    grid-column: 1 / 1;
+}
+
+.IconContainer {
+    grid-column: 2 / 2;
+}
+
+@media (min-width: 40rem) {
+    .Label {
+        grid-column: 1 / 1;
+    }
+    .InputContainer {
+        grid-column: 2 / 2;
+    }
+    .IconContainer {
+        grid-column: 3 / 3;
+    }
 }
