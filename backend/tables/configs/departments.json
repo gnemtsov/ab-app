@@ -28,8 +28,23 @@
         "defaultContent": "2018-04-28"
     },
     {
-		"title": "Link",
-		"name": "d_link",
+		"title": "Link (backend test)",
+		"name": "d_link_backend",
 		"formatterBackend": ["departmentLink"]
+	},
+    {
+		"title": "Link (frontend test)",
+		"name": "d_link_frontend",
+		"formatterFrontend": ["departmentLink"]
+	},
+    {
+		"title": "Params (backend test)",
+		"name": "d_params_backend",
+		"formatterBackend": ["paramsTest", 4, 5]
+	},
+    {
+		"title": "Params (frontend test)",
+		"name": "d_params_frontend",
+		"formatterFrontend": ["paramsTest", 4, 5]
 	}
 ]
