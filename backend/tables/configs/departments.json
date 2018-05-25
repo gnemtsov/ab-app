@@ -26,5 +26,10 @@
         "title": "Created",
         "name": "d_created",
         "defaultContent": "2018-04-28"
-    }
+    },
+    {
+		"title": "Link",
+		"name": "d_link",
+		"formatterBackend": ["departmentLink"]
+	}
 ]
