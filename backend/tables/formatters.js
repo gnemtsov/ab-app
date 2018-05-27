@@ -10,7 +10,7 @@
 };
 exports.paramsTest = (x, y) => row => `${x} + ${y} = ${x+y}`;*/
 
-module.exports.departmentLinker = (col, row) => ({__html:`<a href="/departments/${row.d_id}">${row[col.name]}</a>`});
+module.exports.departmentLinker = (col, row) => `<a href="/departments/${row.d_id}">${row[col.name]}</a>`;
 
 exports.paramsTest = {
 	params: ["x", "y"],

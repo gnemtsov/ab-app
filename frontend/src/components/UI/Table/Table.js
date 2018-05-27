@@ -279,7 +279,7 @@ export class Table extends Component {
                         cells.push(
                             <td
                                 key={tdKey}
-                                dangerouslySetInnerHTML={col.frontendFormatter(col, row)}>
+                                dangerouslySetInnerHTML={{__html: col.frontendFormatter(col, row)}}>
                             </td>
                         );
                     } else if (col.html) {
