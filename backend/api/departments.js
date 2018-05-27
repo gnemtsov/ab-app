@@ -16,8 +16,7 @@ module.exports = () => {
     //Returns departments list for authenticated users
     api.list.GET = (event, context, callback) => {
         TABLE.getAsObject('departments')
-            .then(table => callback(null, HTTP.response(200, table)))
-            .catch(error => callback(null, HTTP.response(500)));
+            .then(table => callback(null, HTTP.response(200, table)));
     }
 
     api.add = {};

@@ -40,6 +40,7 @@ export class Table extends Component {
         const totalRows = data.rows.length;
         const totalPages = Math.ceil(totalRows / data.conf.rowsPerPage);
 
+        //apply default sorting
         let defaultSortParams = [];
         let sortCols = data.cols.filter(col => col.sortDirection !== undefined);
         if (sortCols.length) {
@@ -57,6 +58,15 @@ export class Table extends Component {
             data.rows = utility.multiSort(data.rows, cols, dirs);
         }
 
+        //make functions out of formatters
+        data.cols = data.cols.map((col) => {
+            if (col.hasOwnProperty('frontendFormatter')) {
+                col.frontendFormatter = new Function("return " + col.frontendFormatter)();
+            }
+            return col;
+        });
+
+        //update component state
         this.state = {
             ...this.state,
             data,
@@ -225,7 +235,7 @@ export class Table extends Component {
 
             //head
             let thead = [];
-            data.cols.forEach((col, key) => {
+            for (const col of data.cols) {
                 let sortObj = this.state.sortParams.find(el => el.name === col.name);
                 let sort = '';
                 if (sortObj !== undefined) {
@@ -237,12 +247,12 @@ export class Table extends Component {
                 }
                 cells.push(
                     <th
-                        key={`th${key}`}
+                        key={`th${col.name}`}
                         onMouseDown={event => this.headerMouseDownHandler(event, col.name)}>
                         {[col.title, sort]}
                     </th>
                 );
-            });
+            };
             thead = <tr key="thr">{cells}</tr>;
 
             //footer
@@ -256,15 +266,6 @@ export class Table extends Component {
                     </td>
                 </tr>;
 
-			//Where do we apply formatters?
-			const formatters = {};
-			for (const col of data.cols) {
-				if (col.formatter) {
-					const f = new Function(...col.formatter.creator);
-					formatters[col.name] = f(...col.formatter.params);
-				}
-			}
-
             //body
             let tbody = [];
             for (let i = pageFirstRow; i < pageLastRow; i++) {
@@ -272,20 +273,24 @@ export class Table extends Component {
                 cells = [];
                 const row = data.rows[i];
 
-                for (var col in row) {
-					if (formatters.hasOwnProperty(col)) {
-						row[col] = formatters[col](row);
-					}
-
-					if (row.hasOwnProperty(col)) {
-						// TODO: render html as html
-						if ( row[col] !== null && row[col].hasOwnProperty('html') ) {
-							cells.push(<td key={`td${i}${col}`}>{row[col].html}</td>);
-						} else {
-							cells.push(<td key={`td${i}${col}`}>{row[col]}</td>);
-						}
+                for (const col of data.cols) {
+                    const tdKey = `td${i}${col.name}`;
+                    if (col.hasOwnProperty('frontendFormatter')) {
+                        cells.push(
+                            <td
+                                key={tdKey}
+                                dangerouslySetInnerHTML={col.frontendFormatter(col, row)}>
+                            </td>
+                        );
+                    } else if (col.html) {
+                        cells.push(
+                            <td
+                                key={tdKey}
+                                dangerouslySetInnerHTML={row[col.name]}>
+                            </td>
+                        );
                     } else {
-                        cells.push(<td key={`td${i}${col}`}></td>);
+                        cells.push(<td key={tdKey}>{row[col.name]}</td>);
                     }
                 }
 

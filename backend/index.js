@@ -36,7 +36,7 @@ exports.handler = (event, context, callback) => {
 
     //call resource action
     if (api.hasOwnProperty(action)) {
-        // Check token for protected action
+        //check token for protected action
         if (api[action].protected === 1) {
             if (event.headers['X-Access-Token'] === undefined) {
                 return callback(null, HTTP.response(403, { error: 'No token provided.' }));
@@ -48,12 +48,17 @@ exports.handler = (event, context, callback) => {
             }
         }
 
-        // Check if this method is not allowed
+        // check if this method is not allowed
         if (!api[action].hasOwnProperty(method)) {
             return callback(null, HTTP.response(405), { error: 'Method not allowed.' });
         }
 
-        return api[action][method](event, context, callback);
+        //finally call the api
+        try {
+            return api[action][method](event, context, callback);
+        } catch (error) {
+            return callback(null, HTTP.response(500, { error: (process.env.PROD ? 'Something went wrong' : error) }));
+        }
     }
     return callback(null, HTTP.response(404, { error: 'Action not found.' }));
 }

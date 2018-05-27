@@ -10,22 +10,8 @@
 };
 exports.paramsTest = (x, y) => row => `${x} + ${y} = ${x+y}`;*/
 
+module.exports.departmentLinker = (col, row) => ({__html:`<a href="/departments/${row.d_id}">${row[col.name]}</a>`});
 
-exports.departmentLink = {
-	params: [],
-	f: function() {
-		return function(row) {
-			return {
-				html:
-					'<a href="/departments/' +
-					row.d_id + 
-					'">' + 
-					row.d_title + 
-					'</a>'
-			}
-		};
-	}
-}
 exports.paramsTest = {
 	params: ["x", "y"],
 	f: function(x, y) {

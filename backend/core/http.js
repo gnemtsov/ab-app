@@ -12,6 +12,7 @@ exports.response = (code = 200, body = {}) => {
         }
     }
 
+    const replacer = (key, val) => typeof val === 'function' ? val.toString() : val;
     return {
         statusCode: code,
         headers: { 
@@ -19,6 +20,6 @@ exports.response = (code = 200, body = {}) => {
             "Access-Control-Allow-Headers": "x-access-token, Content-Type",
             "Access-Control-Allow-Origin" : "*" 
         },
-        body: typeof body === 'string' ? body : JSON.stringify(body)
+        body: typeof body === 'string' ? body : JSON.stringify(body, replacer)
     }
 }
