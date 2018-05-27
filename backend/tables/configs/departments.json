@@ -29,19 +29,8 @@
         "defaultContent": "2018-04-28"
     },
     {
-		"title": "Link (backend test)",
-		"name": "d_link_backend"
-	},
-    {
-		"title": "Link (frontend test)",
-		"name": "d_link_frontend"
-	},
-    {
-		"title": "Params (backend test)",
-		"name": "d_params_backend"
-	},
-    {
-		"title": "Params (frontend test)",
-		"name": "d_params_frontend"
+		"title": "2+2 (backend test)",
+		"name": "d_link_backend",
+        "backendFormatter": "backendTestFormatter"
 	}
 ]

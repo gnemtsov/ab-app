@@ -286,7 +286,7 @@ export class Table extends Component {
                         cells.push(
                             <td
                                 key={tdKey}
-                                dangerouslySetInnerHTML={row[col.name]}>
+                                dangerouslySetInnerHTML={{__html:row[col.name]}}>
                             </td>
                         );
                     } else {
