@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classes from './Paginator.css';
-import Button from '../../Form/Button/Button';
+import Button from '../../Button/Button';
 
 const Paginator = (props) => {
     let paginator = [];

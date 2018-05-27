@@ -1,5 +1,5 @@
 import React from 'react';
-import feather from '../../../assets/feather-sprite.svg';
+import feather from './feather-sprite.svg';
 
 const Icon = (props) => {
     let defaults = {

@@ -1,8 +1,15 @@
 import React from 'react';
-
-import Aux from '../../hoc/Auxillary/Auxillary';
 import Form from '../../components/UI/Form/Form';
 
-const Add = () => <Aux><Form key="Departments_add" source="/departments/test" /></Aux>;
+import classes from './Add.css';
 
-export default Add;
+export default () => {
+    return (
+        <div
+            className={classes.FormContainer}>
+            <Form
+                title="New department"
+                api="/departments/test" />
+        </div>
+    );
+};

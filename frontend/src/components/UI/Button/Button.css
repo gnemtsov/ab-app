@@ -15,14 +15,3 @@
     color: #ccc;
     cursor: not-allowed;
 }
-
-.Primary {
-    color: #fff;
-    background-color: #2c39cd;
-}
-.Primary:hover {
-    background-color: #222ca4;
-}
-.Primary:disabled {
-    background-color: #575970;
-}

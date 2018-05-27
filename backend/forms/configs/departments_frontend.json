@@ -1,72 +1,75 @@
 {
-	"title": {
+    "title": {
         "label": "Title",
         "placeholder": "Department title",
-		"type": "String",
-        "required": true,
-		"validators": {
+        "type": "String",
+        "validators": {
+            "required": {
+                "message": "Field is required",
+                "creator": ["value", "return value !== ''"]
+            },
             "length": {
                 "params": [6, 64],
-                "message":"Title must be bigger than 6 and smaller than 64 chars",
+                "message": "Title must be bigger than 6 and smaller than 64 chars",
                 "creator": ["value", "minLength", "maxLength", "return value.length >= minLength && value.length <= maxLength"]
             }
-		}
-	},
-	"type": {
-        "label": "Type department",
+        }
+    },
+    "type": {
+        "label": "Department type",
         "description": "Select type from available options",
-		"type": "String",
+        "type": "String",
         "allowedValues": ["administrative", "financial", "general"],
         "value": "general"
-	},
-	"secret": {
+    },
+    "secret": {
         "label": "Secret",
         "description": "A secret word, every department worker must know",
-		"type": "String",
+        "type": "String",
         "noEcho": true
-	},
-	"magic": {
+    },
+    "magic": {
         "label": "Type of magic",
         "description": "Type of magic the department works on",
-		"validators": {
+        "validators": {
             "active": {
-                "message":"Sorry, only white magic is allowed",
+                "message": "Sorry, only white magic is allowed",
                 "creator": ["value", "return value === 'white'"]
             }
-		},
-		"type": "String",
+        },
+        "type": "String",
         "allowedValues": ["black", "white"],
         "value": "white"
-	},
-	"active": {
+    },
+    "active": {
         "label": "Active",
         "value": true,
         "description": "Whether department is working or not",
-		"validators": {
+        "validators": {
             "active": {
-                "message":"You are not allowed to create inactive departments",
+                "message": "You are not allowed to create inactive departments",
                 "creator": ["value", "return value"]
             }
-		},
-		"type": "Boolean"
-	},
-	"computersUsed": {
+        },
+        "type": "Boolean"
+    },
+    "computersUsed": {
         "label": "Number of computers",
-		"type": "Number",
-		"validators": {
+        "type": "Nudmber",
+        "validators": {
             "typeNum": {
-                "message":"Must be an integer number",
+                "message": "Must be an integer number",
                 "creator": ["value", "return /^[1-9]{1}[0-9]*$/.test(value)"]
             },
             "countMin": {
                 "params": [5],
-                "message":"There must be at least 5 computers",
+                "message": "There must be at least 5 computers",
                 "creator": ["value", "min", "return value >= min"]
             }
-		}
-	},
-	"description": {
+        }
+    },
+    "description": {
         "label": "Description",
-		"type": "Text"
-	}
+        "type": "Text"
+    }
 }
