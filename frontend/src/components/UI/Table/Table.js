@@ -256,6 +256,15 @@ export class Table extends Component {
                     </td>
                 </tr>;
 
+			//Where do we apply formatters?
+			const formatters = {};
+			for (const col of data.cols) {
+				if (col.formatter) {
+					const f = new Function(...col.formatter.creator);
+					formatters[col.name] = f(...col.formatter.params);
+				}
+			}
+
             //body
             let tbody = [];
             for (let i = pageFirstRow; i < pageLastRow; i++) {
@@ -264,8 +273,17 @@ export class Table extends Component {
                 const row = data.rows[i];
 
                 for (var col in row) {
-                    if (row.hasOwnProperty(col)) {
-                        cells.push(<td key={`td${i}${col}`}>{row[col]}</td>);
+					if (formatters.hasOwnProperty(col)) {
+						row[col] = formatters[col](row);
+					}
+
+					if (row.hasOwnProperty(col)) {
+						// TODO: render html as html
+						if ( row[col] !== null && row[col].hasOwnProperty('html') ) {
+							cells.push(<td key={`td${i}${col}`}>{row[col].html}</td>);
+						} else {
+							cells.push(<td key={`td${i}${col}`}>{row[col]}</td>);
+						}
                     } else {
                         cells.push(<td key={`td${i}${col}`}></td>);
                     }
