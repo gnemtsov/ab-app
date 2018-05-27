@@ -1,5 +1,5 @@
 # AB-APP
-AWS serverless app blueprint.
+AWS serverless app boilerplate.
 This is a simple, but powerfull approach to create serverless applications in AWS. Your can use AB-APP as a starting point for creating your own applications.
 
 AB-APP architecture
@@ -8,17 +8,32 @@ AB-APP architecture
 App has two main folders: **backend** and **frontend**. Backend folder contains backend code and frontend contains static content (frontend code). AB-APP backend is written in Node.js. AB-APP frontend is written with React, Redux and Redux-Saga.
 
 Features implemented:
-1. JWT authentication with tokens refresh
-2. Tables (backend logic + React component with pagination, row selection, sorting and csv export)
+1. **JWT authentication** with tokens refresh
+2. **Tables** with pagination, row selection, sorting and csv export
+3. **Forms** with live, backend-frontend consistent validation
 
-Demo app is a site of "Scientific Research Institute of Sorcery and Wizardry" from the famous novel by Boris and Arkady Strugatsky "Monday Begins on Saturday". App exposes the list of institute departments for authenticated users.
+AB-APP is a site of fictional "Scientific Research Institute of Sorcery and Wizardry" from the famous novel by Boris and Arkady Strugatsky "Monday Begins on Saturday". AB-APP exposes the list of institute departments for authenticated users.
 
 ## Installation
 1. Install database (MariaDB), Node.js, NPM, docker, [sam-local](https://github.com/awslabs/aws-sam-local) and [Redux DevTools extension](https://github.com/zalmoxisus/redux-devtools-extension)
-2. Git clone project source
+2. Git clone or download project source
 3. Run `npm install` both in frontend and backend folders
-4. Import mysql.dump.sql in your MariaDB instance, set your local DB instance IP in backend/index.js
-5. Create user **abapp** with password **abapp** in your mysql.user table and give appropriate rights to allow lambda backend to connect and work with your DB
+4. Import mysql.dump.sql in your MariaDB instance
+5. Create file `backend/.env` with the following content (replace DB_HOST with IP of your local DB instance):
+```
+#Environment
+PROD=false
+
+#Token secret
+SECRET="SOME_SECRET_CODE_672967256"
+
+#DB
+DB_HOST="192.168.1.5"
+DB_NAME="abapp"
+DB_USER="abapp"
+DB_PASSWORD="abapp"
+```
+6. Create user **abapp** with password **abapp** in your mysql.user table and give appropriate rights to allow lambda backend to connect and work with your DB
 
 ## Starting AB-APP locally
 1. Run docker and then run `sam local start-api` to start local API Gateway (set --docker-volume-basedir parameter to your .../backend dir, if you use remote docker)
