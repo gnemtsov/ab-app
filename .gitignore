@@ -2,4 +2,3 @@
 .vscode/
 *node_modules/
 npm-debug.log
-backend/config
