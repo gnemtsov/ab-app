@@ -4,8 +4,12 @@ const jwt = require('jsonwebtoken');
 
 //process.env.PROD and other env.vars are set in production only
 if(process.env.PROD === undefined){
-    process.env = require('config/main.json');
     process.env.PROD = 0;
+    process.env.SECRET = 'SOME_SECRET_CODE_672967256';
+    process.env.DB_HOST = '192.168.1.5';
+    process.env.DB_NAME = 'abapp';
+    process.env.DB_USER = 'abapp';
+    process.env.DB_PASSWORD = 'abapp';
 }
 
 //core modules

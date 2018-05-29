@@ -1,7 +1,0 @@
-{
-    "SECRET": "SOME_SECRET_CODE_672967256",
-    "DB_HOST": "192.168.1.67",
-    "DB_NAME": "abapp",
-    "DB_USER": "abapp",
-    "DB_PASSWORD": "abapp"
-}
