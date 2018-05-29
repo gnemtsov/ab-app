@@ -1,0 +1,6 @@
+.Form input[type="text"],
+.Form input[type="password"],
+.Form select,
+.Form textarea {
+    font-family: 'Arimo', sans-serif;
+}

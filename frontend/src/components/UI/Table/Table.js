@@ -40,6 +40,7 @@ export class Table extends Component {
         const totalRows = data.rows.length;
         const totalPages = Math.ceil(totalRows / data.conf.rowsPerPage);
 
+        //apply default sorting
         let defaultSortParams = [];
         let sortCols = data.cols.filter(col => col.sortDirection !== undefined);
         if (sortCols.length) {
@@ -57,6 +58,15 @@ export class Table extends Component {
             data.rows = utility.multiSort(data.rows, cols, dirs);
         }
 
+        //make functions out of formatters
+        data.cols = data.cols.map((col) => {
+            if (col.hasOwnProperty('frontendFormatter')) {
+                col.frontendFormatter = new Function("return " + col.frontendFormatter)();
+            }
+            return col;
+        });
+
+        //update component state
         this.state = {
             ...this.state,
             data,
@@ -225,7 +235,7 @@ export class Table extends Component {
 
             //head
             let thead = [];
-            data.cols.forEach((col, key) => {
+            for (const col of data.cols) {
                 let sortObj = this.state.sortParams.find(el => el.name === col.name);
                 let sort = '';
                 if (sortObj !== undefined) {
@@ -237,19 +247,19 @@ export class Table extends Component {
                 }
                 cells.push(
                     <th
-                        key={`th${key}`}
+                        key={`th${col.name}`}
                         onMouseDown={event => this.headerMouseDownHandler(event, col.name)}>
                         {[col.title, sort]}
                     </th>
                 );
-            });
+            };
             thead = <tr key="thr">{cells}</tr>;
 
             //footer
             let tfoot =
                 <tr key="tfr">
                     <td colSpan={totalCols}>
-                        <div class={classes.Footer}>
+                        <div className={classes.Footer}>
                             <div>Rows {pageFirstRow + 1} to {pageLastRow} of {totalRows}</div>
                             <Paginator currentPage={this.state.currentPage} totalPages={this.state.totalPages} pageClickHandler={this.pageClickHandler} />
                         </div>
@@ -263,11 +273,24 @@ export class Table extends Component {
                 cells = [];
                 const row = data.rows[i];
 
-                for (var col in row) {
-                    if (row.hasOwnProperty(col)) {
-                        cells.push(<td key={`td${i}${col}`}>{row[col]}</td>);
+                for (const col of data.cols) {
+                    const tdKey = `td${i}${col.name}`;
+                    if (col.hasOwnProperty('frontendFormatter')) {
+                        cells.push(
+                            <td
+                                key={tdKey}
+                                dangerouslySetInnerHTML={{__html: col.frontendFormatter(col, row)}}>
+                            </td>
+                        );
+                    } else if (col.html) {
+                        cells.push(
+                            <td
+                                key={tdKey}
+                                dangerouslySetInnerHTML={{__html:row[col.name]}}>
+                            </td>
+                        );
                     } else {
-                        cells.push(<td key={`td${i}${col}`}></td>);
+                        cells.push(<td key={tdKey}>{row[col.name]}</td>);
                     }
                 }
 

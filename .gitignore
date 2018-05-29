@@ -1,4 +1,7 @@
+.env
 .idea/
 .vscode/
 *node_modules/
 npm-debug.log
+start-commands.txt
+abappDev.config.json

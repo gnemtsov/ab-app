@@ -1,34 +1,56 @@
 'use strict';
 
-const fs = require("fs");
-const { DB } = require('index');
+//TODO We'd better check that params.length equals parameters count in query.
 
-exports.getAsObject = tableName => {
+const fs = require('fs');
+const DB = require('core/db');
+const FORMATTERS = require('tables/formatters');
 
-    const description = JSON.parse(fs.readFileSync(`tables/descriptions/${tableName}.json`, 'utf8'));
+exports.getAsObject = (tableName, params) => {
     const sql = fs.readFileSync(`tables/sql/${tableName}.sql`, 'utf8');
 
-    let table = {
-        rows: [],
-        cols: [],
-        order: []
-    };
+    return DB.then(conn => conn.execute(sql, params))
+        .then(([rows, fields]) => {
+            const config = require(`tables/configs/${tableName}.json`);
 
-    //make cols and order arrays
-    //TODO
+            let table = {
+                cols: [],
+                rows: [],
+            };
 
-    //get data from database
-    DB.query(
-        sql,
+            //prepare cols for frontend
+            for (const col of config) {
+                let frontendCol = {};
 
-        (error, result) => {
-            if (error) {
-                throw error;
-            } else {
-                ////build array with results
-                //TODO 
-                return table;
+                const frontendAllowed = ['name', 'title', 'defaultContent', 'sortOrder', 'sortDirection', 'frontendFormatter'];
+                for (const key of frontendAllowed) {
+                    if (col[key] !== undefined) {
+                        frontendCol[key] =
+                            key === 'frontendFormatter' ?
+                                FORMATTERS[col[key]] :
+                                col[key];
+                    }
+                }
+
+                frontendCol.html = col['backendFormatter'] !== undefined;
+
+                table.cols.push(frontendCol);
             }
-        }
-    );   
+
+            //prepare rows for frontend
+            for (const row of rows) {
+                const frontendRow = {};
+
+                for (const col of config) {
+                    frontendRow[col.name] =
+                        col.hasOwnProperty('backendFormatter') ?
+                            FORMATTERS[col.backendFormatter](col, row) :
+                            row[col.name];
+                }
+
+                table.rows.push(frontendRow);
+            }
+
+            return table;
+        });
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 
 //database connection
 if (typeof DBC === 'undefined' || DBC === null) {
@@ -10,7 +10,6 @@ if (typeof DBC === 'undefined' || DBC === null) {
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME
     });
-    DBC.connect();
 }
 
 module.exports = DBC;

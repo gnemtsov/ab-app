@@ -1,0 +1,36 @@
+[
+    {
+        "title": "ID",
+        "name": "d_id",
+        "sortOrder": 2,
+        "sortDirection": "DESC"
+    },
+    {
+        "title": "Title",
+        "name": "d_title",
+        "sortOrder": 1,
+        "sortDirection": "ASC",
+        "defaultContent": "Title example",
+        "frontendFormatter": "departmentLinker"
+    },
+    {
+        "title": "Head",
+        "name": "d_head",
+        "defaultContent": "Head example"
+    },
+    {
+        "title": "Size",
+        "name": "d_size",
+        "defaultContent": "Name example"
+    },
+    {
+        "title": "Created",
+        "name": "d_created",
+        "defaultContent": "2018-04-28"
+    },
+    {
+		"title": "2+2 (backend test)",
+		"name": "d_link_backend",
+        "backendFormatter": "backendTestFormatter"
+	}
+]
