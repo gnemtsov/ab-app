@@ -23,24 +23,40 @@ module.exports = () => {
     //Method: GET
     //Params: -
     //Returns form config for adding department
-    api.add.GET = (event, context, callback) => {		
-		FORM.getAsObject('departments')
-			.then( (formData) => {
-				callback(null, HTTP.response(200, formData));
-			})
-			.catch( (httpErrResopnse) => {
-				callback(null, httpErrResponse);
-			});
-	}
+    api.add.GET = (event, context, callback) => {
+		try {
+			FORM.getAsObject('departments')
+				.then( (formData) => {
+					callback(null, HTTP.response(200, formData));
+				})
+				.catch( (httpErrResopnse) => {
+					console.log(httpErrResponse);
+					callback(null, httpErrResponse);
+				});
+		} catch(error) {
+			console.log(error);
+		}
+	};
 
     api.test = {};
     //Method: GET
     //Params: -
     //Returns form config for adding department
-    api.test.GET = (event, context, callback) => {
-        const formData = require('../forms/configs/departments_frontend.json');
-        return callback(null, HTTP.response(200, formData));
-    }
+    api.test.GET = api.add.GET;
+    api.test.POST = (event, context, callback) => {
+		console.log(event.body);
+		try {
+			const result = FORM.getValidated('departments', JSON.parse(event.body));
+			console.log(result);
+			if (result.valid) {
+				callback(null, HTTP.response(200, result));
+			} else {
+				callback(null, HTTP.response(400, result));
+			}
+		} catch(error) {
+			console.log(error);
+		}
+	};
 
     api.edit = {};
     //Method: GET

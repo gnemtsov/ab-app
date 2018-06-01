@@ -1,44 +1,59 @@
 {
-	"title": {
-		"type": "string",
+    "title": {
+		"label": "Title",
+		"placeholder": "Department title",
+		"type": "String",
 		"validators": {
-			"both": {
-				"length": [1,50]
-			} 
+			"required": ["Field is required"],
+			"length": ["Title must be bigger than 6 and smaller than 64 chars", 6, 64]
 		},
-		"db_table": "departments",
-		"db_column": "d_title"
-	},
-	"head": {
-		"type": "string",
-		"nullable": true,
+		"backend": {
+			"db_table": "departments",
+			"db_column": "d_title"
+		}
+    },
+    "type": {
+		"label": "Department type",
+		"description": "Select type from available options",
+		"value": "general",
+		"type": "String",
+		"allowedValues": ["administrative", "financial", "general"]
+    },
+    "secret": {
+		"label": "Secret",
+		"description": "A secret word, every department worker must know",
+		"noEcho": true,
+		"type": "String"
+    },
+    "magic": {
+		"label": "Type of magic",
+		"description": "Type of magic the department works on",
+		"value": "white",
 		"validators": {
-			"both": {
-				"length": [1,50]
-			} 
+			"activeWhite": ["Sorry, only white magic is allowed"]
 		},
-		"db_table": "departments",
-		"db_column": "d_head"
-	},
-	"size": {
-		"type": "number",
+		"type": "String",
+		"allowedValues": ["black", "white"]
+    },
+    "active": {
+		"label": "Active",
+		"value": true,
+		"description": "Whether department is working or not",
 		"validators": {
-			"both": {
-				"greaterOrEqual": 0
-			} 
+			"active": ["You are not allowed to create inactive departments"]
 		},
-		"db_table": "departments",
-		"db_column": "d_size"
-	},
-	"created": {
-		"type": "date",
-		"nullable": true,
+		"type": "Boolean"
+    },
+    "computersUsed": {
+		"label": "Number of computers",
+		"type": "Number",
 		"validators": {
-			"both": {
-				"after": "1900-01-01"
-			}
-		},
-		"db_table": "departments",
-		"db_column": "d_created"
-	}
+			"typeNum": ["Must be an integer number"],
+			"countMin": ["There must be at least 5 computers", 5]
+		}
+    },
+    "description": {
+		"label": "Description",
+		"type": "Text"
+    }
 }

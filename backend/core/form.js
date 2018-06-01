@@ -2,12 +2,14 @@
 
 const fs = require("fs");
 const DB = require('core/db');
+const VALIDATORS = require('forms/validators');
 
 // tables - {"table_name_1": "row_id_1", "table_name_2": "row_id_2", ...}
 // returns promise: Ok - frontendConfig, Error - HTTP response
 exports.getAsObject = (formName, tables) => {
-	// Loading full config from file
-	const fullConfig = require(`forms/configs/${formName}.json`);
+	// Loading backend config from file
+	const backendConfig = require(`forms/configs/${formName}.json`);
+	console.log('getAsObject', backendConfig);
 
 	// If no "tables" object was given, no DB call will happen
 	let dataPromise = Promise.resolve(null);
@@ -53,15 +55,65 @@ exports.getAsObject = (formName, tables) => {
 			console.log('data = ', data);
 					
 			let frontendConfig = {};
-			for (let fieldName in fullConfig) {
-				if ( !fullConfig.hasOwnProperty(fieldName) ) {
+			for (const fieldName in backendConfig) {
+				const backendField = backendConfig[fieldName];
+				const frontendField = {};
+				frontendConfig[fieldName] = frontendField;
+				
+				console.log('field = ', backendField);
+					
+				for (const propertyName in backendField) {
+					console.log('propertyName = ', propertyName);
+					
+					if ( propertyName === 'backend') {
+						continue;
+					}
+					
+					if ( !backendField.hasOwnProperty(propertyName) ) {
+						continue;
+					}
+					
+					const backendProperty = backendField[propertyName];
+					
+					if (propertyName === 'validators') {
+						if ( !frontendField.hasOwnProperty('validators') ) {
+							frontendField.validators = {};
+						}
+						
+						for (const validatorName in backendProperty) {
+							console.log('validator = ', validatorName);
+							
+							const validatorFrontend = {};
+							const validatorBackend = VALIDATORS[ validatorName ];
+							const paramsFrontend = backendProperty[validatorName].slice(1);
+							
+							validatorFrontend.message = backendProperty[validatorName][0];
+							validatorFrontend.creator = [
+								...validatorBackend.params,
+								validatorBackend.f.toString().match(/function[^{]+\{([\s\S]*)\}$/)[1]
+							];
+							if (paramsFrontend.length > 0) {
+								validatorFrontend.params = paramsFrontend;
+							}
+							
+							frontendField.validators[validatorName] = validatorFrontend;
+						}
+						
+						continue;
+					}
+					
+					frontendField[propertyName] = backendProperty;
+				}
+			}
+			/*for (let fieldName in backendConfig) {
+				if ( !backendConfig.hasOwnProperty(fieldName) ) {
 					continue;
 				}
 				
 				// For each field taking only properties needed for client
 				let frontendField = {};
 				frontendConfig[fieldName] = frontendField;
-				const field = fullConfig[fieldName];
+				const field = backendConfig[fieldName];
 				
 				if ( field.hasOwnProperty('type') ) {
 					frontendField.type = field.type;
@@ -71,9 +123,9 @@ exports.getAsObject = (formName, tables) => {
 					frontendField.nullable = field.nullable;
 				}
 				
-				// Unlike fullConfig from *.json,
+				// Unlike backendConfig from *.json,
 				// frontendConfig's validators don't have 'both' and 'backend' subobjects
-				// frontendConfig's validators are fullConfig's validators.both
+				// frontendConfig's validators are backendConfig's validators.both
 				if ( field.hasOwnProperty('validators') ) {
 					const validators = field.validators;
 					
@@ -96,7 +148,102 @@ exports.getAsObject = (formName, tables) => {
 						}
 					}
 				}
-			}
+				
+			}*/
+			console.log(frontendConfig);
 			return frontendConfig;
 		});
+};
+
+exports.getValidated = (formName, data) => {
+	const backendConfig = require(`forms/configs/${formName}.json`);
+	
+	data.valid = true;
+	const errorFields = {
+		valid: false
+	};
+	
+	for (const fieldName in backendConfig) {
+		if ( !backendConfig.hasOwnProperty(fieldName) ) {
+			// ok
+			continue;
+		}
+		
+		if ( !data.hasOwnProperty(fieldName) ) {
+			// not ok
+			errorFields[fieldName] = 'Field not found';
+			data.valid = false;
+			continue;
+		}
+		
+		let wrongType = false;
+		switch (backendConfig[fieldName].type) {
+			case 'String':
+			case 'Text':
+				wrongType = (typeof data[fieldName]) !== 'string';
+				break;
+			case 'Number':
+				wrongType = (typeof data[fieldName]) !== 'number';
+				break;
+			case 'Boolean':
+				wrongType = (typeof data[fieldName]) !== 'boolean';
+				break;
+			default:
+				wrongType = true;
+		}
+		
+		if (wrongType) {
+			// not ok
+			errorFields[fieldName] = 'Wrong type';
+			data.valid = false;
+			continue;			
+		}
+		
+		if (backendConfig[fieldName].hasOwnProperty('allowedValues')) {
+			if ( !backendConfig[fieldName].alloowedValues.includes(data[fieldName]) ) {
+				// not ok
+				errorFields[fieldName] = 'Wrong value';
+				data.valid = false;
+				continue;				
+			}
+		}
+		
+		let validators = {};
+		if (backendConfig[fieldName].hasOwnProperty('validators')) {
+			for (const validatorName in backendConfig[fieldName].validators) {
+				validators[validatorName] = backendConfig[fieldName].validators[validatorName];
+			}
+		}
+		if (backendConfig[fieldName].hasOwnProperty('backend') && backendConfig[fieldName].backend.hasOwnProperty('validators')) {
+			for (const validatorName in backendConfig[fieldName].backend.validators) {
+				validators[validatorName] = backendConfig[fieldName].backend.validators[validatorName];
+			}
+		}
+		
+		let validatorFail = null;
+		for (const validatorName in validators) {
+			const validatorData = validators[validatorName];
+			const validator = VALIDATORS[validatorName];
+			
+			console.log(validatorData.slice(1));
+			const params = validatorData.slice(1);
+			const validationResult = validator.f( data[fieldName], ...params );
+			if (validationResult !== true) {
+				validatorFail = validatorData[0];
+				break;
+			}
+		}
+		if (validatorFail !== null) {
+			// not ok
+			errorFields[fieldName] = validatorFail;
+			data.valid = false;
+			continue;				
+		}
+	}
+	
+	if (data.valid) {
+		return data;
+	} else {
+		return errorFields;
+	}
 };
