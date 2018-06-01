@@ -9,7 +9,6 @@ const VALIDATORS = require('forms/validators');
 exports.getAsObject = (formName, tables) => {
 	// Loading backend config from file
 	const backendConfig = require(`forms/configs/${formName}.json`);
-	console.log('getAsObject', backendConfig);
 
 	// If no "tables" object was given, no DB call will happen
 	let dataPromise = Promise.resolve(null);
@@ -51,19 +50,14 @@ exports.getAsObject = (formName, tables) => {
 	}
 
 	return dataPromise
-		.then( (data) => {
-			console.log('data = ', data);
-					
+		.then( (data) => {					
 			let frontendConfig = {};
 			for (const fieldName in backendConfig) {
 				const backendField = backendConfig[fieldName];
 				const frontendField = {};
 				frontendConfig[fieldName] = frontendField;
-				
-				console.log('field = ', backendField);
 					
 				for (const propertyName in backendField) {
-					console.log('propertyName = ', propertyName);
 					
 					if ( propertyName === 'backend') {
 						continue;
@@ -81,20 +75,17 @@ exports.getAsObject = (formName, tables) => {
 						}
 						
 						for (const validatorName in backendProperty) {
-							console.log('validator = ', validatorName);
 							
 							const validatorFrontend = {};
 							const validatorBackend = VALIDATORS[ validatorName ];
 							const paramsFrontend = backendProperty[validatorName].slice(1);
 							
 							validatorFrontend.message = backendProperty[validatorName][0];
-							validatorFrontend.creator = [
-								...validatorBackend.params,
-								validatorBackend.f.toString().match(/function[^{]+\{([\s\S]*)\}$/)[1]
-							];
+							validatorFrontend.f = validatorBackend.toString();
 							if (paramsFrontend.length > 0) {
 								validatorFrontend.params = paramsFrontend;
 							}
+							
 							
 							frontendField.validators[validatorName] = validatorFrontend;
 						}
@@ -105,52 +96,6 @@ exports.getAsObject = (formName, tables) => {
 					frontendField[propertyName] = backendProperty;
 				}
 			}
-			/*for (let fieldName in backendConfig) {
-				if ( !backendConfig.hasOwnProperty(fieldName) ) {
-					continue;
-				}
-				
-				// For each field taking only properties needed for client
-				let frontendField = {};
-				frontendConfig[fieldName] = frontendField;
-				const field = backendConfig[fieldName];
-				
-				if ( field.hasOwnProperty('type') ) {
-					frontendField.type = field.type;
-				}
-
-				if ( field.hasOwnProperty('nullable') ) {
-					frontendField.nullable = field.nullable;
-				}
-				
-				// Unlike backendConfig from *.json,
-				// frontendConfig's validators don't have 'both' and 'backend' subobjects
-				// frontendConfig's validators are backendConfig's validators.both
-				if ( field.hasOwnProperty('validators') ) {
-					const validators = field.validators;
-					
-					if ( validators.hasOwnProperty('both') ) {
-						frontendField.validators = validators.both;
-					}
-				}
-				
-				// Setting frontendField.value if data is provided
-				if (data) {
-					if ( field.hasOwnProperty('db_table') ) {
-						const db_table = field.db_table;
-						
-						if ( field.hasOwnProperty('db_column') ) {
-							const db_column = field.db_column;
-							
-							if ( data.hasOwnProperty(db_table) && data[db_table].hasOwnProperty(db_column) ) {
-								frontendField.value = data[db_table][db_column];
-							}
-						}
-					}
-				}
-				
-			}*/
-			console.log(frontendConfig);
 			return frontendConfig;
 		});
 };
@@ -200,7 +145,7 @@ exports.getValidated = (formName, data) => {
 		}
 		
 		if (backendConfig[fieldName].hasOwnProperty('allowedValues')) {
-			if ( !backendConfig[fieldName].alloowedValues.includes(data[fieldName]) ) {
+			if ( !backendConfig[fieldName].allowedValues.includes(data[fieldName]) ) {
 				// not ok
 				errorFields[fieldName] = 'Wrong value';
 				data.valid = false;
@@ -224,10 +169,9 @@ exports.getValidated = (formName, data) => {
 		for (const validatorName in validators) {
 			const validatorData = validators[validatorName];
 			const validator = VALIDATORS[validatorName];
-			
-			console.log(validatorData.slice(1));
+
 			const params = validatorData.slice(1);
-			const validationResult = validator.f( data[fieldName], ...params );
+			const validationResult = validator( data[fieldName], ...params );
 			if (validationResult !== true) {
 				validatorFail = validatorData[0];
 				break;

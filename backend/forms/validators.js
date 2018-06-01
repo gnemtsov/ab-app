@@ -1,45 +1,15 @@
 'use strict';
 
-module.exports.length = (value, minLength, maxLength) => value.length >= minLength && value.length <= maxLength;
 
-module.exports.required = {
-	params: ['value'],
-	f: function(value) {
-		return value !== '';
-	}
-}
 
-module.exports.length = {
-	params: ['value', 'minLength', 'maxLength'],
-	f: function(value, minLength, maxLength) {
-		return value.length >= minLength && value.length <= maxLength;
-	}
-}
+module.exports.required = (value) => value !== '';
 
-module.exports.activeWhite = {
-	params: ['value'],
-	f: function(value) {
-		return value === 'white';
-	}
-}
+module.exports.length = (value, minLength, maxLength) => (value.length >= minLength) && (value.length <= maxLength);
 
-module.exports.active = {
-	params: ['value'],
-	f: function(value) {
-		return value;
-	}
-}
+module.exports.activeWhite = (value) => value === 'white';
 
-module.exports.typeNum = {
-	params: ['value'],
-	f: function(value) {
-		return /^[1-9]{1}[0-9]*$/.test(value);
-	}
-}
+module.exports.active = (value) => value;
 
-module.exports.countMin = {
-	params: ['value', 'min'],
-	f: function(value, min) {
-		return value >= min;
-	}
-}
+module.exports.typeNum = (value) => /^[1-9]{1}[0-9]*$/.test(value);
+
+module.exports.countMin = (value, min) => value >= min;
