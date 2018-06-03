@@ -24,50 +24,59 @@ module.exports = () => {
     //Params: -
     //Returns form config for adding department
     api.add.GET = (event, context, callback) => {
-        const formData = FORM.clientJSON('departments');
-        return callback(null, HTTP.response(200, formData));
-    }
+		try {
+			FORM.getAsObject('departments')
+				.then( (formData) => {
+					callback(null, HTTP.response(200, formData));
+				})
+				.catch( (httpErrResopnse) => {
+					console.log(httpErrResponse);
+					callback(null, httpErrResponse);
+				});
+		} catch(error) {
+			console.log(error);
+		}
+	};
 
     api.test = {};
     //Method: GET
     //Params: -
     //Returns form config for adding department
-    api.test.GET = (event, context, callback) => {
-        const formData = require('../forms/configs/departments_frontend.json');
-        return callback(null, HTTP.response(200, formData));
-    }
+    api.test.GET = api.add.GET;
+    api.test.POST = (event, context, callback) => {
+		console.log(event.body);
+		try {
+			const result = FORM.getValidated('departments', JSON.parse(event.body));
+			console.log(result);
+			if (result.valid) {
+				callback(null, HTTP.response(200, result));
+			} else {
+				callback(null, HTTP.response(400, result));
+			}
+		} catch(error) {
+			console.log(error);
+		}
+	};
 
     api.edit = {};
     //Method: GET
     //Params: id
     //Returns form config for editing department with specified id
-    api.edit.GET = (event, context, callback) => {
-        if (!event.queryStringParameters.hasOwnProperty('id')) {
-            return callback(null, HTTP.response(422));
-        }
+	api.edit.GET = (event, context, callback) => {
+		if ( !event.queryStringParameters.hasOwnProperty('id') ) {
+			return callback(null, HTTP.response(400));
+		}
+		
+		const id = event.queryStringParameters['id'];
 
-        const id = event.queryStringParameters['id'];
-        DB.execute(
-            'SELECT * FROM `departments` WHERE d_id = ?',
-            [id],
-
-            (error, result) => {
-                if (error) {
-                    return callback(null, HTTP.response(500));
-                } else {
-                    if (result.length === 0) {
-                        return callback(null, HTTP.response(404));
-                    }
-
-                    const formData = FORM.clientJSON('departments', {
-                        departments: result[0]
-                    });
-
-                    return callback(null, HTTP.response(200, formData));
-                }
-            }
-        );
-    }
+		FORM.getAsObject('departments', {departments: id})
+			.then( (formData) => {
+				callback(null, HTTP.response(200, formData));
+			})
+			.catch( (httpErrResopnse) => {
+				callback(null, httpErrResponse);
+			});
+	}
 
     return api;
 }

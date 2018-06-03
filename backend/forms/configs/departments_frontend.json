@@ -32,7 +32,7 @@
         "label": "Type of magic",
         "description": "Type of magic the department works on",
         "validators": {
-            "active": {
+            "activeWhite": {
                 "message": "Sorry, only white magic is allowed",
                 "creator": ["value", "return value === 'white'"]
             }
@@ -55,7 +55,7 @@
     },
     "computersUsed": {
         "label": "Number of computers",
-        "type": "Nudmber",
+        "type": "Number",
         "validators": {
             "typeNum": {
                 "message": "Must be an integer number",
