@@ -1,0 +1,24 @@
+[
+    {
+        "name": "login",
+        "label": "Login",
+        "type": "String",
+        "value": "admin",
+        "required": true,
+        "validators": [
+            {
+                "message": "Title must be bigger than 4 and smaller than 32 chars",
+                "params": [4, 32],
+                "f": "(value, minLength, maxLength) => (value.length >= minLength) && (value.length <= maxLength)"
+            }
+        ]
+    },
+    {
+        "name": "password",
+        "label": "Password",
+        "noEcho": true,
+        "type": "String",
+        "value": "abapp",
+        "required": true
+    }
+]

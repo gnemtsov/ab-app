@@ -13,30 +13,13 @@ const parseToken = (accessToken) => {
 
 export function* logIn(action) {
     console.log('Saga, Auth, logIn: logging in..');
+    const tokens = action.tokens;
+    const tokenData = parseToken(tokens.accessToken);
     yield put({
-        type: actionTypes.R_LOGIN_START
+        type: actionTypes.S_LOGGEDIN,
+        tokens: tokens,
+        tokenData: tokenData
     });
-
-    const authData = {
-        login: action.login,
-        password: action.password
-    };
-
-    try {
-        const response = yield axios.post('/auth/login', authData);
-        const tokens = response.data;
-        const tokenData = parseToken(tokens.accessToken);
-        yield put({
-            type: actionTypes.S_LOGGEDIN,
-            tokens: tokens,
-            tokenData: tokenData
-        });
-    } catch (error) {
-        yield put({
-            type: actionTypes.R_LOGIN_FAIL,
-            error: error.response.data.error
-        });
-    }
 }
 
 export function* loggedIn(action) {

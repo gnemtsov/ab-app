@@ -9,35 +9,17 @@ const initialState = {
     timezone: null,
     iat: null,
     exp: null,
-    sub: null,
-    error: null,
-    loading: false
+    sub: null
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.R_LOGIN_START:
-            return {
-                ...state,
-                error: null,
-                loading: true
-            }
-
-        case actionTypes.R_LOGIN_FAIL:
-            return {
-                ...state,
-                error: action.error,
-                loading: false
-            }
-
         case actionTypes.R_LOGIN_SUCCESS:
             return {
                 ...state,
                 ...action.tokens,
                 ...action.tokenData,
-                isAuthenticated: true,
-                error: null,
-                loading: false
+                isAuthenticated: true
             }
 
         case actionTypes.R_LOGOUT:

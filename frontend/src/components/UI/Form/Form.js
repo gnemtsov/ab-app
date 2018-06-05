@@ -3,40 +3,44 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import AbForm from 'react-ab-form';
 
+import Aux from '../../../hoc/Auxillary/Auxillary';
 import Spinner from '../Spinner/Spinner';
 import Icon from '../Icon/Icon';
 import classes from './Form.css';
 
 export class Form extends Component {
 
-    submitHandler = (event) => {
-        axios.post(this.props.api).then((result) => {
-            console.log(result.data);
-        });
-    }
+    state = { fields: null }
 
     componentDidMount() {
-        axios.get(this.props.api).then((result) => {
-            this.setState({
-                ...result.data
-            });
-        });
+        axios.get(this.props.api)
+            .then(result => this.setState({ fields: result.data }));
     }
 
     render() {
         let form = <Spinner />;
 
-        if (this.state !== null) {
-            const infoIcon = <Icon name="info" width="26" height="26" stroke="#666666" />;
+        if (this.state.fields !== null) {
+            const data = {
+                conf: {
+                    className: classes.Form,
+                    infoIcon: <Icon name="info" width="26" height="26" stroke="#666666" />,
+                    submitHandler:
+                        values => axios.post(this.props.api, values)
+                            .then(response => this.props.submitted(response.data))
+                },
+                fields: this.state.fields
+            }
 
-            form =
-                <AbForm
-                    data={this.state}
-                    className={classes.Form}
-                    infoIcon={infoIcon} />;
+            form = <AbForm data={data} />;
         }
 
-        return form;
+        return (
+            <Aux>
+                <h1>{this.props.title}</h1>
+                {form}
+            </Aux>
+        );
     }
 }
 

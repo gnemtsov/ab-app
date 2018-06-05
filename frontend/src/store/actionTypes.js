@@ -1,8 +1,6 @@
 /************auth***************/
 //reducer
-export const R_LOGIN_START = 'R_LOGIN_START';
 export const R_LOGIN_SUCCESS = 'R_LOGIN_SUCCESS';
-export const R_LOGIN_FAIL = 'R_LOGIN_FAIL';
 export const R_LOGOUT = 'R_LOGOUT';
 //saga
 export const S_LOGIN = 'S_LOGIN';
