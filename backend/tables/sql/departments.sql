@@ -1,1 +1,1 @@
-SELECT * FROM `departments` WHERE `d_size` > ?
+SELECT * FROM `departments`

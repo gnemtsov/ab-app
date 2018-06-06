@@ -1,25 +1,26 @@
 'use strict';
 
-//TODO We'd better check that params.length equals parameters count in query.
-
 const fs = require('fs');
 const DB = require('core/db');
 const FORMATTERS = require('tables/formatters');
 
-exports.getAsObject = (tableName, params) => {
+exports.getAsObject = (tableName, params=[]) => {
     const sql = fs.readFileSync(`tables/sql/${tableName}.sql`, 'utf8');
 
     return DB.then(conn => conn.execute(sql, params))
         .then(([rows, fields]) => {
-            const config = require(`tables/configs/${tableName}.json`);
+            const cols = require(`tables/${tableName}.json`);
 
             let table = {
+                conf: {
+                    selectable: true
+                },
                 cols: [],
                 rows: [],
             };
 
             //prepare cols for frontend
-            for (const col of config) {
+            for (const col of cols) {
                 let frontendCol = {};
 
                 const frontendAllowed = ['name', 'title', 'defaultContent', 'sortOrder', 'sortDirection', 'frontendFormatter'];
@@ -41,7 +42,7 @@ exports.getAsObject = (tableName, params) => {
             for (const row of rows) {
                 const frontendRow = {};
 
-                for (const col of config) {
+                for (const col of cols) {
                     frontendRow[col.name] =
                         col.hasOwnProperty('backendFormatter') ?
                             FORMATTERS[col.backendFormatter](col, row) :

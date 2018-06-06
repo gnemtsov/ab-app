@@ -15,7 +15,7 @@ module.exports = () => {
     //Params: -
     //Returns departments list for authenticated users
     api.list.GET = (event, context, callback) => {
-        TABLE.getAsObject('departments', [13])
+        TABLE.getAsObject('departments')
             .then(table => callback(null, HTTP.response(200, table)));
     }
 
