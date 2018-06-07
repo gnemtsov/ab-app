@@ -89,24 +89,31 @@ exports.isValid = (formName, data) => {
 	const backendConfig = require(`forms/${formName}.json`);
 	
 	for (const backendField of backendConfig) {
-		const fieldName = backendField.name;
+		// TODO
+		const {
+			name,
+			required,
+			type,
+			allowedValues,
+			validators
+		} = backendField;
 		
-		if ( !data.hasOwnProperty(fieldName) ) {
+		if ( !data.hasOwnProperty(name) && required) {
 			// not ok
-			return exports.invalidField(fieldName, 'Field not found');
+			return exports.invalidField(name, 'Field not found');
 		}
 		
 		let wrongType = false;
-		switch (backendField.type) {
+		switch (type) {
 			case 'String':
 			case 'Text':
-				wrongType = (typeof data[fieldName]) !== 'string';
+				wrongType = (typeof data[name]) !== 'string';
 				break;
 			case 'Number':
-				wrongType = isNaN(data[fieldName]);
+				wrongType = !(/^[1-9]{1}[0-9]*$/.test(data[name]));
 				break;
 			case 'Boolean':
-				wrongType = (data[fieldName] != 'true') && (data[fieldName] != 'false');
+				wrongType = (data[name] !== true) && (data[name] !== false);
 				break;
 			default:
 				wrongType = true;
@@ -114,25 +121,13 @@ exports.isValid = (formName, data) => {
 		
 		if (wrongType) {
 			// not ok
-			return exports.invalidField(fieldName, 'Wrong type');	
+			return exports.invalidField(name, 'Wrong type');	
 		}
 		
-		if (backendField.hasOwnProperty('allowedValues')) {
-			if ( !backendField.allowedValues.includes(data[fieldName]) ) {
+		if (allowedValues) {
+			if ( !allowedValues.includes(data[name]) ) {
 				// not ok
-				return exports.invalidField(fieldName, 'Wrong value');	
-			}
-		}
-		
-		let validators = {};
-		if (backendField.hasOwnProperty('validators')) {
-			for (const validatorName in backendField.validators) {
-				validators[validatorName] = backendField.validators[validatorName];
-			}
-		}
-		if (backendField.hasOwnProperty('backend') && backendField.backend.hasOwnProperty('validators')) {
-			for (const validatorName in backendField.backend.validators) {
-				validators[validatorName] = backendField.backend.validators[validatorName];
+				return exports.invalidField(name, 'Wrong value');	
 			}
 		}
 		
@@ -142,7 +137,7 @@ exports.isValid = (formName, data) => {
 			const validator = VALIDATORS[validatorName];
 
 			const params = validatorData.slice(1);
-			const validationResult = validator( data[fieldName], ...params );
+			const validationResult = validator( data[name], ...params );
 			if (validationResult !== true) {
 				validatorFail = validatorData[0];
 				break;
@@ -150,7 +145,7 @@ exports.isValid = (formName, data) => {
 		}
 		if (validatorFail !== null) {
 			// not ok
-			return exports.invalidField(fieldName, validatorFail);			
+			return exports.invalidField(name, validatorFail);			
 		}
 	}
 	

@@ -37,7 +37,7 @@
     "raf": "3.4.0",
     "react": "^16.3.2",
     "react-ab-form": "^1.0.0",
-    "react-ab-table": "^1.0.0",
+    "react-ab-table": "^1.1.0",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
