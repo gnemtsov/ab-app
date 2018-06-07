@@ -30,7 +30,6 @@ module.exports = () => {
 					callback(null, HTTP.response(200, formData));
 				})
 				.catch( (httpErrResopnse) => {
-					console.log(httpErrResponse);
 					callback(null, httpErrResponse);
 				});
 		} catch(error) {
@@ -44,11 +43,9 @@ module.exports = () => {
     //Returns form config for adding department
     api.test.GET = api.add.GET;
     api.test.POST = (event, context, callback) => {
-		console.log(event.body);
 		try {
 			const data = JSON.parse(event.body);
 			const validationResult = FORM.isValid('departments', data);
-			console.log(validationResult);
 			if (validationResult === true) {
 				DB.then( conn => {
 					conn.execute(
@@ -79,11 +76,9 @@ module.exports = () => {
 
 		FORM.getAsObject('departments', [id])
 			.then( (formData) => {
-				console.log(formData);
 				return callback(null, HTTP.response(200, formData));
 			})
 			.catch( () => {
-				console.log('error');
 				return callback(null, HTTP.response(500));
 			});
 	}

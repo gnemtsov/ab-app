@@ -26,9 +26,7 @@ exports.getAsObject = (formName, params) => {
 	}
 
 	return dataPromise
-		.then( (data) => {
-			console.log('dataPromise:', data);
-						
+		.then( (data) => {			
 			let frontendConfig = [];
 			for (const backendField of backendConfig) {
 				
@@ -54,9 +52,7 @@ exports.getAsObject = (formName, params) => {
 					if ( !backendField.hasOwnProperty(propertyName) ) {
 						continue;
 					}
-					
-					console.log('property:', propertyName);
-					
+
 					const backendProperty = backendField[propertyName];
 					
 					if (propertyName === 'validators') {

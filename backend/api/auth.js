@@ -28,7 +28,6 @@ module.exports = () => {
     //Checks login and password, provides new tokens for valid user
     api.login.POST = (event, context, callback) => {
         const { login, password } = JSON.parse(event.body);
-        console.log(event.body);
 
         const sql = `
             SELECT u_id, u_login, u_firstname, u_lastname, u_password, u_timezone, u_access
