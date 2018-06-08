@@ -33,7 +33,7 @@ const buildErrorInfo = (err) => {
 }
 
 //main handler
-exports.handler = (event, context, callback) => {
+exports.handler = (event, context, callback) => {	
 	//Needed for global error handler 
 	Error.prepareStackTrace = (err, structuredStackTrace) => structuredStackTrace;
 	Error.stackTraceLimit = 20;
@@ -58,6 +58,11 @@ exports.handler = (event, context, callback) => {
     
     process.on('uncaughtException', (err) => {
 		handleFatalError(err);
+	});
+
+	process.on('warning', (warn) => {
+		// TODO: save warning to S3 (or somewhere else)
+		console.log( buildErrorInfo(warn) );
 	});
 
 	context.callbackWaitsForEmptyEventLoop = false;
