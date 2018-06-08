@@ -12,6 +12,7 @@ const { DB, HTTP, FORM } = require('core/index');
 
 //main handler
 exports.handler = (event, context, callback) => {
+	//Needed for global error handler 
 	Error.prepareStackTrace = (err, structuredStackTrace) => structuredStackTrace;
 	Error.stackTraceLimit = 20;
 	
