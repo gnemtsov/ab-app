@@ -18,7 +18,7 @@ exports.handler = (event, context, callback) => {
         callback(null, HTTP.response(500, {
             error: (process.env.PROD === 'true' ? 'Something went wrong' : {
                 message: err.message,
-                stack: err.stack
+                stack: err.stack.split(' at ').slice(1)
             })
         }));
     };
