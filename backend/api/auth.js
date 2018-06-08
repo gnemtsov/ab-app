@@ -18,9 +18,8 @@ module.exports = () => {
     //Params: -
     //Returns login form config
     api.login.GET = (event, context, callback) => {
-        callback(null, HTTP.response(200, require('forms/configs/login.frontend.json')))
-        //FORM.getAsObject('login')
-        //      .then(data => callback(null, HTTP.response(200, data)));
+        FORM.getAsObject('login')
+			.then(data => callback(null, HTTP.response(200, data)));
     };
 
     //Method: POST
