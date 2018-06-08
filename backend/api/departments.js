@@ -24,17 +24,10 @@ module.exports = () => {
     //Params: -
     //Returns form config for adding department
     api.add.GET = (event, context, callback) => {
-		try {
-			FORM.getAsObject('departments')
-				.then( (formData) => {
-					callback(null, HTTP.response(200, formData));
-				})
-				.catch( (httpErrResopnse) => {
-					callback(null, httpErrResponse);
-				});
-		} catch(error) {
-			console.log(error);
-		}
+		FORM.getAsObject('departments')
+			.then( (formData) => {
+				callback(null, HTTP.response(200, formData));
+			})
 	};
 
     api.test = {};
@@ -43,23 +36,19 @@ module.exports = () => {
     //Returns form config for adding department
     api.test.GET = api.add.GET;
     api.test.POST = (event, context, callback) => {
-		try {
-			const data = JSON.parse(event.body);
-			const validationResult = FORM.isValid('departments', data);
-			if (validationResult === true) {
-				DB.then( conn => {
-					conn.execute(
-						'INSERT INTO `departments` (`d_title`, `d_head`, `d_size`, `d_created`) VALUES (?, ?, ?, ?);',
-						[data.title, data.head, data.size, data.created]
-					).then( () => {
-						return callback(null, HTTP.response(200));
-					});
+		const data = JSON.parse(event.body);
+		const validationResult = FORM.isValid('departments', data);
+		if (validationResult === true) {
+			DB.then( conn => {
+				conn.execute(
+					'INSERT INTO `departments` (`d_title`, `d_head`, `d_size`, `d_created`) VALUES (?, ?, ?, ?);',
+					[data.title, data.head, data.size, data.created]
+				).then( () => {
+					return callback(null, HTTP.response(200));
 				});
-			} else {
-				return callback(null, HTTP.response(400, validationResult));
-			}
-		} catch(error) {
-			console.log(error);
+			});
+		} else {
+			return callback(null, HTTP.response(400, validationResult));
 		}
 	};
 
@@ -78,9 +67,6 @@ module.exports = () => {
 			.then( (formData) => {
 				return callback(null, HTTP.response(200, formData));
 			})
-			.catch( () => {
-				return callback(null, HTTP.response(500));
-			});
 	}
 
     return api;
