@@ -10,6 +10,28 @@ if (process.env.PROD === undefined) {
 //core modules
 const { DB, HTTP, FORM } = require('core/index');
 
+const buildErrorInfo = (err) => {
+	return {
+		message: err.message,
+		stack: err.stack.map( (c) => {
+			return {
+				This: c.getThis(),
+				TypeName: c.getTypeName(),
+				FunctionName: c.getFunctionName(),
+				MethodName: c.getMethodName(),
+				FileName: c.getMethodName(),
+				LineNumber: c.getLineNumber(),
+				ColumnNumber: c.getColumnNumber(),
+				EvalOrigin: c.getEvalOrigin(),
+				IsToplevel: c.isToplevel(),
+				IsEval: c.isEval(),
+				IsNative: c.isNative(),
+				IsConstructor: c.isConstructor()
+			};
+		})
+	};
+}
+
 //main handler
 exports.handler = (event, context, callback) => {
 	//Needed for global error handler 
@@ -22,28 +44,11 @@ exports.handler = (event, context, callback) => {
         // if c.getThis() returns a cyclic object,
         // error would be thrown in callback, and client would get 502.
         // TODO: do something
-		const errorObject = {
-			message: err.message,
-			stack: err.stack.map( (c) => {
-				return {
-					This: c.getThis(),
-					TypeName: c.getTypeName(),
-					FunctionName: c.getFunctionName(),
-					MethodName: c.getMethodName(),
-					FileName: c.getMethodName(),
-					LineNumber: c.getLineNumber(),
-					ColumnNumber: c.getColumnNumber(),
-					EvalOrigin: c.getEvalOrigin(),
-					IsToplevel: c.isToplevel(),
-					IsEval: c.isEval(),
-					IsNative: c.isNative(),
-					IsConstructor: c.isConstructor()
-				};
-			})
-		};
+		const errorInfo = buildErrorInfo(err);
+		// TODO: log errorInfo to S3
 
         callback(null, HTTP.response(500, {
-            error: (process.env.PROD === 'true' ? 'Something went wrong' : errorObject)
+            error: (process.env.PROD === 'true' ? 'Something went wrong' : errorInfo)
         }));
     };
 
