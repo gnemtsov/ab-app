@@ -1,0 +1,55 @@
+[
+    {
+		"name": "title",
+		"label": "Title",
+		"placeholder": "Department title",
+		"type": "String",
+		"required": true,
+		"validators": {
+			"length": ["Title must be bigger than 6 and smaller than 64 chars", 6, 64]
+		},
+		"backend": {
+			"db_column": "d_title"
+		}
+    },
+    {
+		"name": "head",
+		"label": "Head",
+		"placeholder": "Department head's name",
+		"type": "String",
+		"required": true,
+		"validators": {
+			"length": ["Title must be bigger than 6 and smaller than 64 chars", 6, 64]
+		},
+		"backend": {
+			"db_column": "d_head"
+		}
+    }, 
+    {
+		"name": "size",
+		"label": "Size",
+		"placeholder": "Department size",
+		"type": "Number",
+		"required": true,
+		"validators": {
+            "typeNum": ["Must be an integer number"],
+            "countMin": ["There must be at least 5 computers", 5]
+		},
+		"backend": {
+			"db_column": "d_size"
+		}
+	},
+	{
+		"name": "created",
+		"label": "Created",
+		"placeholder": "Department creation date",
+		"type": "String",
+		"required": true,
+		"validators": {
+			"isDate": ["Must be a date"]
+		},
+		"backend": {
+			"db_column": "d_created"
+		}
+	}
+]

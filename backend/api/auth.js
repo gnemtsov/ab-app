@@ -18,9 +18,8 @@ module.exports = () => {
     //Params: -
     //Returns login form config
     api.login.GET = (event, context, callback) => {
-        callback(null, HTTP.response(200, require('forms/configs/login.frontend.json')))
-        //FORM.getAsObject('login')
-        //      .then(data => callback(null, HTTP.response(200, data)));
+        FORM.getAsObject('login')
+			.then(data => callback(null, HTTP.response(200, data)));
     };
 
     //Method: POST
@@ -28,7 +27,6 @@ module.exports = () => {
     //Checks login and password, provides new tokens for valid user
     api.login.POST = (event, context, callback) => {
         const { login, password } = JSON.parse(event.body);
-        console.log(event.body);
 
         const sql = `
             SELECT u_id, u_login, u_firstname, u_lastname, u_password, u_timezone, u_access

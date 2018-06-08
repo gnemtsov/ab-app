@@ -30,7 +30,6 @@ module.exports = () => {
 					callback(null, HTTP.response(200, formData));
 				})
 				.catch( (httpErrResopnse) => {
-					console.log(httpErrResponse);
 					callback(null, httpErrResponse);
 				});
 		} catch(error) {
@@ -44,14 +43,20 @@ module.exports = () => {
     //Returns form config for adding department
     api.test.GET = api.add.GET;
     api.test.POST = (event, context, callback) => {
-		console.log(event.body);
 		try {
-			const result = FORM.getValidated('departments', JSON.parse(event.body));
-			console.log(result);
-			if (result.valid) {
-				callback(null, HTTP.response(200, result));
+			const data = JSON.parse(event.body);
+			const validationResult = FORM.isValid('departments', data);
+			if (validationResult === true) {
+				DB.then( conn => {
+					conn.execute(
+						'INSERT INTO `departments` (`d_title`, `d_head`, `d_size`, `d_created`) VALUES (?, ?, ?, ?);',
+						[data.title, data.head, data.size, data.created]
+					).then( () => {
+						return callback(null, HTTP.response(200));
+					});
+				});
 			} else {
-				callback(null, HTTP.response(400, result));
+				return callback(null, HTTP.response(400, validationResult));
 			}
 		} catch(error) {
 			console.log(error);
@@ -69,12 +74,12 @@ module.exports = () => {
 		
 		const id = event.queryStringParameters['id'];
 
-		FORM.getAsObject('departments', {departments: id})
+		FORM.getAsObject('departments', [id])
 			.then( (formData) => {
-				callback(null, HTTP.response(200, formData));
+				return callback(null, HTTP.response(200, formData));
 			})
-			.catch( (httpErrResopnse) => {
-				callback(null, httpErrResponse);
+			.catch( () => {
+				return callback(null, HTTP.response(500));
 			});
 	}
 
