@@ -1,10 +1,11 @@
-{
-    "login": {
+[
+    {
+        "name": "login",
         "label": "Login",
         "type": "String",
         "value": "admin",
+        "required": true,
         "validators": {
-            "required": ["Field is required"],
             "length": ["Title must be bigger than 4 and smaller than 32 chars", 4, 32]
         },
         "backend": {
@@ -12,17 +13,16 @@
             "db_column": "u_login"
         }
     },
-    "password": {
+    {
+        "name": "password",
         "label": "Passord",
         "noEcho": true,
         "type": "String",
         "value": "abapp",
-        "validators": {
-            "required": ["Field is required"]
-        },
+        "required": true,
         "backend": {
             "db_table": "users",
             "db_column": "u_password"
         }
     }
-}
+]
