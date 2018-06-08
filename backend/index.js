@@ -12,14 +12,37 @@ const { DB, HTTP, FORM } = require('core/index');
 
 //main handler
 exports.handler = (event, context, callback) => {
+	Error.prepareStackTrace = (err, structuredStackTrace) => structuredStackTrace;
+	Error.stackTraceLimit = 20;
+	
     //global error handler
     const handleFatalError = (err) => {
         console.error('Global error handler------------->', err, '<-------------');
+        // if c.getThis() returns a cyclic object,
+        // error would be thrown in callback, and client would get 502.
+        // TODO: do something
+		const errorObject = {
+			message: err.message,
+			stack: err.stack.map( (c) => {
+				return {
+					This: c.getThis(),
+					TypeName: c.getTypeName(),
+					FunctionName: c.getFunctionName(),
+					MethodName: c.getMethodName(),
+					FileName: c.getMethodName(),
+					LineNumber: c.getLineNumber(),
+					ColumnNumber: c.getColumnNumber(),
+					EvalOrigin: c.getEvalOrigin(),
+					IsToplevel: c.isToplevel(),
+					IsEval: c.isEval(),
+					IsNative: c.isNative(),
+					IsConstructor: c.isConstructor()
+				};
+			})
+		};
+
         callback(null, HTTP.response(500, {
-            error: (process.env.PROD === 'true' ? 'Something went wrong' : {
-                message: err.message,
-                stack: err.stack.split(' at ').slice(1)
-            })
+            error: (process.env.PROD === 'true' ? 'Something went wrong' : errorObject)
         }));
     };
 
@@ -32,48 +55,52 @@ exports.handler = (event, context, callback) => {
 	});
 
 	context.callbackWaitsForEmptyEventLoop = false;
-
-	let api;
-	const [resource, action] = event.pathParameters['proxy'].split('/');
-	const method = event.httpMethod;
-
-	//OPTIONS requests are proccessed by API GateWay using mock
-	//sam-local can't do it, so for local development we need this 
-	if (method === 'OPTIONS') {
-		return callback(null, HTTP.response(200));
-	}
-
-	//require resource module
+	
 	try {
-		api = require('api/' + resource)();
-	} catch (e) {
-		if (e.code === 'MODULE_NOT_FOUND') {
-			return callback(null, HTTP.response(404, { error: 'Resource not found.' }));
-		}
-		throw e;
-	}
+		let api;
+		const [resource, action] = event.pathParameters['proxy'].split('/');
+		const method = event.httpMethod;
 
-	//call resource action
-	if (api.hasOwnProperty(action)) {
-		//check token for protected action
-		if (api[action].protected === 1) {
-			if (event.headers['X-Access-Token'] === undefined) {
-				return callback(null, HTTP.response(403, { error: 'No token provided.' }));
+		//OPTIONS requests are proccessed by API GateWay using mock
+		//sam-local can't do it, so for local development we need this 
+		if (method === 'OPTIONS') {
+			return callback(null, HTTP.response(200));
+		}
+
+		//require resource module
+		try {
+			api = require('api/' + resource)();
+		} catch (e) {
+			if (e.code === 'MODULE_NOT_FOUND') {
+				return callback(null, HTTP.response(404, { error: 'Resource not found.' }));
 			}
-			try {
-				event.userData = jwt.verify(token, process.env.SECRET);
-			} catch (error) {
-				return callback(null, HTTP.response(403, { error: 'Failed to verify token.' }));
+			throw e;
+		}
+
+		//call resource action
+		if (api.hasOwnProperty(action)) {
+			//check token for protected action
+			if (api[action].protected === 1) {
+				if (event.headers['X-Access-Token'] === undefined) {
+					return callback(null, HTTP.response(403, { error: 'No token provided.' }));
+				}
+				try {
+					event.userData = jwt.verify(token, process.env.SECRET);
+				} catch (error) {
+					return callback(null, HTTP.response(403, { error: 'Failed to verify token.' }));
+				}
 			}
-		}
 
-		// check if this method is not allowed
-		if (!api[action].hasOwnProperty(method)) {
-			return callback(null, HTTP.response(405), { error: 'Method not allowed.' });
-		}
+			// check if this method is not allowed
+			if (!api[action].hasOwnProperty(method)) {
+				return callback(null, HTTP.response(405), { error: 'Method not allowed.' });
+			}
 
-		//finally call the api
-		return api[action][method](event, context, callback);
+			//finally call the api
+			return api[action][method](event, context, callback);
+		}
+		return callback(null, HTTP.response(404, { error: 'Action not found.' }));
+	} catch (err) {
+		handleFatalError(err);
 	}
-	return callback(null, HTTP.response(404, { error: 'Action not found.' }));
 }
