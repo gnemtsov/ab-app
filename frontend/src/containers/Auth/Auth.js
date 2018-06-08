@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import Form from '../../components/UI/Form/Form';
-import classes from './Auth.css';
 import * as actionTypes from "../../store/actionTypes";
 
 class Auth extends Component {
@@ -11,8 +10,7 @@ class Auth extends Component {
         const authRedirect = this.props.isAuthenticated ? <Redirect to="/" /> : null;
 
         return (
-            <div
-                className={classes.FormContainer}>
+            <div>
                 {authRedirect}
                 <Form
                     title="Please, authenticate"
