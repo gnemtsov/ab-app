@@ -13,34 +13,41 @@ module.exports = () => {
 
     let api = {};
 
-    api.login = { protected: 0 }; //------------------------------------> auth/login resource
+    //---------------------------------------------> auth/login    
+    api.login = { protected: 0 };
     //Method: GET
     //Params: -
     //Returns login form config
     api.login.GET = (event, context, callback) => {
         FORM.getAsObject('login')
-			.then(data => callback(null, HTTP.response(200, data)));
+            .then(fields => callback(null, HTTP.response(200, fields)));
     };
 
     //Method: POST
     //Params: login, password
     //Checks login and password, provides new tokens for valid user
     api.login.POST = (event, context, callback) => {
-        const { login, password } = JSON.parse(event.body);
+        const formData = JSON.parse(event.body);
 
+        const validationResult = FORM.isValid('login', formData);
+        if (validationResult !== true) {
+            return callback(null, HTTP.response(400, validationResult));
+        }
+
+        const { u_login, u_password } = formData;
         const sql = `
             SELECT u_id, u_login, u_firstname, u_lastname, u_password, u_timezone, u_access
             FROM users 
             WHERE u_login = ?
         `;
 
-        DB.then(conn => conn.execute(sql, [login]))
-            .then(([rows, fields]) => {
+        DB.then(conn => conn.execute(sql, [u_login]))
+            .then(([rows]) => {
                 if (!rows.length) {
                     return callback(null, HTTP.response(400, FORM.invalidField('login', 'User not found.')));
                 } else if (rows[0].u_access !== 1) {
                     return callback(null, HTTP.response(400, FORM.invalidField('login', 'Access for the user is blocked.')));
-                } else if (!bcrypt.compareSync(password, rows[0].u_password)) {
+                } else if (!bcrypt.compareSync(u_password, rows[0].u_password)) {
                     return callback(null, HTTP.response(400, FORM.invalidField('password', 'Wrong password.')));
                 } else {
                     const accessToken = jwt.sign(
@@ -69,7 +76,8 @@ module.exports = () => {
             });
     }
 
-    api.token = { protected: 0 }; //------------------------------------> auth/token resource
+    //---------------------------------------------> auth/token resource
+    api.token = { protected: 0 };
     //Method: POST
     //Params: login, refreshToken
     //Provides new access token if provided refresh token is valid and belongs to specified user
@@ -84,7 +92,7 @@ module.exports = () => {
         `;
 
         DB.then(conn => conn.execute(sql, [sub, refreshToken]))
-            .then(([rows, fields]) => {
+            .then(([rows]) => {
                 if (!rows.length || rows.length > 1) {
                     return callback(null, HTTP.response(401, { error: 'Refresh token unknown, expired or ambigous.' }));
                 } else {

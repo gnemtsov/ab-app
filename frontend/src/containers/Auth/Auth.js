@@ -15,6 +15,7 @@ class Auth extends Component {
                 <Form
                     title="Please, authenticate"
                     submitted={this.props.onAuth}
+                    buttonText={['Login', 'Logging in..']}
                     api="/auth/login" />
             </div>
         );

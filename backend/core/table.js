@@ -8,7 +8,7 @@ exports.getAsObject = (tableName, params=[]) => {
     const sql = fs.readFileSync(`tables/sql/${tableName}.sql`, 'utf8');
 
     return DB.then(conn => conn.execute(sql, params))
-        .then(([rows, fields]) => {
+        .then(([rows]) => {
             const cols = require(`tables/${tableName}.json`);
 
             let table = {

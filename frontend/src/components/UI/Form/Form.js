@@ -10,11 +10,26 @@ import classes from './Form.css';
 
 export class Form extends Component {
 
-    state = { fields: null }
+    state = {
+        saved: false,
+        fields: null
+    }
 
     componentDidMount() {
         axios.get(this.props.api)
             .then(result => this.setState({ fields: result.data }));
+    }
+
+    submitHandler = (values) => {
+        //if server responds with error it will be catched by AbForm component
+        return axios.post(this.props.api, values)
+            .then(response => {
+                if (typeof this.props.submitted === 'function') {
+                    return this.props.submitted(response.data);
+                } else {
+                    return false; //don't clear form by default
+                }
+            });
     }
 
     render() {
@@ -24,10 +39,10 @@ export class Form extends Component {
             const data = {
                 conf: {
                     className: classes.Form,
+                    submitHandler: this.submitHandler,
                     infoIcon: <Icon name="info" width="26" height="26" stroke="#666666" />,
-                    submitHandler:
-                        values => axios.post(this.props.api, values)
-                            .then(response => this.props.submitted(response.data))
+                    buttonText: this.props.buttonText,
+                    savedText: this.props.savedText
                 },
                 fields: this.state.fields
             }

@@ -1,18 +1,17 @@
 import React from 'react';
 import Form from '../../components/UI/Form/Form';
 
-import classes from './Add.css';
+import classes from './Edit.css';
 
-export default () => {
+export default (props) => {
     return (
         <div
             className={classes.FormContainer}>
             <Form
-                title="New department"
-                buttonText={['Add', 'Adding..']}
-                savedText={'Department was added!'}
+                title="Edit department"
+                buttonText={['Save', 'Saving..']}
                 submitted={() => true}
-                api="/departments/add" />
+                api={"/departments/edit" + props.location.search} />
         </div>
     );
 };
