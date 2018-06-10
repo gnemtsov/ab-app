@@ -7,7 +7,7 @@ const VALIDATORS = require('forms/validators');
 exports.getAsObject = (formName, params = []) => {
     //fetch data from DB
     const sqlFile = `forms/sql/${formName}.sql`; //sql
-    let dbFetchPromise = Promise.resolve([]);
+    let dbFetchPromise = Promise.resolve([[]]);
     if (fs.existsSync(sqlFile)) {
         const sql = fs.readFileSync(`forms/sql/${formName}.sql`, 'utf8');
         dbFetchPromise = DB.then(conn => conn.execute(sql, params));

@@ -1,18 +1,20 @@
 'use strict';
 
 exports.response = (code = 200, body = {}) => {
-
-    if([400, 401, 403, 404, 500].indexOf(code) !== -1 && body.error === undefined){
+    if([400, 401, 403, 404, 405, 500].indexOf(code) !== -1 && body.error === undefined){
         switch(code){
-            case 400: body.error = 'Bad request (invalid content or params)'; break;
-            case 401: body.error = 'Not authorized'; break;
-            case 403: body.error = 'Not authenticated'; break;
-            case 404: body.error = 'Resource not found'; break;
-            case 500: body.error = 'Unexpected internal error'; break;
+            case 400: body.error = 'Bad Request'; break;
+            case 401: body.error = 'Unauthorized'; break;
+            case 403: body.error = 'Forbidden'; break;
+            case 404: body.error = 'Not Found'; break;
+            case 405: body.error = 'Method Not Allowed'; break;
+            case 500: body.error = 'Internal Server Error'; break;
         }
     }
 
-    const replacer = (key, val) => typeof val === 'function' ? val.toString() : val;
+    console.log(`| C <--- ${code} ${body.error || 'OK[data:' + Object.keys(body).length + ']'} <--- L`);
+
+    const functionReplacer = (key, val) => typeof val === 'function' ? val.toString() : val;
     return {
         statusCode: code,
         headers: { 
@@ -20,6 +22,6 @@ exports.response = (code = 200, body = {}) => {
             "Access-Control-Allow-Headers": "x-access-token, Content-Type",
             "Access-Control-Allow-Origin" : "*" 
         },
-        body: typeof body === 'string' ? body : JSON.stringify(body, replacer)
+        body: JSON.stringify(body, functionReplacer)
     }
 }
