@@ -36,18 +36,21 @@ export class Form extends Component {
         let form = <Spinner />;
 
         if (this.state.fields !== null) {
-            const data = {
-                conf: {
-                    className: classes.Form,
-                    submitHandler: this.submitHandler,
-                    infoIcon: <Icon name="info" width="26" height="26" stroke="#666666" />,
-                    buttonText: this.props.buttonText,
-                    savedText: this.props.savedText
-                },
-                fields: this.state.fields
+            const conf = {
+                className: classes.Form,
+                submitHandler: this.submitHandler,
+                infoIcon: <Icon name="info" width="26" height="26" stroke="#666666" />
+            };
+            if (this.props.buttonText !== undefined) {
+                conf.buttonText = this.props.buttonText;
+            }
+            if (this.props.doneText !== undefined) {
+                conf.doneText = this.props.doneText;
             }
 
-            form = <AbForm data={data} />;
+            const fields = this.state.fields;
+
+            form = <AbForm data={{ conf, fields }} />;
         }
 
         return (

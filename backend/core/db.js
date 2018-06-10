@@ -12,27 +12,4 @@ if (typeof DBC === 'undefined' || DBC === null) {
     });
 }
 
-DBC.getInsertQuery = (tableName, cols, data, onDuplicate) => {
-    //TODO onDuplicate
-    return {
-        sql: `
-            INSERT into ${tableName} (${cols.join(', ')}) 
-            VALUES (${cols.map(col => '?').join(', ')})
-        `,
-        params: cols.map(col => data[col])
-    }
-}
-
-DBC.getUpdateQuery = (tableName, cols, data, condition = '1=1') => {
-    return {
-        sql: `
-            UPDATE ${tableName}
-            SET (${cols.map(col => col + ' = ?').join(', ')})
-            WHERE ${condition}
-        `,
-        params: cols.map(col => data[col])
-    }
-}
-
-
 module.exports = DBC;

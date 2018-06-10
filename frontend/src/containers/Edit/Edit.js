@@ -10,7 +10,6 @@ export default (props) => {
             <Form
                 title="Edit department"
                 buttonText={['Save', 'Saving..']}
-                submitted={() => true}
                 api={"/departments/edit" + props.location.search} />
         </div>
     );

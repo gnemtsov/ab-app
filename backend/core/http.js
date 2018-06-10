@@ -1,7 +1,7 @@
 'use strict';
 
 exports.response = (code = 200, body = {}) => {
-    if([400, 401, 403, 404, 405, 500].indexOf(code) !== -1 && body.error === undefined){
+    if([400, 401, 403, 404, 405, 500].includes(code) && body.error === undefined){
         switch(code){
             case 400: body.error = 'Bad Request'; break;
             case 401: body.error = 'Unauthorized'; break;

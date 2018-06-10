@@ -42,7 +42,7 @@ exports.handler = (event, context, callback) => {
 
     //global error handler
     const handleFatalError = (err) => {
-        console.error('| error catched >>>', err, '<<<');
+        console.error('| error catched >>>>>>', err, '<<<<<<');
         // if c.getThis() returns a cyclic object,
         // error would be thrown in callback, and client would get 502.
         // TODO: do something

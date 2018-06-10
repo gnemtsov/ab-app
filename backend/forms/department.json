@@ -1,4 +1,9 @@
-[{
+[
+    {
+        "name": "d_id",
+        "type": "Hidden"
+    },
+    {
         "name": "d_title",
         "label": "Title",
         "value": "Test title",

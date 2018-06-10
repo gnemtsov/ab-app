@@ -77,6 +77,9 @@ exports.isValid = (formName, data) => {
 
         let wrongType = false;
         switch (type) {
+            case 'Hidden':
+                wrongType = typeof value !== 'string' && !(/^[1-9]{1}[0-9.]*$/.test(value));
+                break;
             case 'String':
             case 'Text':
                 wrongType = typeof value !== 'string';

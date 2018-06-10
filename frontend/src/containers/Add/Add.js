@@ -10,7 +10,7 @@ export default () => {
             <Form
                 title="New department"
                 buttonText={['Add', 'Adding..']}
-                savedText={'Department was added!'}
+                doneText={'Department was added!'}
                 submitted={() => true}
                 api="/departments/add" />
         </div>
