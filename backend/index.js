@@ -65,7 +65,9 @@ exports.handler = (event, context, callback) => {
 		console.log( buildErrorInfo(warn) );
 	});
 
-<<<<<<< HEAD
+	context.callbackWaitsForEmptyEventLoop = false;
+	
+	try {
         //Method
         //OPTIONS requests are proccessed by API GateWay using mock
         //sam-local can't do it, so for local development we need this callback
@@ -87,30 +89,6 @@ exports.handler = (event, context, callback) => {
             }
             throw e;
         }
-=======
-	context.callbackWaitsForEmptyEventLoop = false;
-	
-	try {
-		let api;
-		const [resource, action] = event.pathParameters['proxy'].split('/');
-		const method = event.httpMethod;
-
-		//OPTIONS requests are proccessed by API GateWay using mock
-		//sam-local can't do it, so for local development we need this 
-		if (method === 'OPTIONS') {
-			return callback(null, HTTP.response(200));
-		}
-
-		//require resource module
-		try {
-			api = require('api/' + resource)();
-		} catch (e) {
-			if (e.code === 'MODULE_NOT_FOUND') {
-				return callback(null, HTTP.response(404, { error: 'Resource not found.' }));
-			}
-			throw e;
-		}
->>>>>>> 03db6d012aa10cc278f32853f44148d4fba60c2a
 
 		//call resource action
 		if (api.hasOwnProperty(action)) {
