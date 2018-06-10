@@ -31,17 +31,19 @@ exports.handler = (event, context, callback) => {
     try {
         context.callbackWaitsForEmptyEventLoop = false;
 
-        let api;
-        const [resource, action] = event.pathParameters['proxy'].split('/');
-        const method = event.httpMethod;
-
+        //Method
         //OPTIONS requests are proccessed by API GateWay using mock
-        //sam-local can't do it, so for local development we need this 
+        //sam-local can't do it, so for local development we need this callback
+        const method = event.httpMethod;
         if (method === 'OPTIONS') {
             return callback(null, HTTP.response(200));
         }
 
+        //Extract resource and action from path params
+        const [resource, action] = event.pathParameters['proxy'].split('/');
+
         //require resource module
+        let api;
         try {
             api = require('api/' + resource)();
         } catch (e) {

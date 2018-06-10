@@ -23,8 +23,8 @@ exports.getAsObject = (tableName, params=[]) => {
             for (const col of cols) {
                 let frontendCol = {};
 
-                const frontendAllowed = ['name', 'title', 'defaultContent', 'sortOrder', 'sortDirection', 'frontendFormatter'];
-                for (const key of frontendAllowed) {
+                const whiteList = ['name', 'title', 'defaultContent', 'sortOrder', 'sortDirection', 'frontendFormatter'];
+                for (const key of whiteList) {
                     if (col[key] !== undefined) {
                         frontendCol[key] =
                             key === 'frontendFormatter' ?
