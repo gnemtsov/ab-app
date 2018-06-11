@@ -84,6 +84,9 @@ exports.isValid = (formName, data) => {
             case 'Text':
                 wrongType = typeof value !== 'string';
                 break;
+            case 'Date':
+                wrongType = !(/^\d{4}-\d{2}-\d{2}$/.test(value));
+                break;
             case 'Number':
                 wrongType = !(/^[1-9]{1}[0-9.]*$/.test(value));
                 break;

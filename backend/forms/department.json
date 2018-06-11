@@ -40,9 +40,9 @@
     {
         "name": "d_created",
         "label": "Created",
-        "value": "2018-04-28",
+        "value": "28/04/2018",
         "placeholder": "Department creation date",
-        "type": "String",
+        "type": "Date",
         "required": true,
         "validators": {
             "isDate": ["Must be a date"]
