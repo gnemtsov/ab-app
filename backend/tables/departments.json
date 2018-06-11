@@ -26,11 +26,13 @@
     {
         "title": "Created",
         "name": "d_created",
+        "frontendFormatter": "date",
         "defaultContent": "2018-04-28"
     },
     {
-		"title": "2+2 (backend test)",
-		"name": "d_link_backend",
-        "backendFormatter": "backendTestFormatter"
+		"title": "id*2 (backend)",
+		"name": "d_id1",
+        "backendFormatter": "backendTestFormatter",
+        "html": true
 	}
 ]

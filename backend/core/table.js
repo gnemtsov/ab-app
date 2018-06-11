@@ -4,54 +4,33 @@ const fs = require('fs');
 const DB = require('core/db');
 const FORMATTERS = require('tables/formatters');
 
-exports.getAsObject = (tableName, params=[]) => {
+exports.getAsObject = (tableName, params = []) => {
     const sql = fs.readFileSync(`tables/sql/${tableName}.sql`, 'utf8');
+    const dbFetchPromise = DB.then(conn => conn.execute(sql, params));
 
-    return DB.then(conn => conn.execute(sql, params))
-        .then(([rows]) => {
-            const cols = require(`tables/${tableName}.json`);
+    const cols = require(`tables/${tableName}.json`);
 
-            let table = {
-                conf: {
-                    selectable: true
-                },
-                cols: [],
-                rows: [],
-            };
+    const whiteList = ['name', 'title', 'defaultContent', 'sortOrder', 'sortDirection', 'frontendFormatter', 'html'];
+    const frontendCols = cols.map(col => {
+        let frontendCol = {};
+        for (const key of whiteList) {
+            frontendCol[key] = col[key];
+        }
+        return frontendCol;
+    });
 
-            //prepare cols for frontend
+    return dbFetchPromise.then(([rows]) => {
+        const frontendRows = rows.map(row => {
+            let frontendRow = {};
             for (const col of cols) {
-                let frontendCol = {};
-
-                const whiteList = ['name', 'title', 'defaultContent', 'sortOrder', 'sortDirection', 'frontendFormatter'];
-                for (const key of whiteList) {
-                    if (col[key] !== undefined) {
-                        frontendCol[key] =
-                            key === 'frontendFormatter' ?
-                                FORMATTERS[col[key]] :
-                                col[key];
-                    }
-                }
-
-                frontendCol.html = col['backendFormatter'] !== undefined;
-
-                table.cols.push(frontendCol);
+                frontendRow[col.name] =
+                    col.backendFormatter ?
+                        FORMATTERS[col.backendFormatter](col, row) :
+                        row[col.name];
             }
-
-            //prepare rows for frontend
-            for (const row of rows) {
-                const frontendRow = {};
-
-                for (const col of cols) {
-                    frontendRow[col.name] =
-                        col.hasOwnProperty('backendFormatter') ?
-                            FORMATTERS[col.backendFormatter](col, row) :
-                            row[col.name];
-                }
-
-                table.rows.push(frontendRow);
-            }
-
-            return table;
+            return frontendRow;
         });
+
+        return { cols: frontendCols, rows: frontendRows };
+    });
 }

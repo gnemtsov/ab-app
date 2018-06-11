@@ -4,6 +4,16 @@ const fs = require("fs");
 const DB = require('core/db');
 const VALIDATORS = require('forms/validators');
 
+const invalidField = (name, message) => {
+    return {
+        field: {
+            name,
+            message
+        }
+    }
+};
+exports.invalidField = invalidField;
+
 exports.getAsObject = (formName, params = []) => {
     //fetch data from DB
     const sqlFile = `forms/sql/${formName}.sql`; //sql
@@ -42,16 +52,6 @@ exports.getAsObject = (formName, params = []) => {
         return fields;
     });
 };
-
-const invalidField = (name, message) => {
-    return {
-        field: {
-            name,
-            message
-        }
-    }
-};
-exports.invalidField = invalidField;
 
 exports.isValid = (formName, data) => {
     const fields = require(`forms/${formName}.json`);

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Aux from '../../hoc/Auxillary/Auxillary';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import AbTable from 'react-ab-table';
+import Table from '../../components/UI/Table/Table';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actionTypes from "../../store/actionTypes";
 import axios from 'axios';
+
+import classes from './Departments.css';
 
 export class Departments extends Component {
     componentDidMount() {
@@ -14,17 +15,21 @@ export class Departments extends Component {
     }
 
     render() {
-
         let departments = this.props.error ? <p>Departments can't be loaded!</p> : <Spinner />;
 
         if (this.props.departments) {
-            departments = <AbTable data={this.props.departments} />;
+            departments =
+                <Table
+                    title="Departments"
+                    conf={{ emptyTableMessage: 'No departments found' }}
+                    {...this.props.departments} />;
         }
 
         return (
-            <Aux>
+            <div
+                className={classes.TableContainer}>
                 {departments}
-            </Aux>
+            </div>
         );
     }
 }
