@@ -10,14 +10,30 @@ import classes from './Form.css';
 
 export class Form extends Component {
 
+    conf = {
+        className: classes.Form,
+        infoIcon: <Icon name="info" width="26" height="26" stroke="#666666" />
+    }
+
     state = {
-        saved: false,
         fields: null
     }
 
+    constructor(props) {
+        super(props);
+
+        this.conf = {
+            ...this.conf,
+            ...props.conf,
+            submitHandler: this.submitHandler
+        }
+    }
+
     componentDidMount() {
-        axios.get(this.props.api)
-            .then(result => this.setState({ fields: result.data }));
+        if (this.state.fields === null) {
+            axios.get(this.props.api)
+                .then(result => this.setState({ fields: result.data }));
+        }
     }
 
     submitHandler = (values) => {
@@ -36,21 +52,11 @@ export class Form extends Component {
         let form = <Spinner />;
 
         if (this.state.fields !== null) {
-            const conf = {
-                className: classes.Form,
-                submitHandler: this.submitHandler,
-                infoIcon: <Icon name="info" width="26" height="26" stroke="#666666" />
-            };
-            if (this.props.buttonText !== undefined) {
-                conf.buttonText = this.props.buttonText;
+            const data = {
+                conf: this.conf,
+                fields: this.state.fields
             }
-            if (this.props.doneText !== undefined) {
-                conf.doneText = this.props.doneText;
-            }
-
-            const fields = this.state.fields;
-
-            form = <AbForm data={{ conf, fields }} />;
+            form = <AbForm data={data} />;
         }
 
         return (

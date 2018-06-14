@@ -5,12 +5,9 @@ import asyncComponent from './hoc/asyncComponent/asyncComponent';
 
 import Layout from './hoc/Layout/Layout';
 import Departments from './containers/Departments/Departments';
+import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
 import * as actionTypes from "./store/actionTypes";
-
-const asyncAuth = asyncComponent(() => {
-    return import('./containers/Auth/Auth');
-});
 
 const asyncAdd = asyncComponent(() => {
     return import('./containers/Add/Add');
@@ -28,11 +25,11 @@ class App extends Component {
     render() {
         let routes = (
             <Switch>
-                <Route path="/auth" component={asyncAuth} />
+                <Route path="/auth" component={Auth} />
                 <Route path="/add" render={() => <p>Please, authenticate to add departments.</p>} />
                 <Route path="/edit" render={() => <p>Please, authenticate to edit departments.</p>} />
                 <Route path="/" exact render={() => <p>Please, authenticate to see departments list.</p>} />
-                <Redirect to="/" />
+                <Redirect to="/auth" />
             </Switch>
         );
 

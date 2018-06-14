@@ -4,13 +4,16 @@ import Form from '../../components/UI/Form/Form';
 import classes from './Add.css';
 
 export default () => {
+    const conf = {
+        buttonText: ['Add', 'Adding..'],
+        doneText: 'Department was added!'
+    }
     return (
         <div
             className={classes.FormContainer}>
             <Form
+                conf={conf}
                 title="New department"
-                buttonText={['Add', 'Adding..']}
-                doneText={'Department was added!'}
                 submitted={() => true}
                 api="/departments/add" />
         </div>

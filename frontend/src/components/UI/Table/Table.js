@@ -10,25 +10,32 @@ import * as formatters from '../../../shared/formatters';
 export class Table extends Component {
 
     conf = {
-        selectable: true,
-        formatters: formatters
+        selectable: true
     }
 
     state = {
-        cols: [],
-        rows: []
+        cols: null,
+        rows: null
     }
 
-    constructor(props) { //constructor updates initial state
+    constructor(props) {
         super(props);
-        const { conf, cols, rows } = props;
+        let { conf, cols, rows } = props;
 
         this.conf = {
             ...this.conf,
             ...conf
         }
 
-        if (cols !== undefined) {
+        if (cols !== undefined && cols !== null) {            
+            cols = cols.map(col => { //make functions out of formatters
+                if (col.frontendFormatter !== undefined) {
+                    col.formatter = formatters[col.frontendFormatter];
+                    delete col.frontendFormatter;
+                }
+                return col;
+            });
+
             this.state = {
                 ...this.state,
                 cols,
@@ -38,7 +45,7 @@ export class Table extends Component {
     }
 
     componentDidMount() {
-        if (!this.state.cols.length) {
+        if (this.state.cols === null) {
             axios.get(this.props.api)
                 .then(result => this.setState(...result.data));
         }
@@ -46,7 +53,7 @@ export class Table extends Component {
 
     render() {
         let table = <Spinner />;
-        if (this.state.cols.length) {
+        if (this.state.cols !== null) {
             table = <AbTable data={{ conf: this.conf, ...this.state }} />;
         }
 

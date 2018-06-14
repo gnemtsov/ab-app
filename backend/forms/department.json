@@ -40,7 +40,7 @@
     {
         "name": "d_created",
         "label": "Created",
-        "value": "28/04/2018",
+        "value": "2018-05-01",
         "placeholder": "Department creation date",
         "type": "Date",
         "required": true,

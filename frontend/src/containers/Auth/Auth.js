@@ -8,14 +8,17 @@ import * as actionTypes from "../../store/actionTypes";
 class Auth extends Component {
     render() {
         const authRedirect = this.props.isAuthenticated ? <Redirect to="/" /> : null;
+        const conf = {
+            buttonText: ['Login', 'Logging in..']
+        }
 
         return (
             <div>
                 {authRedirect}
                 <Form
+                    conf={conf}
                     title="Please, authenticate"
                     submitted={this.props.onAuth}
-                    buttonText={['Login', 'Logging in..']}
                     api="/auth/login" />
             </div>
         );
