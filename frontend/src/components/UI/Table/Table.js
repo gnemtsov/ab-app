@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import AbTable from 'react-ab-table';
 
-import Aux from '../../../hoc/Auxillary/Auxillary';
 import Spinner from '../Spinner/Spinner';
 import * as formatters from '../../../shared/formatters';
 
@@ -51,10 +50,10 @@ export class Table extends Component {
         }
 
         return (
-            <Aux>
+            <React.Fragment>
                 <h1>{this.props.title}</h1>
                 {table}
-            </Aux >
+            </React.Fragment >
         );
     }
 }
