@@ -14,7 +14,7 @@ export default () => {
             <Form
                 conf={conf}
                 title="New department"
-                submitted={() => true}
+                submitted={true}
                 api="/departments/add" />
         </div>
     );

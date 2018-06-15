@@ -9,6 +9,8 @@ import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
 import * as actionTypes from "./store/actionTypes";
 
+import classes from './App.css';
+
 const asyncAdd = asyncComponent(() => {
     return import('./containers/Add/Add');
 });
@@ -26,10 +28,10 @@ class App extends Component {
         let routes = (
             <Switch>
                 <Route path="/auth" component={Auth} />
-                <Route path="/add" render={() => <p>Please, authenticate to add departments.</p>} />
-                <Route path="/edit" render={() => <p>Please, authenticate to edit departments.</p>} />
-                <Route path="/" exact render={() => <p>Please, authenticate to see departments list.</p>} />
-                <Redirect to="/auth" />
+                <Route path="/add" render={() => <p className={classes.UnAuthMessage}>Please, authenticate to add departments.</p>} />
+                <Route path="/edit" render={() => <p className={classes.UnAuthMessage}>Please, authenticate to edit departments.</p>} />
+                <Route path="/" exact render={() => <p className={classes.UnAuthMessage}>Please, authenticate to see departments list.</p>} />
+                <Redirect to="/" />
             </Switch>
         );
 

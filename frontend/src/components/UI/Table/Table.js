@@ -13,10 +13,7 @@ export class Table extends Component {
         selectable: true
     }
 
-    state = {
-        cols: null,
-        rows: null
-    }
+    state = {}
 
     constructor(props) {
         super(props);
@@ -27,7 +24,7 @@ export class Table extends Component {
             ...conf
         }
 
-        if (cols !== undefined && cols !== null) {            
+        if (cols !== undefined) {            
             cols = cols.map(col => { //make functions out of formatters
                 if (col.frontendFormatter !== undefined) {
                     col.formatter = formatters[col.frontendFormatter];
@@ -36,16 +33,12 @@ export class Table extends Component {
                 return col;
             });
 
-            this.state = {
-                ...this.state,
-                cols,
-                rows
-            }
+            this.state = { cols, rows }
         }
     }
 
     componentDidMount() {
-        if (this.state.cols === null) {
+        if (this.state.cols === undefined) {
             axios.get(this.props.api)
                 .then(result => this.setState(...result.data));
         }
@@ -53,8 +46,8 @@ export class Table extends Component {
 
     render() {
         let table = <Spinner />;
-        if (this.state.cols !== null) {
-            table = <AbTable data={{ conf: this.conf, ...this.state }} />;
+        if (this.state.cols !== undefined) {
+            table = <AbTable {...this.conf} {...this.state} />;
         }
 
         return (
