@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Table from '../../components/UI/Table/Table';
-import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actionTypes from "../../store/actionTypes";
-import axios from 'axios';
 
 import classes from './Departments.css';
 
@@ -50,4 +48,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Departments, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(Departments);

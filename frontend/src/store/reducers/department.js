@@ -1,7 +1,6 @@
 /* Department reducer */
 
 import * as actionTypes from '../actionTypes';
-import { updateObject } from '../../shared/utility';
 
 const initialState = {
     departments: null,
@@ -9,11 +8,11 @@ const initialState = {
 };
 
 const setDepartments = (state, action) => {
-    return updateObject(state, { departments: action.departments });
+    return {...state, departments: action.departments };
 };
 
 const fetchIngredientsFailed = (state, action) => {
-    return updateObject(state, { error: true });
+    return { ...state, error: true };
 };
 
 const reducer = (state = initialState, action) => {

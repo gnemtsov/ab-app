@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import AbTable from 'react-ab-table';
 
+import ErrorBoundary from '../../../hoc/errorBoundary/errorBoundary';
 import Spinner from '../Spinner/Spinner';
-import * as formatters from '../../../shared/formatters';
+import * as Formatters from './Formatters/Formatters';
 
 export class Table extends Component {
 
@@ -26,7 +27,7 @@ export class Table extends Component {
         if (cols !== undefined) {            
             cols = cols.map(col => { //make functions out of formatters
                 if (col.frontendFormatter !== undefined) {
-                    col.formatter = formatters[col.frontendFormatter];
+                    col.formatter = Formatters[col.frontendFormatter];
                     delete col.frontendFormatter;
                 }
                 return col;
@@ -52,7 +53,7 @@ export class Table extends Component {
         return (
             <React.Fragment>
                 <h1>{this.props.title}</h1>
-                {table}
+                <ErrorBoundary>{table}</ErrorBoundary>
             </React.Fragment >
         );
     }

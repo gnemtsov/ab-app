@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import classes from './Layout.css';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
+import ErrorBoundary from '../errorBoundary/errorBoundary';
 
 class Layout extends Component {
     state = {
@@ -11,16 +12,16 @@ class Layout extends Component {
     }
 
     sideDrawerClosedHandler = () => {
-        this.setState( { showSideDrawer: false } );
+        this.setState({ showSideDrawer: false });
     }
 
     sideDrawerToggleHandler = () => {
-        this.setState( ( prevState ) => {
+        this.setState((prevState) => {
             return { showSideDrawer: !prevState.showSideDrawer };
-        } );
+        });
     }
 
-    render () {
+    render() {
         return (
             <React.Fragment>
                 <Toolbar
@@ -30,9 +31,11 @@ class Layout extends Component {
                     isAuth={this.props.isAuthenticated}
                     open={this.state.showSideDrawer}
                     closed={this.sideDrawerClosedHandler} />
-                <main className={classes.Content}>
-                    {this.props.children}
-                </main>
+                <ErrorBoundary>
+                    <main className={classes.Content}>
+                        {this.props.children}
+                    </main>
+                </ErrorBoundary>
             </React.Fragment>
         )
     }
@@ -44,4 +47,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect( mapStateToProps )( Layout );
+export default connect(mapStateToProps)(Layout);

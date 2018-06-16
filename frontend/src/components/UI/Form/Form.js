@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import AbForm from 'react-ab-form';
 
+import ErrorBoundary from '../../../hoc/errorBoundary/errorBoundary';
 import Spinner from '../Spinner/Spinner';
 import Icon from '../Icon/Icon';
 import classes from './Form.css';
@@ -42,7 +43,7 @@ export class Form extends Component {
         return axios.post(this.props.api, values)
             .then(response => {
                 if (typeof this.props.submitted === 'function') {
-                    return () => this.props.submitted(response.data); 
+                    return () => this.props.submitted(response.data);
                 } else {
                     return this.props.submitted; //don't clear form by default
                 }
@@ -59,7 +60,7 @@ export class Form extends Component {
         return (
             <React.Fragment>
                 <h1>{this.props.title}</h1>
-                {form}
+                <ErrorBoundary>{form}</ErrorBoundary>
             </React.Fragment>
         );
     }
