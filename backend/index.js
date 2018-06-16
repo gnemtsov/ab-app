@@ -34,6 +34,7 @@ const buildErrorInfo = (err) => {
 
 //main handler
 exports.handler = (event, context, callback) => {
+	
     console.log(`| C ---> ${event.httpMethod} ---> ${event.pathParameters['proxy']}`);
 
     //Needed for global error handler 
