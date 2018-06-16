@@ -38,19 +38,21 @@ module.exports = () => {
     api.add.POST = (event, context, callback) => {
         const values = JSON.parse(event.body);
 
-        const validationResult = FORM.isValid('department', values);
-        if (validationResult !== true) {
-            return callback(null, HTTP.response(400, validationResult));
-        }
+        FORM.isValid('department', values)
+			.then( validationResult => {
+				if (validationResult !== true) {
+					return callback(null, HTTP.response(400, validationResult));
+				}
 
-        const sql = `
-            INSERT into departments (d_title, d_head, d_created, d_size) 
-            VALUES (?, ?, ?, ?)
-        `;
-        const params = [values['d_title'], values['d_head'], values['d_created'], values['d_size']];
+				const sql = `
+					INSERT into departments (d_title, d_head, d_created, d_size) 
+					VALUES (?, ?, ?, ?)
+				`;
+				const params = [values['d_title'], values['d_head'], values['d_created'], values['d_size']];
 
-        DB.then(conn => conn.execute(sql, params))
-            .then(() => callback(null, HTTP.response(200)));
+				DB.then(conn => conn.execute(sql, params))
+					.then(() => callback(null, HTTP.response(200)));
+			});
     };
 
     //--------------------------------------------->departments/edit    
@@ -75,21 +77,23 @@ module.exports = () => {
     api.edit.POST = (event, context, callback) => {
         const values = JSON.parse(event.body);
 
-        const validationResult = FORM.isValid('department', values);
-        if (validationResult !== true) {
-            return callback(null, HTTP.response(400, validationResult));
-        }
+        FORM.isValid('department', values)
+			.then( validationResult => {
+				if (validationResult !== true) {
+					return callback(null, HTTP.response(400, validationResult));
+				}
 
-        const sql = `
-            UPDATE departments
-            SET d_title = ?, d_head = ?, d_created = ?, d_size = ?
-            WHERE d_id = ?
-            LIMIT 1
-        `;
-        const params = [values['d_title'], values['d_head'], values['d_created'], values['d_size'], values['d_id']];
-        
-        DB.then(conn => conn.execute(sql, params))
-            .then(() => callback(null, HTTP.response(200)));
+				const sql = `
+					UPDATE departments
+					SET d_title = ?, d_head = ?, d_created = ?, d_size = ?
+					WHERE d_id = ?
+					LIMIT 1
+				`;
+				const params = [values['d_title'], values['d_head'], values['d_created'], values['d_size'], values['d_id']];
+				
+				DB.then(conn => conn.execute(sql, params))
+					.then(() => callback(null, HTTP.response(200)));
+			});
     };
 
     return api;

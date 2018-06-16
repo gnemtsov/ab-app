@@ -1,51 +1,52 @@
 [
     {
         "name": "d_id",
-        "type": "Hidden"
+        "type": "Hidden",
+		"table": "departments"
     },
     {
         "name": "d_title",
         "label": "Title",
         "value": "Test title",
         "placeholder": "Department title",
-        "type": "String",
-        "required": true,
         "validators": {
             "length": ["Title must be bigger than 6 and smaller than 64 chars", 6, 64]
-        }
+        },
+		"table": "departments",
+		"required": true
     },
     {
         "name": "d_head",
         "label": "Head",
         "value": "Test head",
         "placeholder": "Department head's name",
-        "type": "String",
-        "required": true,
         "validators": {
             "length": ["Title must be bigger than 6 and smaller than 64 chars", 6, 64]
-        }
+        },
+		"table": "departments",
+		"required": true
     },
     {
         "name": "d_size",
         "label": "Size",
         "value": "13",
         "placeholder": "Department size",
-        "type": "Number",
-        "required": true,
         "validators": {
             "typeNum": ["Must be an integer number"],
             "countMin": ["There must be at least 5 computers", 5]
-        }
+        },
+		"table": "departments",
+		"required": true
     },
     {
         "name": "d_created",
         "label": "Created",
         "value": "28/04/2018",
         "placeholder": "Department creation date",
-        "type": "Date",
-        "required": true,
         "validators": {
             "isDate": ["Must be a date"]
-        }
+        },
+		"table": "departments",
+		"required": true
     }
 ]
