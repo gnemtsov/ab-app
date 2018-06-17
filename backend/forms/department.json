@@ -8,21 +8,31 @@
         "name": "d_title",
         "label": "Title",
         "value": "Test title",
+        "type": "String",
         "placeholder": "Department title",
-        "validators": {
-            "length": ["Title must be bigger than 6 and smaller than 64 chars", 6, 64]
-        },
+        "validators": [
+            { 
+                "f": "strMinMax",
+                "message": "Title must be bigger than %0% and smaller than %1% chars", 
+                "params": [6, 64] 
+            }
+        ],
 		"table": "departments",
 		"required": true
     },
     {
         "name": "d_head",
         "label": "Head",
+        "type": "String",
         "value": "Test head",
         "placeholder": "Department head's name",
-        "validators": {
-            "length": ["Title must be bigger than 6 and smaller than 64 chars", 6, 64]
-        },
+        "validators": [
+            { 
+                "f": "strMinMax",
+                "message": "Head must be bigger than %0% and smaller than %1% chars", 
+                "params": [3, 32] 
+            }
+        ],
 		"table": "departments",
 		"required": true
     },
@@ -31,21 +41,22 @@
         "label": "Size",
         "value": "13",
         "placeholder": "Department size",
-        "validators": {
-            "typeNum": ["Must be an integer number"],
-            "countMin": ["There must be at least 5 computers", 5]
-        },
+        "validators": [
+            { 
+                "f": "numMin",
+                "message": "There must be at least %0% computers", 
+                "params": [5] 
+            }
+        ],
 		"table": "departments",
 		"required": true
     },
     {
         "name": "d_created",
         "label": "Created",
+        "type": "Date",
         "value": "2018-05-01",
         "placeholder": "Department creation date",
-        "validators": {
-            "isDate": ["Must be a date"]
-        },
 		"table": "departments",
 		"required": true
     }

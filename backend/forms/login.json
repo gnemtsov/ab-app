@@ -5,9 +5,13 @@
         "type": "String",
         "value": "admin",
         "required": true,
-        "validators": {
-            "length": ["Title must be bigger than 4 and smaller than 32 chars", 4, 32]
-        }
+        "validators": [
+            { 
+                "f": "strMinMax",
+                "message": "Login must be bigger than %0% and smaller than %1% chars", 
+                "params": [4, 32] 
+            }
+        ]
     },
     {
         "name": "u_password",

@@ -8,5 +8,6 @@ module.exports = {
     DB: require('core/db'),
     HTTP: require('core/http'),
     FORM: require('core/form'),
-    TABLE: require('core/table')
+    TABLE: require('core/table'),
+    U: require('core/utils'),
 }

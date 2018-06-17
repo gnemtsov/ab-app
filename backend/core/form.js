@@ -1,10 +1,13 @@
 'use strict';
 
 const fs = require("fs");
-const DB = require('core/db');
-const VALIDATORS = require('forms/validators');
-const DB_VALIDATORS = require('forms/validators/mariadb');
 
+const DB = require('core/db');
+const U = require('core/utils');
+
+const VALIDATORS = require('forms/validators');
+
+//returns invalid field
 const invalidField = (name, message) => {
     return {
         field: {
@@ -15,187 +18,133 @@ const invalidField = (name, message) => {
 };
 exports.invalidField = invalidField;
 
+//returns form fields
 exports.getAsObject = (formName, params = []) => {
-    //fetch data from DB
+    let fields = require(`forms/${formName}.json`); //fields
+    let dbPromises = [];
+
+    //fetch fields values from DB
     const sqlFile = `forms/sql/${formName}.sql`; //sql
-    let dbFetchPromise = Promise.resolve([[]]);
     if (fs.existsSync(sqlFile)) {
         const sql = fs.readFileSync(`forms/sql/${formName}.sql`, 'utf8');
-        dbFetchPromise = DB.then(conn => conn.execute(sql, params));
-    }
+        dbPromises.push(
+            DB.then(conn => conn.execute(sql, params))
+                .then(([rows]) => {
+                    if (rows.length === 1) {
+                        fields.forEach(field => field.value = rows[0][field.name]);
+                    }
+                })
+        );
+    } 
 
-    let fields = require(`forms/${formName}.json`); //fields
-    return exports.addDBValidators(fields)
-		.then( () => {
-			//prepare validators for frontend
-			fields = fields.map(field => {
-				if (field.validators !== undefined) {
-					field.validators = Object.keys(field.validators).map(name => {
-						return {
-							f: VALIDATORS[name].toString(),
-							message: field.validators[name][0],
-							params: field.validators[name].slice(1)
-						}
-					})
-				}
-				if (field.dbValidators) {
-					const newValidators = field.dbValidators.map( v => {
-						return {
-							f: v[0].toString(),
-							message: 'DB validator failed',
-							params: v.slice(1)
-						};
-					});
-					if (field.validators === undefined) {
-						field.validators = newValidators;
-					} else {
-						field.validators.push(...newValidators);
-					}
-					delete field.dbValidators;
-				}
-				return field;
-			});
+    //add DB validators
+    dbPromises.push(addDBValidators(fields));
 
-			//fill the fields with data
-			return dbFetchPromise.then(([rows]) => {
-				if(rows.length === 1) {
-					const row = rows[0];
-					return fields.map(field => {
-						if (row[field.name] !== undefined) {
-							field.value = row[field.name];
-						}
-						return field;
-					});
-				}
-				return fields;
-			});
-		});
+    return Promise.all(dbPromises).then(() => {
+        fields.forEach(field => {
+            if (field.validators !== undefined) {
+                field.validators.forEach(validator => {
+                    validator.f = VALIDATORS[validator.f].toString();
+                });
+            }
+        });
+        return fields;
+    });
 };
 
-// returns Promise (true|invalidField)
+//returns Promise (true|invalidField)
 exports.isValid = (formName, data) => {
     const fields = require(`forms/${formName}.json`);
-    return exports.addDBValidators(fields)
-		.then( () => {
-			for (const field of fields) {
-				const {
-					name,
-					required,
-					type,
-					allowedValues,
-					validators,
-					dbValidators
-				} = field;
+    return addDBValidators(fields)
+        .then(() => {
+            for (const field of fields) {
+                const {
+                    name,
+                    required,
+                    validators = [],
+                } = field;
 
-				const value = data[name];
+                const value = data[name];
 
-				if (value === undefined || value === '') {
-					if (required) {
-						return invalidField(name, 'Value is required');
-					} else {
-						continue;
-					}
-				}
+                if (value === undefined || value === '') {
+                    if (required) {
+                        return invalidField(name, 'Value is required');
+                    } else {
+                        continue;
+                    }
+                }
 
-				let wrongType = false;
-				switch (type) {
-					case 'Hidden':
-						wrongType = typeof value !== 'string' && !(/^[1-9]{1}[0-9.]*$/.test(value));
-						break;
-					case 'String':
-					case 'Text':
-						wrongType = typeof value !== 'string';
-						break;
-					case 'Date':
-						wrongType = !(/^\d{4}-\d{2}-\d{2}$/.test(value));
-						break;
-					case 'Time':
-						wrongType = !(/^-?\d{1,3}:\d{2}:\d{2}.\d{1,6}$/.test(value));
-						break;
-					case 'Datetime':
-						wrongType = !(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{1,6}$/.test(value));
-						break;
-					case 'Timestamp':
-						wrongType = !(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(value));
-						break;
-					case 'Number':
-						wrongType = !(/^[1-9]{1}[0-9.]*$/.test(value));
-						break;
-					case 'Boolean':
-						wrongType = typeof value !== 'boolean';
-						break;
-					default:
-						wrongType = true;
-				}
-				if (wrongType) {
-					return invalidField(name, 'Wrong type');
-				}
+                if (validators.length) {
+                    for (var i = 0; i < validators.length; i++) {
+                        const { f, message, params = [] } = validators[i];
+                        if (!VALIDATORS[f](value, ...params)) {
+                            return invalidField(
+                                name,
+                                message.replace(/%([0-9]+)%/g, (...args) => params[Number(args[1])])
+                            );
+                        }
+                    }
+                }
+            }
 
-				if (allowedValues !== undefined && !allowedValues.includes(value)) {
-					return invalidField(name, 'Wrong value');
-				}
-
-				if (typeof validators === 'object') {
-					for (const name of Object.keys(validators)) {
-						const [message, ...params] = validators[name];
-						if (!VALIDATORS[name](value, ...params)) {
-							return invalidField(name, message);
-						}
-					}
-				}
-				
-				if (dbValidators) {
-					for (const v of dbValidators) {
-						if ( !v[0](value, ...v.slice(1)) ) {
-							return invelidField(name, 'DB validator failed');
-						}
-					}
-				}
-			}
-
-			return true;
-		});
+            return true;
+        });
 };
 
-// Modifies "configFields"
-// Returns a Promise
-exports.addDBValidators = configFields => {
-	// Object containing promises loading types of DB table fields
-	const tables = {};
-	// Array of promises waiting for validators to be added for each field
-	const addDBTypeValidatorsPromises = []; 
-	for (const configField of configFields) {
-		const tableName = configField.table;
-		const columnName = configField.name;
-		if (tableName && columnName) {
-			if ( !tables[ tableName ] ) { 
-				tables[ tableName ] = DB.then( conn => conn.execute(`SHOW COLUMNS FROM ${tableName}`) )
-					.then( data => {
-						const tableFieldInfos = {};
-						for (const row of data[0]) {
-							tableFieldInfos[row.Field] = row;
-						}
-						return tableFieldInfos;
-					});
-			}
-			addDBTypeValidatorsPromises.push( tables[ tableName ].then( tableFieldInfos => {
-				if (!configField.dbValidators) {
-					configField.dbValidators = [];
-				}
-				
-				const {dbValidators, type, allowedValues} = DB_VALIDATORS( tableFieldInfos[columnName] );
-				configField.dbValidators.push(...dbValidators);
-				if (!configField.type) {
-					configField.type = type;
-				}
-				if (tableFieldInfos[columnName].Null === 'NO') {
-					configField.required = true;
-				}
-				if (allowedValues && !configField.allowedValues) {
-					configField.allowedValues = allowedValues;
-				}
-			}));
-		}
-	}
-	return Promise.all(addDBTypeValidatorsPromises);
-}
+
+/*-----Supplementary functions-----*/
+//adds validators, based on info from SHOW COLUMNS query
+const addDBValidators = (fields) => {
+    const regexps = require('forms/dbs/mariadb');
+    let dbPromises = [];
+    let tablesList = [];
+    for (const field of fields) {
+        const table = field.table;
+        if (table !== undefined && !tablesList.includes(table)) {
+            tablesList.push(table);
+            dbPromises.push(
+                DB.then(conn => conn.execute(`SHOW COLUMNS FROM ${table}`))
+                    .then(([rows]) => {
+                        let tableCols = {};
+                        rows.forEach(col => tableCols[col.Field] = col);
+
+                        fields.forEach(field => {
+                            const col = tableCols[field.name];
+                            if (field.table === table && col) {
+                                for (const regexp of regexps) {
+                                    const regexpResult = regexp.regexp.exec(col.Type);
+                                    if (regexpResult) {
+                                        const {
+                                            type,
+                                            allowedValues,
+                                            validators = []
+                                        } = regexp.f(regexpResult);
+
+                                        if (field.type !== undefined && field.type !== 'Hidden' && field.type !== type) {
+                                            throw new Error(`Field and db column types mismatch.`);
+                                        }
+                                        field.type = U.coalesce(field.type, type);
+
+                                        field.allowedValues = U.coalesce(field.allowedValues, allowedValues);
+
+                                        field.required = U.coalesce(
+                                            field.required,
+                                            col.Null === 'NO' && col.Default === null && col.Extra !== 'auto_increment'
+                                        );
+
+                                        field.validators =
+                                            field.validators === undefined ?
+                                                validators :
+                                                validators.concat(field.validators);
+                                        break;
+                                    }
+                                }
+                            }
+
+                        });
+                    })
+            );
+        }
+    }
+    return Promise.all(dbPromises);
+};
