@@ -1,10 +1,8 @@
 'use strict';
 
 const fs = require("fs");
-
 const DB = require('core/db');
 const U = require('core/utils');
-
 const VALIDATORS = require('forms/validators');
 
 //returns invalid field
