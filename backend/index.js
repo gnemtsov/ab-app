@@ -1,6 +1,7 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
 //process.env.PROD is set in production only
 if (process.env.PROD === undefined) {
@@ -82,40 +83,33 @@ exports.handler = (event, context, callback) => {
         //Extract resource and action from path params
         const [resource, action] = event.pathParameters['proxy'].split('/');
 
-        //require resource module
-        let api;
-        try {
-            api = require('api/' + resource)();
-        } catch (e) {
-            if (e.code === 'MODULE_NOT_FOUND') {
-                return callback(null, HTTP.response(404, { error: 'Resource not found.' }));
-            }
-            throw e;
-        }
+		// Require action from API if it exists
+        if (!fs.existsSync('api/' + resource)) {
+			return callback(null, HTTP.response(404, { error: 'Resource not found.' }));
+		}
+        if (!fs.existsSync('api/' + resource + '/' + action + '.js')) {
+			return callback(null, HTTP.response(404, { error: 'Action not found.' }));
+		}
+		const actionObject = require('api/' + resource + '/' + action + '.js')();
 
-        //call resource action
-        if (api.hasOwnProperty(action)) {
-            //check token for protected action
-            if (api[action].protected === 1) {
-                if (event.headers['X-Access-Token'] === undefined) {
-                    return callback(null, HTTP.response(403, { error: 'No token provided.' }));
-                }
-                try {
-                    event.userData = jwt.verify(token, process.env.SECRET);
-                } catch (error) {
-                    return callback(null, HTTP.response(403, { error: 'Failed to verify token.' }));
-                }
-            }
+		//call resource action
+		//check token for protected action
+		if (actionObject.protected === 1) {
+			if (event.headers['X-Access-Token'] === undefined) {
+				return callback(null, HTTP.response(403, { error: 'No token provided.' }));
+			}
+			try {
+				event.userData = jwt.verify(token, process.env.SECRET);
+			} catch (error) {
+				return callback(null, HTTP.response(403, { error: 'Failed to verify token.' }));
+			}
+		}
+		if (!actionObject.hasOwnProperty(method)) {
+			return callback(null, HTTP.response(405));
+		}
 
-            // check if this method is not allowed
-            if (!api[action].hasOwnProperty(method)) {
-                return callback(null, HTTP.response(405));
-            }
-
-            //finally call the api
-            return api[action][method](event, context, callback);
-        }
-        return callback(null, HTTP.response(404, { error: 'Action not found.' }));
+		//finally call the api
+		return actionObject[method](event, context, callback);
     } catch (err) {
         handleFatalError(err);
     }
