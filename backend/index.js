@@ -84,13 +84,15 @@ exports.handler = (event, context, callback) => {
         const [resource, action] = event.pathParameters['proxy'].split('/');
 
 		// Require action from API if it exists
-        if (!fs.existsSync('api/' + resource)) {
+		const resourcePath = 'api/' + resource;
+        if (!fs.existsSync(resourcePath)) {
 			return callback(null, HTTP.response(404, { error: 'Resource not found.' }));
 		}
-        if (!fs.existsSync('api/' + resource + '/' + action + '.js')) {
+		const actionPath = resourcePath + '/' + action + '.js';
+        if (!fs.existsSync(actionPath)) {
 			return callback(null, HTTP.response(404, { error: 'Action not found.' }));
 		}
-		const actionObject = require('api/' + resource + '/' + action + '.js')();
+		const actionObject = require(actionPath)();
 
 		//call resource action
 		//check token for protected action
