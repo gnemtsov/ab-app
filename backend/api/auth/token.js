@@ -57,3 +57,4 @@ module.exports.POST = (event, context, callback) => {
 
 		});
 };
+module.exports.POST.protected = 0;

@@ -18,6 +18,7 @@ module.exports.GET = (event, context, callback) => {
 	FORM.getAsObject('department', [d_id])
 		.then(fields => callback(null, HTTP.response(200, fields)));
 };
+module.exports.GET.protected = 1;
 
 //Method: POST
 //Params: d_id, d_title, d_head, d_size, d_created
@@ -43,3 +44,4 @@ module.exports.POST = (event, context, callback) => {
 				.then(() => callback(null, HTTP.response(200)));
 		});
 };
+module.exports.POST.protected = 1;

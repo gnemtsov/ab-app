@@ -17,6 +17,7 @@ module.exports.GET = (event, context, callback) => {
 	FORM.getAsObject('login')
 		.then(fields => callback(null, HTTP.response(200, fields)));
 };
+module.exports.GET.protected = 0;
 
 //Method: POST
 //Params: login, password
@@ -72,4 +73,4 @@ module.exports.POST = (event, context, callback) => {
 				});
 		});
 };
-
+module.exports.POST.protected = 0;
