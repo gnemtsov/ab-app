@@ -97,17 +97,17 @@ exports.handler = (event, context, callback) => {
 		//call resource action
 		if (!actionObj.hasOwnProperty(method)) {
 			//check token for protected action
-			if (actionObj[method].protected === 1) {
-				if (event.headers['X-Access-Token'] === undefined) {
-					return callback(null, HTTP.response(403, { error: 'No token provided.' }));
-				}
-				try {
-					event.userData = jwt.verify(token, process.env.SECRET);
-				} catch (error) {
-					return callback(null, HTTP.response(403, { error: 'Failed to verify token.' }));
-				}
-			}
 			return callback(null, HTTP.response(405));
+		}
+		if (actionObj[method].protected === 1) {
+			if (event.headers['X-Access-Token'] === undefined) {
+				return callback(null, HTTP.response(403, { error: 'No token provided.' }));
+			}
+			try {
+				event.userData = jwt.verify(token, process.env.SECRET);
+			} catch (error) {
+				return callback(null, HTTP.response(403, { error: 'Failed to verify token.' }));
+			}
 		}
 
 		//finally call the api
