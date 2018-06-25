@@ -92,7 +92,7 @@ exports.handler = (event, context, callback) => {
         if (!fs.existsSync(actionPath)) {
 			return callback(null, HTTP.response(404, { error: 'Action not found.' }));
 		}
-		const actionObject = require(actionPath)();
+		const actionObject = require(actionPath);
 
 		//call resource action
 		//check token for protected action
