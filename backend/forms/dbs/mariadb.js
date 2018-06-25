@@ -65,7 +65,40 @@ module.exports = [
                 type: 'Number'
             };
         }
-    }
+    },
+    {
+		regexp: /^(NATIONAL)?\s*(CHAR|VARCHAR|TEXT|TINYTEXT|MEDIUMTEXT|LONGTEXT|JSON)(\(([0-9]*)\))?/i,
+        f: result => {
+            let [, ,type, ,size] = result;
+            type = type.toUpperCase();
+            size = parseInt(size);
+            
+            // Max length validator
+            let strMax = {
+				f: 'strMax',
+				message: 'String must be shorter or equal to %0% characters'
+			};
+            switch (type) {
+				case 'CHAR':
+				case 'VARCHAR':
+					strMax.params = [ isNaN(size) ? 1 : size]; break;
+				case 'TEXT':
+					strMax.params = [ isNaN(size) ? 65535 : size]; break;
+				case 'TINYTEXT':
+					strMax.params = [ 255 ]; break;
+				case 'MEDIUMTEXT':
+					strMax.params = [ 16777215 ]; break;
+				case 'LONGTEXT':
+				case 'JSON':
+					strMax.params = [ 4294967295 ]; break;
+			}
+            
+            return {
+                validators: [strMax],
+                type: 'String'
+            };
+        }		
+	}
 ]
 
 
