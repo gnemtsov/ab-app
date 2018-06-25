@@ -98,7 +98,90 @@ module.exports = [
                 type: 'String'
             };
         }		
-	}
+	},
+    {
+		regexp: /^(DEC|DECIMAL|NUMERIC|FIXED|FLOAT|DOUBLE|DOUBLE PRECISION|REAL)(\(([0-9]*)(,([0-9]*))?\))?\s*(SIGNED|UNSIGNED|ZEROFILL)?\s*(SIGNED|UNSIGNED|ZEROFILL)?$/i,
+        f: result => {
+            let [, type, , M0, , D0, attr1='', attr2=''] = result;
+            type = type.toUpperCase();
+            M0 = parseInt(M0);
+            D0 = parseInt(D0);
+            attr1 = attr1.toUpperCase();
+            attr2 = attr2.toUpperCase();
+            let M = M0;
+            if (isNaN(M)) {
+				M = 10;
+			}
+            let D = D0;
+            if (isNaN(D)) {
+				D = 0;
+			}
+			            
+            //type validator
+            const floatType = {
+                f: 'floatType',
+                message: 'Value must a number'
+            };
+
+            //min validator         
+            let numMin = {
+                f: 'numMin',
+                message: 'Value must be greater than %0%'
+            };
+            const unsigned = attr1 == 'UNSIGNED' || attr2 == 'UNSIGNED';
+			switch (type) {
+				case 'DECIMAL':
+				case 'DEC':
+				case 'NUMERIC':
+				case 'FIXED':
+					numMin.params = [ unsigned ? 0 : -(Math.pow(10, M-D) - 1)]; break;
+				default:
+					if (unsigned) {
+						numMin.params = [0];
+					} else {
+						// [(M0, D0)] - both or none
+						if (isNaN(M0)) {
+							numMin = undefined;
+						} else {
+							numMin.params = [ -(Math.pow(10, M-D) - 1)]; break;
+						}
+					}
+			}
+
+            //max validator         
+            let numMax = {
+                f: 'numMax',
+                message: 'Value must be smaller than %0%'
+            };
+			switch (type) {
+				case 'DECIMAL':
+				case 'DEC':
+				case 'NUMERIC':
+				case 'FIXED':
+					numMax.params = [ Math.pow(10, M-D) - 1]; break;
+				default:
+					// [(M0, D0)] - both or none
+					if (isNaN(M0)) {
+						numMax = undefined;
+					} else {
+						numMax.params = [ Math.pow(10, M-D) - 1]; break;
+					}
+			}			
+
+			let validators = [floatType];
+			if (numMin) {
+				validators.push(numMin);
+			}
+			if (numMax) {
+				validators.push(numMax);
+			}
+			
+            return {
+                validators: validators,
+                type: 'Number'
+            };
+        }		
+	},	
 ]
 
 
