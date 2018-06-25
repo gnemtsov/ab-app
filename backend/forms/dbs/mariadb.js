@@ -183,11 +183,17 @@ module.exports = [
         }		
 	},
 	{
-		regexp: /^DATETIME[0-9()\s]*$/i,
+		regexp: /^(DATE|DATETIME)[0-9()\s]*$/i,
 		f: result => {
+			let [, type] = result;
+            type = type.toUpperCase();
+			
 			const strIsDate = {
-				f: 'strIsDate',
 				message: 'Value must be a date'
+			}
+			switch (type) {
+				case 'DATE': strIsDate.f = 'strIsShortDate'; break;
+				case 'DATETIME': strIsDate.f = 'strIsDate'; break;
 			}
 			
 			const dateMin = {

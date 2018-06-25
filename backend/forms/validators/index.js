@@ -8,6 +8,7 @@ module.exports.strMinMax = (value, min, max) => value.length >= min && value.len
 module.exports.strMax = (value, max) => value.length <= max;
 module.exports.strEquals = (value, str) => value === str;
 module.exports.strIsDate = (value) => Date.parse(value) !== NaN;
+module.exports.strIsShortDate = (value) => /^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/.test(value);
 
 //Numbers
 module.exports.numType = value => /^-?[0-9]*$/.test(value);
