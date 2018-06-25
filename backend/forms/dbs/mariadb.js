@@ -2,7 +2,7 @@
 
 module.exports = [
     {
-        regexp: /^(TINYINT|BOOLEAN|BOOL|SMALLINT|MEDIUMINT|INTEGER|INT|BIGINT)[1-9()\s]*(SIGNED|UNSIGNED|ZEROFILL)?$/i,
+        regexp: /^(TINYINT|BOOLEAN|BOOL|SMALLINT|MEDIUMINT|INTEGER|INT|BIGINT)[0-9()\s]*(SIGNED|UNSIGNED|ZEROFILL)?$/i,
         f: result => {
             let [, type, attr = ''] = result;
             type = type.toUpperCase();
