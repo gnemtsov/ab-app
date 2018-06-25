@@ -207,6 +207,24 @@ module.exports = [
 				type: 'Datetime'
 			};
 		}
+	},
+	{
+		regexp: /^ENUM\(((?:'[^']+', *)*'[^']+')\)/i,
+		f: result => {
+			const allowedValues = [];
+			let stringToParse = result[1];
+			let x;
+			while (x = /(?:'([^']+)', *)(.*)/.exec(stringToParse)) {
+				allowedValues.push(x[1]);
+				stringToParse = x[2];
+			};
+			allowedValues.push(/'([^']+)'/.exec(stringToParse)[1]);
+			return {
+				validators: [],
+				type: 'String',
+				allowedValues: allowedValues
+			};
+		}
 	}
 ]
 
