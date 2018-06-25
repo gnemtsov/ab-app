@@ -183,7 +183,7 @@ module.exports = [
         }		
 	},
 	{
-		regexp: /^DATETIME[0-9()\s]*$/,
+		regexp: /^DATETIME[0-9()\s]*$/i,
 		f: result => {
 			const dateType = {
 				f: 'dateType',
