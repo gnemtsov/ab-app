@@ -185,8 +185,8 @@ module.exports = [
 	{
 		regexp: /^DATETIME[0-9()\s]*$/i,
 		f: result => {
-			const dateType = {
-				f: 'dateType',
+			const strIsDate = {
+				f: 'strIsDate',
 				message: 'Value must be a date'
 			}
 			
@@ -203,7 +203,7 @@ module.exports = [
 			}
 			
 			return {
-				validators: [dateType, dateMin, dateMax],
+				validators: [strIsDate, dateMin, dateMax],
 				type: 'Datetime'
 			};
 		}

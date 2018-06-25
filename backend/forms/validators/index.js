@@ -19,6 +19,5 @@ module.exports.numMax = (value, max) => value <= max;
 module.exports.floatType = value => /^-?[0-9]*(\.[0-9]*)?$/.test(value);
 
 //Dates
-module.exports.dateType = value => new Date(value).valueOf() !== NaN;
 module.exports.dateMin = (value, min) => new Date(value) >= new Date(min);
 module.exports.dateMax = (value, max) => new Date(value) <= new Date(min);
