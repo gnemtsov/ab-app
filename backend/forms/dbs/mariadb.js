@@ -181,7 +181,33 @@ module.exports = [
                 type: 'Number'
             };
         }		
-	},	
+	},
+	{
+		regexp: /^DATETIME[0-9()\s]*$/,
+		f: result => {
+			const dateType = {
+				f: 'dateType',
+				message: 'Value must be a date'
+			}
+			
+			const dateMin = {
+				f: 'dateMin',
+				message: 'Date must be bigger than %0%',
+				params: ['1000-01-01 00:00:00.000000']
+			}
+			
+			const dateMax = {
+				f: 'dateMax',
+				message: 'Date must be less than %0%',
+				params: ['9999-12-31 23:59:59.999999']
+			}
+			
+			return {
+				validators: [dateType, dateMin, dateMax],
+				type: 'Datetime'
+			};
+		}
+	}
 ]
 
 
