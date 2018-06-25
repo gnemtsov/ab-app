@@ -641,6 +641,35 @@ describe('mariadb.js: regexp for float types', () => {
 describe('mariadb.js: regexp for date types', () => {
 	const regexp = regexps[3];
 
+	it('DATE', () => {
+		const input = 'DATE';
+		
+		let output = null;
+		const result = regexp.regexp.exec(input);
+		if (result) {
+			output = regexp.f(result);
+		}
+		
+		expect(output).to.deep.equal({
+			type: 'Datetime',
+			validators: [
+				{
+					f: 'strIsShortDate',
+					message: 'Value must be a date'
+				},
+				{
+					f: 'dateMin',
+					message: 'Date must be bigger than %0%',
+					params: ['1000-01-01 00:00:00.000000']
+				},
+				{
+					f: 'dateMax',
+					message: 'Date must be less than %0%',
+					params: ['9999-12-31 23:59:59.999999']
+				}
+			]
+		});
+	});
 	it('DATETIME', () => {
 		const input = 'DATETIME';
 		
