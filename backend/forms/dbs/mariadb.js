@@ -2,7 +2,7 @@
 
 module.exports = [
     {
-        regexp: /^(TINYINT|BOOLEAN|BOOL|SMALLINT|MEDIUMINT|INTEGER|INT|BIGINT)[1-9()\s]*(SIGNED|UNSIGNED|ZEROFILL)?$/i,
+        regexp: /^(TINYINT|BOOLEAN|BOOL|SMALLINT|MEDIUMINT|INTEGER|INT|BIGINT)[0-9()\s]*(SIGNED|UNSIGNED|ZEROFILL)?$/i,
         f: result => {
             let [, type, attr = ''] = result;
             type = type.toUpperCase();
@@ -65,7 +65,173 @@ module.exports = [
                 type: 'Number'
             };
         }
-    }
+    },
+    {
+		regexp: /^(NATIONAL)?\s*(CHAR|VARCHAR|TEXT|TINYTEXT|MEDIUMTEXT|LONGTEXT|JSON)(\(([0-9]*)\))?/i,
+        f: result => {
+            let [, ,type, ,size] = result;
+            type = type.toUpperCase();
+            size = parseInt(size);
+            
+            // Max length validator
+            let strMax = {
+				f: 'strMax',
+				message: 'String must be shorter or equal to %0% characters'
+			};
+            switch (type) {
+				case 'CHAR':
+				case 'VARCHAR':
+					strMax.params = [ isNaN(size) ? 1 : size]; break;
+				case 'TEXT':
+					strMax.params = [ isNaN(size) ? 65535 : size]; break;
+				case 'TINYTEXT':
+					strMax.params = [ 255 ]; break;
+				case 'MEDIUMTEXT':
+					strMax.params = [ 16777215 ]; break;
+				case 'LONGTEXT':
+				case 'JSON':
+					strMax.params = [ 4294967295 ]; break;
+			}
+            
+            return {
+                validators: [strMax],
+                type: 'String'
+            };
+        }		
+	},
+    {
+		regexp: /^(DEC|DECIMAL|NUMERIC|FIXED|FLOAT|DOUBLE|DOUBLE PRECISION|REAL)(\(([0-9]*)(,([0-9]*))?\))?\s*(SIGNED|UNSIGNED|ZEROFILL)?\s*(SIGNED|UNSIGNED|ZEROFILL)?$/i,
+        f: result => {
+            let [, type, , M0, , D0, attr1='', attr2=''] = result;
+            type = type.toUpperCase();
+            M0 = parseInt(M0);
+            D0 = parseInt(D0);
+            attr1 = attr1.toUpperCase();
+            attr2 = attr2.toUpperCase();
+            let M = M0;
+            if (isNaN(M)) {
+				M = 10;
+			}
+            let D = D0;
+            if (isNaN(D)) {
+				D = 0;
+			}
+			            
+            //type validator
+            const floatType = {
+                f: 'floatType',
+                message: 'Value must a number'
+            };
+
+            //min validator         
+            let numMin = {
+                f: 'numMin',
+                message: 'Value must be greater than %0%'
+            };
+            const unsigned = attr1 == 'UNSIGNED' || attr2 == 'UNSIGNED';
+			switch (type) {
+				case 'DECIMAL':
+				case 'DEC':
+				case 'NUMERIC':
+				case 'FIXED':
+					numMin.params = [ unsigned ? 0 : -(Math.pow(10, M-D) - 1)]; break;
+				default:
+					if (unsigned) {
+						numMin.params = [0];
+					} else {
+						// [(M0, D0)] - both or none
+						if (isNaN(M0)) {
+							numMin = undefined;
+						} else {
+							numMin.params = [ -(Math.pow(10, M-D) - 1)]; break;
+						}
+					}
+			}
+
+            //max validator         
+            let numMax = {
+                f: 'numMax',
+                message: 'Value must be smaller than %0%'
+            };
+			switch (type) {
+				case 'DECIMAL':
+				case 'DEC':
+				case 'NUMERIC':
+				case 'FIXED':
+					numMax.params = [ Math.pow(10, M-D) - 1]; break;
+				default:
+					// [(M0, D0)] - both or none
+					if (isNaN(M0)) {
+						numMax = undefined;
+					} else {
+						numMax.params = [ Math.pow(10, M-D) - 1]; break;
+					}
+			}			
+
+			let validators = [floatType];
+			if (numMin) {
+				validators.push(numMin);
+			}
+			if (numMax) {
+				validators.push(numMax);
+			}
+			
+            return {
+                validators: validators,
+                type: 'Number'
+            };
+        }		
+	},
+	{
+		regexp: /^(DATE|DATETIME)[0-9()\s]*$/i,
+		f: result => {
+			let [, type] = result;
+            type = type.toUpperCase();
+			
+			const strIsDate = {
+				message: 'Value must be a date'
+			}
+			switch (type) {
+				case 'DATE': strIsDate.f = 'strIsShortDate'; break;
+				case 'DATETIME': strIsDate.f = 'strIsDate'; break;
+			}
+			
+			const dateMin = {
+				f: 'dateMin',
+				message: 'Date must be bigger than %0%',
+				params: ['1000-01-01 00:00:00.000000']
+			}
+			
+			const dateMax = {
+				f: 'dateMax',
+				message: 'Date must be less than %0%',
+				params: ['9999-12-31 23:59:59.999999']
+			}
+			
+			return {
+				validators: [strIsDate, dateMin, dateMax],
+				type: 'Datetime'
+			};
+		}
+	},
+	{
+		regexp: /^ENUM\(((?:'[^']+', *)*'[^']+')\)/i,
+		f: result => {
+			const allowedValues = [];
+			let stringToParse = result[1];
+			let x;
+			while (x = /(?:'([^']+)', *)(.*)/.exec(stringToParse)) {
+				allowedValues.push(x[1]);
+				stringToParse = x[2];
+			};
+			allowedValues.push(/'([^']+)'/.exec(stringToParse)[1]);
+			return {
+				validators: [],
+				type: 'String',
+				allowedValues: allowedValues
+			};
+		}
+	}
 ]
 
 
