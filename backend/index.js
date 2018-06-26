@@ -92,26 +92,27 @@ exports.handler = (event, context, callback) => {
         if (!fs.existsSync(actionPath)) {
 			return callback(null, HTTP.response(404, { error: 'Action not found.' }));
 		}
-		const actionObject = require(actionPath)();
+		const actionObj = require(actionPath);
 
 		//call resource action
-		//check token for protected action
-		if (actionObject.protected === 1) {
+		if (!actionObj.hasOwnProperty(method)) {
+			//check token for protected action
+			return callback(null, HTTP.response(405));
+		}
+		if (actionObj[method].protected === 1) {
 			if (event.headers['X-Access-Token'] === undefined) {
 				return callback(null, HTTP.response(403, { error: 'No token provided.' }));
 			}
 			try {
+				const token = event.headers['X-Access-Token'];
 				event.userData = jwt.verify(token, process.env.SECRET);
 			} catch (error) {
 				return callback(null, HTTP.response(403, { error: 'Failed to verify token.' }));
 			}
 		}
-		if (!actionObject.hasOwnProperty(method)) {
-			return callback(null, HTTP.response(405));
-		}
 
 		//finally call the api
-		return actionObject[method](event, context, callback);
+		return actionObj[method](event, context, callback);
     } catch (err) {
         handleFatalError(err);
     }
