@@ -119,7 +119,7 @@ const addDBValidators = (fields) => {
                                         } = regexp.f(regexpResult);
 
                                         if (field.type !== undefined && field.type !== 'Hidden' && field.type !== type) {
-                                            throw new Error(`Field and db column types mismatch.`);
+                                           throw new Error(`Field and db column types mismatch.`);
                                         }
                                         field.type = U.coalesce(field.type, type);
 

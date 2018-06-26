@@ -35,7 +35,7 @@ const buildErrorInfo = (err) => {
 
 //main handler
 exports.handler = (event, context, callback) => {
-	
+
     console.log(`| C ---> ${event.httpMethod} ---> ${event.pathParameters['proxy']}`);
 
     //Needed for global error handler 
@@ -83,36 +83,37 @@ exports.handler = (event, context, callback) => {
         //Extract resource and action from path params
         const [resource, action] = event.pathParameters['proxy'].split('/');
 
-		// Require action from API if it exists
-		const resourcePath = 'api/' + resource;
+        // Require action from API if it exists
+        const resourcePath = 'api/' + resource;
         if (!fs.existsSync(resourcePath)) {
-			return callback(null, HTTP.response(404, { error: 'Resource not found.' }));
-		}
-		const actionPath = resourcePath + '/' + action + '.js';
+            return callback(null, HTTP.response(404, { error: 'Resource not found.' }));
+        }
+        const actionPath = resourcePath + '/' + action + '.js';
         if (!fs.existsSync(actionPath)) {
-			return callback(null, HTTP.response(404, { error: 'Action not found.' }));
-		}
-		const actionObj = require(actionPath);
+            return callback(null, HTTP.response(404, { error: 'Action not found.' }));
+        }
+        const actionObj = require(actionPath);
 
-		//call resource action
-		if (!actionObj.hasOwnProperty(method)) {
-			//check token for protected action
-			return callback(null, HTTP.response(405));
-		}
-		if (actionObj[method].protected === 1) {
-			if (event.headers['X-Access-Token'] === undefined) {
-				return callback(null, HTTP.response(403, { error: 'No token provided.' }));
-			}
-			try {
-				const token = event.headers['X-Access-Token'];
-				event.userData = jwt.verify(token, process.env.SECRET);
-			} catch (error) {
-				return callback(null, HTTP.response(403, { error: 'Failed to verify token.' }));
-			}
-		}
+        //call resource action
+        if (!actionObj.hasOwnProperty(method)) {
+            return callback(null, HTTP.response(405));
+        }
 
-		//finally call the api
-		return actionObj[method](event, context, callback);
+        //check token for protected action
+        if (actionObj[method].open !== 1) {
+            if (event.headers['X-Access-Token'] === undefined) {
+                return callback(null, HTTP.response(403, { error: 'No token provided.' }));
+            }
+            try {
+                const token = event.headers['X-Access-Token'];
+                event.userData = jwt.verify(token, process.env.SECRET);
+            } catch (error) {
+                return callback(null, HTTP.response(403, { error: 'Failed to verify token.' }));
+            }
+        }
+
+        //finally call the api
+        return actionObj[method](event, context, callback);
     } catch (err) {
         handleFatalError(err);
     }

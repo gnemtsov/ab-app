@@ -183,7 +183,7 @@ module.exports = [
         }		
 	},
 	{
-		regexp: /^(DATE|DATETIME)[0-9()\s]*$/i,
+		regexp: /^(DATE)[0-9()\s]*$/i,
 		f: result => {
 			let [, type] = result;
             type = type.toUpperCase();
@@ -192,25 +192,24 @@ module.exports = [
 				message: 'Value must be a date'
 			}
 			switch (type) {
-				case 'DATE': strIsDate.f = 'strIsShortDate'; break;
-				case 'DATETIME': strIsDate.f = 'strIsDate'; break;
+				case 'DATE': strIsDate.f = 'strIsDate'; break;
 			}
 			
 			const dateMin = {
 				f: 'dateMin',
 				message: 'Date must be bigger than %0%',
-				params: ['1000-01-01 00:00:00.000000']
+				params: ['1000-01-01']
 			}
 			
 			const dateMax = {
 				f: 'dateMax',
 				message: 'Date must be less than %0%',
-				params: ['9999-12-31 23:59:59.999999']
+				params: ['9999-12-31']
 			}
 			
 			return {
 				validators: [strIsDate, dateMin, dateMax],
-				type: 'Datetime'
+				type: 'Date'
 			};
 		}
 	},
