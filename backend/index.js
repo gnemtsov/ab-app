@@ -104,6 +104,7 @@ exports.handler = (event, context, callback) => {
 				return callback(null, HTTP.response(403, { error: 'No token provided.' }));
 			}
 			try {
+				const token = event.headers['X-Access-Token'];
 				event.userData = jwt.verify(token, process.env.SECRET);
 			} catch (error) {
 				return callback(null, HTTP.response(403, { error: 'Failed to verify token.' }));

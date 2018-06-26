@@ -13,4 +13,4 @@ module.exports.GET = (event, context, callback) => {
 	TABLE.getAsObject('departments')
 		.then(table => callback(null, HTTP.response(200, table)));
 };
-module.exports.GET.protected = 0;
+module.exports.GET.protected = 1;
