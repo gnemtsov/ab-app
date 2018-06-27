@@ -3,65 +3,54 @@
 exports[`<Paginator /> 0 (0 total) 1`] = `""`;
 
 exports[`<Paginator /> 5 (10 total) 1`] = `
-<div>
+<div
+  class="Paginator"
+>
   <button
-    clicked={[Function]}
-    disabled={false}
-    key="pback"
+    class="Button"
   >
     ←
   </button>
   <button
-    clicked={[Function]}
-    disabled={false}
-    key="p1"
+    class="Button"
   >
     1
   </button>
   <button
-    disabled={true}
-    key="p2"
+    class="Button Dots"
+    disabled=""
   >
     ...
   </button>
   <button
-    clicked={[Function]}
-    disabled={false}
-    key="p4"
+    class="Button"
   >
     4
   </button>
   <button
-    clicked={null}
-    disabled={true}
-    key="p5"
+    class="Button"
+    disabled=""
   >
     5
   </button>
   <button
-    clicked={[Function]}
-    disabled={false}
-    key="p6"
+    class="Button"
   >
     6
   </button>
   <button
-    disabled={true}
-    key="p7"
+    class="Button Dots"
+    disabled=""
   >
     ...
   </button>
   <button
-    clicked={[Function]}
-    disabled={false}
-    key="p10"
+    class="Button"
   >
     10
   </button>
   <button
-    clicked={[Function]}
-    disabled={false}
-    key="pforward"
+    class="Button"
   >
     →
   </button>
