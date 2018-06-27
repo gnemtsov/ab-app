@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Spinner from '../../components/UI/Spinner/Spinner';
-import Table from '../../components/UI/Table/Table';
+import Table from '../../containers/Table/Table';
 import * as actionTypes from "../../store/actionTypes";
 
 import classes from './Departments.css';

@@ -1,5 +1,5 @@
 import React from 'react';
-import Form from '../../components/UI/Form/Form';
+import Form from '../../containers/Form/Form';
 
 import classes from './Add.css';
 

@@ -1,0 +1,89 @@
+/**********Form**********/
+
+.Form {
+    width: 100%;
+    text-align: left;
+}
+
+.Form * {
+    box-sizing: border-box;
+}
+
+.Form.Horizontal {
+    display: grid;
+    grid-template-columns: auto min-content;
+    grid-auto-rows: min-content;
+    grid-column-gap: 0.5rem;
+    grid-row-gap: 0.4rem;
+}
+
+@media (min-width: 40rem) {
+    .Form.Horizontal {
+        grid-template-columns: minmax(min-content, max-content) minmax(min-content, auto) min-content;
+        grid-row-gap: 0;
+    }
+}
+
+.Form.Inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.Form.Inline>.FormElement {
+    display: flex;
+    margin-right: 1.5rem;
+    align-items: flex-start;
+}
+
+/**********Info icons**********/
+
+.DefaultInfoIcon {
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCI+PC9jaXJjbGU+PGxpbmUgeDE9IjEyIiB5MT0iMTYiIHgyPSIxMiIgeTI9IjEyIj48L2xpbmU+PGxpbmUgeDE9IjEyIiB5MT0iOCIgeDI9IjEyIiB5Mj0iOCI+PC9saW5lPjwvc3ZnPg==);
+}
+
+/**********Tooltips**********/
+
+.Tooltip {
+    max-width: 24rem;
+    background-color: #ccc !important;
+    color: #222 !important;
+    padding: 0.5rem 0.8rem !important;
+    font-size: 0.8rem !important;
+    line-height: 1rem !important;
+}
+
+.Tooltip::after {
+    border-top-color: transparent !important;
+    border-right-color: transparent !important;
+    border-bottom-color: transparent !important;
+    border-left-color: transparent !important;
+}
+
+/**********Submit**********/
+
+.Form.Horizontal .SubmitButton {
+    justify-self: start;
+    grid-column: 1 / 2;
+}
+
+@media (min-width: 40rem) {
+    .Form.Horizontal .SubmitButton {
+        grid-column: 2 / 3;
+    }
+}
+
+.DoneText {
+    color: green;
+    margin-left: 1rem;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.5s linear;
+}
+
+.DoneText.Visible {
+    opacity: 1;
+}

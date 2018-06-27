@@ -1,0 +1,44 @@
+.Container {
+    display: grid;
+    grid-template-columns: max-content min-content;
+}
+
+.Table {
+    border-spacing: 0;
+}
+
+.Table thead th {
+    text-align: left;
+}
+
+.Table tbody td,
+.Table thead th {
+    padding: 0.4rem;
+}
+
+.Odd {
+    background-color: #e9e8e8;
+}
+
+.Selected {
+    background-color: aquamarine;
+}
+
+.Footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+}
+
+.Footer div {
+    margin-top: 1rem;
+}
+
+.Footer div.Legend {
+    font-size: 0.9rem;
+}
+
+.Footer div:first-child {
+    margin-right: 2rem;
+}

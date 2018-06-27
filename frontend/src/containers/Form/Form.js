@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-
 import axios from 'axios';
 
-import AbForm from 'react-ab-form';
+import ErrorBoundary from '../../hoc/errorBoundary/errorBoundary';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import Icon from '../../components/UI/Icon/Icon';
+import FormComponent from '../../components/Form/Form';
 
-import ErrorBoundary from '../../../hoc/errorBoundary/errorBoundary';
-import Spinner from '../Spinner/Spinner';
-import Icon from '../Icon/Icon';
 import classes from './Form.css';
 
 export class Form extends Component {
@@ -54,7 +53,7 @@ export class Form extends Component {
         let form = <Spinner />;
 
         if (this.state.fields !== undefined) {
-            form = <AbForm {...this.conf} {...this.state} />;
+            form = <FormComponent {...this.conf} {...this.state} />;
         }
 
         return (

@@ -4,19 +4,19 @@ import { connect } from 'react-redux';
 import asyncComponent from './hoc/asyncComponent/asyncComponent';
 
 import Layout from './hoc/Layout/Layout';
-import Departments from './containers/Departments/Departments';
-import Auth from './containers/Auth/Auth';
-import Logout from './containers/Auth/Logout/Logout';
+import Departments from './pages/Departments/Departments';
+import Auth from './pages/Auth/Auth';
+import Logout from './pages/Auth/Logout/Logout';
 import * as actionTypes from "./store/actionTypes";
 
 import classes from './App.css';
 
 const asyncAdd = asyncComponent(() => {
-    return import('./containers/Add/Add');
+    return import('./pages/Add/Add');
 });
 
 const asyncEdit = asyncComponent(() => {
-    return import('./containers/Edit/Edit');
+    return import('./pages/Edit/Edit');
 });
 
 class App extends Component {

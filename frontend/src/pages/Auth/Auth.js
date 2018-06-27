@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import Form from '../../components/UI/Form/Form';
+import Form from '../../containers/Form/Form';
 import * as actionTypes from "../../store/actionTypes";
 
 class Auth extends Component {

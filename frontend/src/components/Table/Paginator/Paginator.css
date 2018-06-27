@@ -1,0 +1,20 @@
+.Paginator{
+    display: flex;
+}
+
+.Paginator button{
+    margin: 0 0.05rem;
+}
+
+.Paginator .Dots:disabled{
+    background-color: #cccccc;
+    color: #333333;
+}
+
+.Paginator button:first-child{
+    margin-left: 0;
+}
+
+.Paginator button:last-child{
+    margin-right: 0;
+}

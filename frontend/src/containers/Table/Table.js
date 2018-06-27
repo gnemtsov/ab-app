@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-
 import axios from 'axios';
-import AbTable from 'react-ab-table';
 
-import ErrorBoundary from '../../../hoc/errorBoundary/errorBoundary';
-import Spinner from '../Spinner/Spinner';
+import ErrorBoundary from '../../hoc/errorBoundary/errorBoundary';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import TableComponent from '../../components/Table/Table';
+
 import * as Formatters from './Formatters/Formatters';
 
 export class Table extends Component {
@@ -47,7 +47,7 @@ export class Table extends Component {
     render() {
         let table = <Spinner />;
         if (this.state.cols !== undefined) {
-            table = <AbTable {...this.conf} {...this.state} />;
+            table = <TableComponent {...this.conf} {...this.state} />;
         }
 
         return (

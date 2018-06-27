@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Paginator /> 0 (0 total) 1`] = `""`;
+
+exports[`<Paginator /> 5 (10 total) 1`] = `
+<div>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    disabled={true}
+    key="p7"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p10"
+  >
+    10
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
