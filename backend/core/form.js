@@ -18,13 +18,13 @@ exports.invalidField = invalidField;
 
 //returns form fields
 exports.getAsObject = (formName, params = []) => {
-    let fields = require(`forms/${formName}.json`); //fields
+    let fields = require(`../forms/${formName}.json`); //fields
     let dbPromises = [];
 
     //fetch fields values from DB
-    const sqlFile = `forms/sql/${formName}.sql`; //sql
+    const sqlFile = `./forms/sql/${formName}.sql`; //sql
     if (fs.existsSync(sqlFile)) {
-        const sql = fs.readFileSync(`forms/sql/${formName}.sql`, 'utf8');
+        const sql = fs.readFileSync(`./forms/sql/${formName}.sql`, 'utf8');
         dbPromises.push(
             DB.then(conn => conn.execute(sql, params))
                 .then(([rows]) => {
@@ -93,7 +93,7 @@ exports.isValid = (formName, data) => {
 /*-----Supplementary functions-----*/
 //adds validators, based on info from SHOW COLUMNS query
 const addDBValidators = (fields) => {
-    const regexps = require('forms/dbs/mariadb');
+    const regexps = require('../forms/dbs/mariadb');
     let dbPromises = [];
     let tablesList = [];
     for (const field of fields) {
