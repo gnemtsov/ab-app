@@ -4,7 +4,7 @@
 /*********************Departments API: List************************/
 /******************************************************************/
 
-const { HTTP, TABLE } = require('core/index');
+const { HTTP, TABLE } = require('../../core/index');
 
 //Method: GET
 //Params: -

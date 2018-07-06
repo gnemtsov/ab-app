@@ -4,7 +4,7 @@
 /*********************Departments API: Add*************************/
 /******************************************************************/
 
-const { DB, HTTP, FORM } = require('core/index');
+const { DB, HTTP, FORM } = require('../../core/index');
 
 //Method: GET
 //Params: -

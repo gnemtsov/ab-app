@@ -9,7 +9,7 @@ if (process.env.PROD === undefined) {
 }
 
 //core modules
-const { DB, HTTP, FORM } = require('core/index');
+const { DB, HTTP, FORM } = require('./core/index');
 
 const buildErrorInfo = (err) => {
     return {

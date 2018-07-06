@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const randtoken = require('rand-token');
 
-const { DB, HTTP, FORM } = require('core/index');
+const { DB, HTTP, FORM } = require('../../core/index');
 
 //Method: POST
 //Params: login, refreshToken

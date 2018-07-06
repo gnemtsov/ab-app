@@ -1,8 +1,8 @@
 'use strict';
 
 const fs = require('fs');
-const DB = require('core/db');
-const FORMATTERS = require('tables/formatters');
+const DB = require('./db');
+const FORMATTERS = require('../tables/formatters');
 
 exports.getAsObject = (tableName, params = []) => {
     const cols = require(`tables/${tableName}.json`);
