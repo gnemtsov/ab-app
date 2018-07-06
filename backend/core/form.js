@@ -52,7 +52,7 @@ exports.getAsObject = (formName, params = []) => {
 
 //returns Promise (true|invalidField)
 exports.isValid = (formName, data) => {
-    const fields = require(`forms/${formName}.json`);
+    const fields = require(`../forms/${formName}.json`);
     return addDBValidators(fields)
         .then(() => {
             for (const field of fields) {
