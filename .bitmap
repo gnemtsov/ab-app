@@ -12,7 +12,7 @@
         "mainFile": "frontend/src/components/UI/Spinner/Spinner.js",
         "origin": "AUTHORED"
     },
-    "ab-app/backend@1.0.0": {
+    "lambme.abapp/ab-app/backend@1.0.2": {
         "files": [
             {
                 "relativePath": "backend/api/auth/login.js",
