@@ -18,13 +18,13 @@ exports.invalidField = invalidField;
 
 //returns form fields
 exports.getAsObject = (formName, params = []) => {
-    let fields = require(`../forms/${formName}.json`); //fields
+    let fields = require(`../${process.env.FORMS_PATH}/${formName}.json`); //fields
     let dbPromises = [];
 
     //fetch fields values from DB
-    const sqlFile = `./forms/sql/${formName}.sql`; //sql
+    const sqlFile = `${process.env.FORMS_PATH}/sql/${formName}.sql`; //sql
     if (fs.existsSync(sqlFile)) {
-        const sql = fs.readFileSync(`./forms/sql/${formName}.sql`, 'utf8');
+        const sql = fs.readFileSync(`${process.env.FORMS_PATH}/sql/${formName}.sql`, 'utf8');
         dbPromises.push(
             DB.then(conn => conn.execute(sql, params))
                 .then(([rows]) => {
@@ -52,7 +52,7 @@ exports.getAsObject = (formName, params = []) => {
 
 //returns Promise (true|invalidField)
 exports.isValid = (formName, data) => {
-    const fields = require(`../forms/${formName}.json`);
+    const fields = require(`../${process.env.FORMS_PATH}/${formName}.json`);
     return addDBValidators(fields)
         .then(() => {
             for (const field of fields) {
