@@ -37,6 +37,7 @@ DB_PASSWORD="abapp"
 API_PATH="api"
 FORMS_PATH="forms"
 TABLES_PATH="tables"
+MODELS_PATH="models"
 
 ```
 6. Create user **abapp** with password **abapp** in your mysql.user table and give appropriate rights to allow lambda backend to connect and work with your DB
