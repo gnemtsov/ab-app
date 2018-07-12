@@ -50,7 +50,7 @@ exports.handler = (event, context, callback) => {
         // TODO: do something
         const errorInfo = buildErrorInfo(err);
         // TODO: log errorInfo to S3
-
+        
         callback(null, HTTP.response(500, {
             error: (process.env.PROD === 'true' ? 'Something went wrong' : errorInfo)
         }));
