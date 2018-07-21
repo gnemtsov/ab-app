@@ -9,7 +9,7 @@ if (process.env.PROD === undefined) {
 }
 
 //core modules
-const { DB, HTTP, FORM } = require('core/index');
+const { DB, HTTP, FORM } = require('./core/index');
 
 const buildErrorInfo = (err) => {
     return {
@@ -50,7 +50,7 @@ exports.handler = (event, context, callback) => {
         // TODO: do something
         const errorInfo = buildErrorInfo(err);
         // TODO: log errorInfo to S3
-
+        
         callback(null, HTTP.response(500, {
             error: (process.env.PROD === 'true' ? 'Something went wrong' : errorInfo)
         }));

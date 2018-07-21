@@ -5,9 +5,9 @@
 /******************************************************************/
 
 module.exports = {
-    DB: require('core/db'),
-    HTTP: require('core/http'),
-    FORM: require('core/form'),
-    TABLE: require('core/table'),
-    U: require('core/utils'),
+    DB: require('./db'),
+    HTTP: require('./http'),
+    FORM: require('./form'),
+    TABLE: require('./table'),
+    U: require('./utils'),
 }

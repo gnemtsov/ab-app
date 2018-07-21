@@ -12,5 +12,122 @@
         "mainFile": "frontend/src/components/UI/Spinner/Spinner.js",
         "origin": "AUTHORED"
     },
+    "lambme.abapp/ab-app/backend@1.0.2": {
+        "files": [
+            {
+                "relativePath": "backend/api/auth/login.js",
+                "test": false,
+                "name": "login.js"
+            },
+            {
+                "relativePath": "backend/api/auth/token.js",
+                "test": false,
+                "name": "token.js"
+            },
+            {
+                "relativePath": "backend/api/departments/add.js",
+                "test": false,
+                "name": "add.js"
+            },
+            {
+                "relativePath": "backend/api/departments/edit.js",
+                "test": false,
+                "name": "edit.js"
+            },
+            {
+                "relativePath": "backend/api/departments/list.js",
+                "test": false,
+                "name": "list.js"
+            },
+            {
+                "relativePath": "backend/core/db.js",
+                "test": false,
+                "name": "db.js"
+            },
+            {
+                "relativePath": "backend/core/form.js",
+                "test": false,
+                "name": "form.js"
+            },
+            {
+                "relativePath": "backend/core/http.js",
+                "test": false,
+                "name": "http.js"
+            },
+            {
+                "relativePath": "backend/core/index.js",
+                "test": false,
+                "name": "index.js"
+            },
+            {
+                "relativePath": "backend/core/table.js",
+                "test": false,
+                "name": "table.js"
+            },
+            {
+                "relativePath": "backend/core/utils.js",
+                "test": false,
+                "name": "utils.js"
+            },
+            {
+                "relativePath": "backend/forms/dbs/mariadb.js",
+                "test": false,
+                "name": "mariadb.js"
+            },
+            {
+                "relativePath": "backend/forms/department.json",
+                "test": false,
+                "name": "department.json"
+            },
+            {
+                "relativePath": "backend/forms/login.json",
+                "test": false,
+                "name": "login.json"
+            },
+            {
+                "relativePath": "backend/forms/sql/department.sql",
+                "test": false,
+                "name": "department.sql"
+            },
+            {
+                "relativePath": "backend/forms/validators/index.js",
+                "test": false,
+                "name": "index.js"
+            },
+            {
+                "relativePath": "backend/index.js",
+                "test": false,
+                "name": "index.js"
+            },
+            {
+                "relativePath": "backend/tables/departments.json",
+                "test": false,
+                "name": "departments.json"
+            },
+            {
+                "relativePath": "backend/tables/formatters/index.js",
+                "test": false,
+                "name": "index.js"
+            },
+            {
+                "relativePath": "backend/tables/sql/departments.sql",
+                "test": false,
+                "name": "departments.sql"
+            },
+            {
+                "relativePath": "backend/template.yaml",
+                "test": false,
+                "name": "template.yaml"
+            },
+            {
+                "relativePath": "backend/test/test.js",
+                "test": false,
+                "name": "test.js"
+            }
+        ],
+        "mainFile": "backend/index.js",
+        "trackDir": "backend",
+        "origin": "AUTHORED"
+    },
     "version": "13.0.1"
 }

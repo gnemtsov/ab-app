@@ -1,14 +1,14 @@
 'use strict';
 
 const fs = require('fs');
-const DB = require('core/db');
-const FORMATTERS = require('tables/formatters');
+const DB = require('./db');
+const FORMATTERS = require('../tables/formatters');
 
 exports.getAsObject = (tableName, params = []) => {
-    const cols = require(`tables/${tableName}.json`);
+    const cols = require(`../${process.env.TABLES_PATH}/${tableName}.json`);
 
     //fetch table rows from db
-    const sql = fs.readFileSync(`tables/sql/${tableName}.sql`, 'utf8');
+    const sql = fs.readFileSync(`${process.env.TABLES_PATH}/sql/${tableName}.sql`, 'utf8');
     const dbFetchPromise =
         DB.then(conn => conn.execute(sql, params)).then(([rows]) => {
             return rows.map(row => {

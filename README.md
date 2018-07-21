@@ -57,6 +57,13 @@ DB_HOST="192.168.1.5"
 DB_NAME="abapp"
 DB_USER="abapp"
 DB_PASSWORD="abapp"
+
+#API
+API_PATH="api"
+FORMS_PATH="forms"
+TABLES_PATH="tables"
+MODELS_PATH="models"
+
 ```
 6. Create user **abapp** with password **abapp** in your mysql.user table and give appropriate rights to allow lambda backend to connect and work with your DB
 
