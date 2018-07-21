@@ -9,18 +9,26 @@ configure({ adapter: new Adapter() });
 
 describe('Table', () => {
 
-    const conf = {
-        selectable: true
+    const snapshoot = (name, conf, cols, rows) => {
+        const wrapper = render(
+            <Table
+                {...conf}
+                cols={cols}
+                rows={rows} />
+        );
+        it(name, () => {
+            expect(wrapper).toMatchSnapshot();
+        });
     }
 
-    const cols = [
+    let conf = {};
+    let cols = [
         { name: 'name', title: 'Pet name' },
         { name: 'class', title: 'Animal class' },
         { name: 'age', title: 'Age' },
         { name: 'gender', title: 'Gender' }
-    ]
-
-    const rows = [
+    ];
+    let rows = [
         { name: 'Buddy', class: 'Dog', age: 3, gender: 'male' },
         { name: 'Molly', class: 'Cat', age: 15, gender: 'female' },
         { name: 'Bonnie', class: 'Cat', age: 2, gender: 'female' },
@@ -28,20 +36,26 @@ describe('Table', () => {
         { name: 'Oscar', class: 'Dog', age: 5, gender: 'male' },
         { name: 'Max', class: 'Turtle', age: 15, gender: 'male' },
         { name: 'Jack', class: 'Varan', age: 1, gender: 'male' }
-    ]
+    ];
 
-    const snapshoot = () => {
-        it(`Basic render test`, () => {
-            const wrapper = render(
-                <Table
-                    {...conf}
-                    cols={cols}
-                    rows={rows}
-                />
-            );
-            expect(wrapper).toMatchSnapshot();
-        });
-    }
+    snapshoot('Basic render test', conf, cols, rows);
 
-    snapshoot();
+    cols = [
+        { name: 'name', title: 'Pet name' },
+        { name: 'class', title: 'Animal class', sortOrder: 1, sortDirection: 'ASC' },
+        { name: 'age', title: 'Age', sortOrder: 2, sortDirection: 'DESC' },
+        { name: 'gender', title: 'Gender' }
+    ];
+    snapshoot('With sorting', conf, cols, rows);
+
+    conf = {
+        rowsPerPage: 2,
+        selectable: true
+    };
+    snapshoot('With pagination', conf, cols, rows);
+
+    rows = [];
+    snapshoot('With no data', conf, cols, rows);
+
+
 });

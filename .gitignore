@@ -2,6 +2,7 @@
 .idea/
 .vscode/
 *node_modules/
+snapshots-book/
 npm-debug.log
 start-commands.txt
 abappDev.config.json

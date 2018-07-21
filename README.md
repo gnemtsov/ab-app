@@ -123,10 +123,10 @@ This component can be used in any application without conjunction with the AB-AP
 | csvExport | Boolean | true | Whether table can be exported as csv-file |
 | emptyTableMessage | String | 'No data specified' | A message, shown when table is empty. |
 | cols | Array of objects | [] | Columns descriptions (see below) |
-| rows | String | [] | Table data (see below) |
+| rows | Array of objects | [] | Table data (see below) |
 
 
-#### Custom styling
+#### Custom styling (className property)
 
 To apply custom styling you should set className property of the conf object. Your class will be put on top of default table styles, so all custom styles will override default. For example, to make headers' text green, you should set your custom class: `className = "CustomTable"`. Then write the following CSS in the .css file of your component, where you use table component:
 ```css
@@ -135,11 +135,11 @@ To apply custom styling you should set className property of the conf object. Yo
 }
 ```
 
-#### Columns descriptions
+#### Columns descriptions (cols property)
 
 Each table column is an object with the following properties:
 
-| Key | Type | Default value | Description |
+| Key | Type | Default | Description |
 | --- | --- | --- | --- |
 | name | String | - | Column name, must have corresponding data in rows objects (see below). |
 | title | String | '' | Column title |
@@ -147,7 +147,14 @@ Each table column is an object with the following properties:
 | sortDirection | String | 'ASC' | Default column sort direction (ASC or DESC) |
 | html | Boolean | false | Whether the cell content should be put to page as html |
 
-#### Table data
+
+The following properties are available only when using tables as part of AB-APP:
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| frontendFormatter | String | '' | Name of frontend formatter function |
+| backendFormatter | String | '' | Name of backend formatter function |
+
+#### Table data (rows property)
 
 Each table row is an object that holds the data of the table row. Object keys must be the same as **names** properties of the cols objects.
 
@@ -167,7 +174,7 @@ For example
 }]
 ```
 
-### Complete example
+### Using as separate React component
 ```jsx
 import React, { Component } from 'react';
 
@@ -175,11 +182,6 @@ import Table from 'table';
 
 export default class App extends Component {
     render() {
-
-        const conf = {
-            selectable: true
-        }
-
         const cols = [
             { name: 'name', title: 'Pet name' },
             { name: 'class', title: 'Animal class' },
@@ -202,6 +204,7 @@ export default class App extends Component {
                 className="TableContainer" >
                 <Table
                     selectable={true}
+                    emptyTableMessage={'No animals found'}
                     cols={cols}
                     rows={rows} />
             </div>

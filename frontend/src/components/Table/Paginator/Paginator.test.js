@@ -9,8 +9,8 @@ configure({ adapter: new Adapter() });
 
 describe('Paginator', () => {
     const snapshoot = (tp, cp) => {
+        const wrapper = render(<Paginator tp={tp} cp={cp} />);
         it(`Total = ${tp}, Current = ${cp}`, () => {
-            const wrapper = render(<Paginator tp={tp} cp={cp} />);
             expect(wrapper).toMatchSnapshot();
         });
     }
