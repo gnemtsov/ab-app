@@ -1,24 +1,27 @@
 import React from 'react';
 
-import { configure, shallow, render } from 'enzyme';
+import { configure, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import Paginator from './Paginator';
 
 configure({ adapter: new Adapter() });
 
+describe('Paginator', () => {
+    const snapshoot = (tp, cp) => {
+        it(`Total = ${tp}, Current = ${cp}`, () => {
+            const wrapper = render(<Paginator tp={tp} cp={cp} />);
+            expect(wrapper).toMatchSnapshot();
+        });
+    }
 
-describe('<Paginator />', () => {
-    it(`0 (0 total)`, () => {
-        const wrapper = shallow(<Paginator tp={0} cp={0} />);
-        expect(wrapper).toMatchSnapshot();
-    });
+    snapshoot(0, 0);
+    snapshoot(1, -1);
+    snapshoot(1, 1);
+    snapshoot(2, 2);
+    snapshoot(3, 1);
 
-    it(`5 (10 total)`, () => {
-        const wrapper = render(<Paginator tp={10} cp={5} />);
-        expect(wrapper).toMatchSnapshot();
-    });
-
-
-
+    for (let cp = 1; cp <= 10; cp++) {
+        snapshoot(10, cp);
+    }
 });

@@ -1,0 +1,229 @@
+
+            <!doctype html>
+            <html lang="en">
+                <head>
+                    <meta charset="utf-8">
+                    <title>Paginator</title>
+                    <style>.Paginator{
+    display: flex;
+}
+
+.Paginator button{
+    margin: 0 0.05rem;
+}
+
+.Paginator .Dots:disabled{
+    background-color: #cccccc;
+    color: #333333;
+}
+
+.Paginator button:first-child{
+    margin-left: 0;
+}
+
+.Paginator button:last-child{
+    margin-right: 0;
+}.Button {
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    color: #fff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 3px;
+    background-color: #449bf7;
+    border: none;
+}
+
+.Button:disabled {
+    background-color: #6c757d;
+    opacity: 0.7;
+    cursor: not-allowed;
+}.Paginator{
+    display: flex;
+}
+
+.Paginator button{
+    margin: 0 0.05rem;
+}
+
+.Paginator .Dots:disabled{
+    background-color: #cccccc;
+    color: #333333;
+}
+
+.Paginator button:first-child{
+    margin-left: 0;
+}
+
+.Paginator button:last-child{
+    margin-right: 0;
+}.Button {
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    color: #fff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 3px;
+    background-color: #449bf7;
+    border: none;
+}
+
+.Button:disabled {
+    background-color: #6c757d;
+    opacity: 0.7;
+    cursor: not-allowed;
+}.Container {
+    position: relative;
+}
+
+.Toolbar {
+    position: relative;
+    visibility: hidden;
+    display: grid;
+    grid-template-columns: min-content;
+    grid-row-gap: 0.1rem;
+    align-items: center;
+}
+
+@media (min-width: 40rem) {
+    .Toolbar {
+    }
+}
+
+.Toolbar.Show {
+    visibility: visible;
+}
+
+.Toolbar button {
+    border-radius: 0 6px 6px 0;
+    padding: 0.2rem 0.4rem;
+}.Button {
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    color: #fff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 3px;
+    background-color: #449bf7;
+    border: none;
+}
+
+.Button:disabled {
+    background-color: #6c757d;
+    opacity: 0.7;
+    cursor: not-allowed;
+}.Container {
+    display: grid;
+    grid-template-columns: max-content min-content;
+}
+
+.Table {
+    border-spacing: 0;
+}
+
+.Table thead th {
+    text-align: left;
+}
+
+.Table tbody td,
+.Table thead th {
+    padding: 0.4rem;
+}
+
+.Odd {
+    background-color: #e9e8e8;
+}
+
+.Selected {
+    background-color: aquamarine;
+}
+
+.Footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+}
+
+.Footer div {
+    margin-top: 1rem;
+}
+
+.Footer div.Legend {
+    font-size: 0.9rem;
+}
+
+.Footer div:first-child {
+    margin-right: 2rem;
+}
+            .LNum {
+                color: #666;
+                margin: 0 1rem 0 0.5rem;
+            }
+            .yellow {
+                color: #d5a207;
+                font-weight: bold;
+            }
+            .green { color: green; }
+            .red { color: red; }
+        </style>
+                    <script>
+            document.addEventListener("click", function() {
+                location = "expectedRaw.html";
+            });
+        </script>
+                </head>
+                <body><div
+  class="Paginator"
+>
+  <button
+    class="Button"
+  >
+    ←
+  </button>
+  <button
+    class="Button"
+  >
+    1
+  </button>
+  <button
+    class="Button Dots"
+    disabled=""
+  >
+    ...
+  </button>
+  <button
+    class="Button"
+  >
+    5
+  </button>
+  <button
+    class="Button"
+    disabled=""
+  >
+    6
+  </button>
+  <button
+    class="Button"
+  >
+    7
+  </button>
+  <button
+    class="Button Dots"
+    disabled=""
+  >
+    ...
+  </button>
+  <button
+    class="Button"
+  >
+    10
+  </button>
+  <button
+    class="Button"
+  >
+    →
+  </button>
+</div></body>
+            </html>
+        

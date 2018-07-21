@@ -1,0 +1,183 @@
+
+            <!doctype html>
+            <html lang="en">
+                <head>
+                    <meta charset="utf-8">
+                    <title>Paginator</title>
+                    <style>.Paginator{
+    display: flex;
+}
+
+.Paginator button{
+    margin: 0 0.05rem;
+}
+
+.Paginator .Dots:disabled{
+    background-color: #cccccc;
+    color: #333333;
+}
+
+.Paginator button:first-child{
+    margin-left: 0;
+}
+
+.Paginator button:last-child{
+    margin-right: 0;
+}.Button {
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    color: #fff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 3px;
+    background-color: #449bf7;
+    border: none;
+}
+
+.Button:disabled {
+    background-color: #6c757d;
+    opacity: 0.7;
+    cursor: not-allowed;
+}.Paginator{
+    display: flex;
+}
+
+.Paginator button{
+    margin: 0 0.05rem;
+}
+
+.Paginator .Dots:disabled{
+    background-color: #cccccc;
+    color: #333333;
+}
+
+.Paginator button:first-child{
+    margin-left: 0;
+}
+
+.Paginator button:last-child{
+    margin-right: 0;
+}.Button {
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    color: #fff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 3px;
+    background-color: #449bf7;
+    border: none;
+}
+
+.Button:disabled {
+    background-color: #6c757d;
+    opacity: 0.7;
+    cursor: not-allowed;
+}.Container {
+    position: relative;
+}
+
+.Toolbar {
+    position: relative;
+    visibility: hidden;
+    display: grid;
+    grid-template-columns: min-content;
+    grid-row-gap: 0.1rem;
+    align-items: center;
+}
+
+@media (min-width: 40rem) {
+    .Toolbar {
+    }
+}
+
+.Toolbar.Show {
+    visibility: visible;
+}
+
+.Toolbar button {
+    border-radius: 0 6px 6px 0;
+    padding: 0.2rem 0.4rem;
+}.Button {
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    color: #fff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 3px;
+    background-color: #449bf7;
+    border: none;
+}
+
+.Button:disabled {
+    background-color: #6c757d;
+    opacity: 0.7;
+    cursor: not-allowed;
+}.Container {
+    display: grid;
+    grid-template-columns: max-content min-content;
+}
+
+.Table {
+    border-spacing: 0;
+}
+
+.Table thead th {
+    text-align: left;
+}
+
+.Table tbody td,
+.Table thead th {
+    padding: 0.4rem;
+}
+
+.Odd {
+    background-color: #e9e8e8;
+}
+
+.Selected {
+    background-color: aquamarine;
+}
+
+.Footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+}
+
+.Footer div {
+    margin-top: 1rem;
+}
+
+.Footer div.Legend {
+    font-size: 0.9rem;
+}
+
+.Footer div:first-child {
+    margin-right: 2rem;
+}
+            .LNum {
+                color: #666;
+                margin: 0 1rem 0 0.5rem;
+            }
+            .yellow {
+                color: #d5a207;
+                font-weight: bold;
+            }
+            .green { color: green; }
+            .red { color: red; }
+        
+            body {
+                font-family: monospace;
+                white-space: pre;
+            }
+        </style>
+                    <script>
+            document.addEventListener("click", function() {
+                location = "expectedHtml.html";
+            });
+        </script>
+                </head>
+                <body><span class="LNum">1</span>&#60div</br><span class="LNum">2</span>  class="Paginator"</br><span class="LNum">3</span>&#62</br><span class="LNum">4</span>  &#60button</br><span class="LNum">5</span>    class="Button"</br><span class="LNum">6</span>  &#62</br><span class="LNum">7</span>    &#8592</br><span class="LNum">8</span>  &#60/button&#62</br><span class="LNum">9</span>  &#60button</br><span class="LNum">10</span>    class="Button"</br><span class="LNum">11</span>  &#62</br><span class="LNum">12</span>    1</br><span class="LNum">13</span>  &#60/button&#62</br><span class="LNum">14</span>  &#60button</br><span class="LNum">15</span>    class="Button"</br><span class="LNum">16</span>  &#62</br><span class="LNum">17</span>    2</br><span class="LNum">18</span>  &#60/button&#62</br><span class="LNum">19</span>  &#60button</br><span class="LNum">20</span>    class="Button"</br><span class="LNum">21</span>    disabled=""</br><span class="LNum">22</span>  &#62</br><span class="LNum">23</span>    3</br><span class="LNum">24</span>  &#60/button&#62</br><span class="LNum">25</span>  &#60button</br><span class="LNum">26</span>    class="Button"</br><span class="LNum">27</span>  &#62</br><span class="LNum">28</span>    4</br><span class="LNum">29</span>  &#60/button&#62</br><span class="LNum">30</span>  &#60button</br><span class="LNum">31</span>    class="Button"</br><span class="LNum">32</span>  &#62</br><span class="LNum">33</span>    5</br><span class="LNum">34</span>  &#60/button&#62</br><span class="LNum">35</span>  &#60button</br><span class="LNum">36</span>    class="Button Dots"</br><span class="LNum">37</span>    disabled=""</br><span class="LNum">38</span>  &#62</br><span class="LNum">39</span>    ...</br><span class="LNum">40</span>  &#60/button&#62</br><span class="LNum">41</span>  &#60button</br><span class="LNum">42</span>    class="Button"</br><span class="LNum">43</span>  &#62</br><span class="LNum">44</span>    10</br><span class="LNum">45</span>  &#60/button&#62</br><span class="LNum">46</span>  &#60button</br><span class="LNum">47</span>    class="Button"</br><span class="LNum">48</span>  &#62</br><span class="LNum">49</span>    &#8594</br><span class="LNum">50</span>  &#60/button&#62</br><span class="LNum">51</span>&#60/div&#62</body>
+            </html>
+        

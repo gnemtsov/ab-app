@@ -1,0 +1,149 @@
+
+            <!doctype html>
+            <html lang="en">
+                <head>
+                    <meta charset="utf-8">
+                    <title>Table</title>
+                    <style>.Paginator{
+    display: flex;
+}
+
+.Paginator button{
+    margin: 0 0.05rem;
+}
+
+.Paginator .Dots:disabled{
+    background-color: #cccccc;
+    color: #333333;
+}
+
+.Paginator button:first-child{
+    margin-left: 0;
+}
+
+.Paginator button:last-child{
+    margin-right: 0;
+}.Button {
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    color: #fff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 3px;
+    background-color: #449bf7;
+    border: none;
+}
+
+.Button:disabled {
+    background-color: #6c757d;
+    opacity: 0.7;
+    cursor: not-allowed;
+}.Container {
+    position: relative;
+}
+
+.Toolbar {
+    position: relative;
+    visibility: hidden;
+    display: grid;
+    grid-template-columns: min-content;
+    grid-row-gap: 0.1rem;
+    align-items: center;
+}
+
+@media (min-width: 40rem) {
+    .Toolbar {
+    }
+}
+
+.Toolbar.Show {
+    visibility: visible;
+}
+
+.Toolbar button {
+    border-radius: 0 6px 6px 0;
+    padding: 0.2rem 0.4rem;
+}.Button {
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    color: #fff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 3px;
+    background-color: #449bf7;
+    border: none;
+}
+
+.Button:disabled {
+    background-color: #6c757d;
+    opacity: 0.7;
+    cursor: not-allowed;
+}.Container {
+    display: grid;
+    grid-template-columns: max-content min-content;
+}
+
+.Table {
+    border-spacing: 0;
+}
+
+.Table thead th {
+    text-align: left;
+}
+
+.Table tbody td,
+.Table thead th {
+    padding: 0.4rem;
+}
+
+.Odd {
+    background-color: #e9e8e8;
+}
+
+.Selected {
+    background-color: aquamarine;
+}
+
+.Footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+}
+
+.Footer div {
+    margin-top: 1rem;
+}
+
+.Footer div.Legend {
+    font-size: 0.9rem;
+}
+
+.Footer div:first-child {
+    margin-right: 2rem;
+}
+            .LNum {
+                color: #666;
+                margin: 0 1rem 0 0.5rem;
+            }
+            .yellow {
+                color: #d5a207;
+                font-weight: bold;
+            }
+            .green { color: green; }
+            .red { color: red; }
+        
+            body {
+                font-family: monospace;
+                white-space: pre;
+            }
+        </style>
+                    <script>
+            document.addEventListener("click", function() {
+                location = "expectedHtml.html";
+            });
+        </script>
+                </head>
+                <body><span class="LNum">1</span>&#60div</br><span class="LNum">2</span>  class="Container"</br><span class="LNum">3</span>&#62</br><span class="LNum">4</span>  &#60table</br><span class="LNum">5</span>    class="Table"</br><span class="LNum">6</span>  &#62</br><span class="LNum">7</span>    &#60thead&#62</br><span class="LNum">8</span>      &#60tr&#62</br><span class="LNum">9</span>        &#60th&#62</br><span class="LNum">10</span>          Pet name</br><span class="LNum">11</span>        &#60/th&#62</br><span class="LNum">12</span>        &#60th&#62</br><span class="LNum">13</span>          Animal class</br><span class="LNum">14</span>        &#60/th&#62</br><span class="LNum">15</span>        &#60th&#62</br><span class="LNum">16</span>          Age</br><span class="LNum">17</span>        &#60/th&#62</br><span class="LNum">18</span>        &#60th&#62</br><span class="LNum">19</span>          Gender</br><span class="LNum">20</span>        &#60/th&#62</br><span class="LNum">21</span>      &#60/tr&#62</br><span class="LNum">22</span>    &#60/thead&#62</br><span class="LNum">23</span>    &#60tfoot&#62</br><span class="LNum">24</span>      &#60tr&#62</br><span class="LNum">25</span>        &#60td</br><span class="LNum">26</span>          colspan="4"</br><span class="LNum">27</span>        &#62</br><span class="LNum">28</span>          &#60div</br><span class="LNum">29</span>            class="Footer"</br><span class="LNum">30</span>          &#62</br><span class="LNum">31</span>            &#60div</br><span class="LNum">32</span>              class="Legend"</br><span class="LNum">33</span>            &#62</br><span class="LNum">34</span>              Rows 1 to 7 of 7</br><span class="LNum">35</span>            &#60/div&#62</br><span class="LNum">36</span>          &#60/div&#62</br><span class="LNum">37</span>        &#60/td&#62</br><span class="LNum">38</span>      &#60/tr&#62</br><span class="LNum">39</span>    &#60/tfoot&#62</br><span class="LNum">40</span>    &#60tbody&#62</br><span class="LNum">41</span>      &#60tr</br><span class="LNum">42</span>        class="Odd"</br><span class="LNum">43</span>      &#62</br><span class="LNum">44</span>        &#60td&#62</br><span class="LNum">45</span>          Buddy</br><span class="LNum">46</span>        &#60/td&#62</br><span class="LNum">47</span>        &#60td&#62</br><span class="LNum">48</span>          Dog</br><span class="LNum">49</span>        &#60/td&#62</br><span class="LNum">50</span>        &#60td&#62</br><span class="LNum">51</span>          3</br><span class="LNum">52</span>        &#60/td&#62</br><span class="LNum">53</span>        &#60td&#62</br><span class="LNum">54</span>          male</br><span class="LNum">55</span>        &#60/td&#62</br><span class="LNum">56</span>      &#60/tr&#62</br><span class="LNum">57</span>      &#60tr</br><span class="LNum">58</span>        class=""</br><span class="LNum">59</span>      &#62</br><span class="LNum">60</span>        &#60td&#62</br><span class="LNum">61</span>          Molly</br><span class="LNum">62</span>        &#60/td&#62</br><span class="LNum">63</span>        &#60td&#62</br><span class="LNum">64</span>          Cat</br><span class="LNum">65</span>        &#60/td&#62</br><span class="LNum">66</span>        &#60td&#62</br><span class="LNum">67</span>          15</br><span class="LNum">68</span>        &#60/td&#62</br><span class="LNum">69</span>        &#60td&#62</br><span class="LNum">70</span>          female</br><span class="LNum">71</span>        &#60/td&#62</br><span class="LNum">72</span>      &#60/tr&#62</br><span class="LNum">73</span>      &#60tr</br><span class="LNum">74</span>        class="Odd"</br><span class="LNum">75</span>      &#62</br><span class="LNum">76</span>        &#60td&#62</br><span class="LNum">77</span>          Bonnie</br><span class="LNum">78</span>        &#60/td&#62</br><span class="LNum">79</span>        &#60td&#62</br><span class="LNum">80</span>          Cat</br><span class="LNum">81</span>        &#60/td&#62</br><span class="LNum">82</span>        &#60td&#62</br><span class="LNum">83</span>          2</br><span class="LNum">84</span>        &#60/td&#62</br><span class="LNum">85</span>        &#60td&#62</br><span class="LNum">86</span>          female</br><span class="LNum">87</span>        &#60/td&#62</br><span class="LNum">88</span>      &#60/tr&#62</br><span class="LNum">89</span>      &#60tr</br><span class="LNum">90</span>        class=""</br><span class="LNum">91</span>      &#62</br><span class="LNum">92</span>        &#60td&#62</br><span class="LNum">93</span>          Coco</br><span class="LNum">94</span>        &#60/td&#62</br><span class="LNum">95</span>        &#60td&#62</br><span class="LNum">96</span>          Parrot</br><span class="LNum">97</span>        &#60/td&#62</br><span class="LNum">98</span>        &#60td&#62</br><span class="LNum">99</span>          22</br><span class="LNum">100</span>        &#60/td&#62</br><span class="LNum">101</span>        &#60td&#62</br><span class="LNum">102</span>          male</br><span class="LNum">103</span>        &#60/td&#62</br><span class="LNum">104</span>      &#60/tr&#62</br><span class="LNum">105</span>      &#60tr</br><span class="LNum">106</span>        class="Odd"</br><span class="LNum">107</span>      &#62</br><span class="LNum">108</span>        &#60td&#62</br><span class="LNum">109</span>          Oscar</br><span class="LNum">110</span>        &#60/td&#62</br><span class="LNum">111</span>        &#60td&#62</br><span class="LNum">112</span>          Dog</br><span class="LNum">113</span>        &#60/td&#62</br><span class="LNum">114</span>        &#60td&#62</br><span class="LNum">115</span>          5</br><span class="LNum">116</span>        &#60/td&#62</br><span class="LNum">117</span>        &#60td&#62</br><span class="LNum">118</span>          male</br><span class="LNum">119</span>        &#60/td&#62</br><span class="LNum">120</span>      &#60/tr&#62</br><span class="LNum">121</span>      &#60tr</br><span class="LNum">122</span>        class=""</br><span class="LNum">123</span>      &#62</br><span class="LNum">124</span>        &#60td&#62</br><span class="LNum">125</span>          Max</br><span class="LNum">126</span>        &#60/td&#62</br><span class="LNum">127</span>        &#60td&#62</br><span class="LNum">128</span>          Turtle</br><span class="LNum">129</span>        &#60/td&#62</br><span class="LNum">130</span>        &#60td&#62</br><span class="LNum">131</span>          15</br><span class="LNum">132</span>        &#60/td&#62</br><span class="LNum">133</span>        &#60td&#62</br><span class="LNum">134</span>          male</br><span class="LNum">135</span>        &#60/td&#62</br><span class="LNum">136</span>      &#60/tr&#62</br><span class="LNum">137</span>      &#60tr</br><span class="LNum">138</span>        class="Odd"</br><span class="LNum">139</span>      &#62</br><span class="LNum">140</span>        &#60td&#62</br><span class="LNum">141</span>          Jack</br><span class="LNum">142</span>        &#60/td&#62</br><span class="LNum">143</span>        &#60td&#62</br><span class="LNum">144</span>          Varan</br><span class="LNum">145</span>        &#60/td&#62</br><span class="LNum">146</span>        &#60td&#62</br><span class="LNum">147</span>          1</br><span class="LNum">148</span>        &#60/td&#62</br><span class="LNum">149</span>        &#60td&#62</br><span class="LNum">150</span>          male</br><span class="LNum">151</span>        &#60/td&#62</br><span class="LNum">152</span>      &#60/tr&#62</br><span class="LNum">153</span>    &#60/tbody&#62</br><span class="LNum">154</span>  &#60/table&#62</br><span class="LNum">155</span>  &#60div</br><span class="LNum">156</span>    class="Container"</br><span class="LNum">157</span>  &#62</br><span class="LNum">158</span>    &#60div</br><span class="LNum">159</span>      class="Toolbar"</br><span class="LNum">160</span>      style="top:0px"</br><span class="LNum">161</span>    &#62</br><span class="LNum">162</span>      &#60button</br><span class="LNum">163</span>        class="Button"</br><span class="LNum">164</span>      &#62</br><span class="LNum">165</span>        &#8645</br><span class="LNum">166</span>      &#60/button&#62</br><span class="LNum">167</span>      &#60button</br><span class="LNum">168</span>        class="Button"</br><span class="LNum">169</span>      &#62</br><span class="LNum">170</span>        csv</br><span class="LNum">171</span>      &#60/button&#62</br><span class="LNum">172</span>      &#60button</br><span class="LNum">173</span>        class="Button"</br><span class="LNum">174</span>      &#62</br><span class="LNum">175</span>        &#10045</br><span class="LNum">176</span>      &#60/button&#62</br><span class="LNum">177</span>    &#60/div&#62</br><span class="LNum">178</span>  &#60/div&#62</br><span class="LNum">179</span>&#60/div&#62</body>
+            </html>
+        

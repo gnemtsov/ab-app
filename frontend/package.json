@@ -85,6 +85,9 @@
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
     ],
+    "modulePathIgnorePatterns": [
+        "<rootDir>/snapshots-book"
+    ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
       "\\.(css|less)$": "identity-obj-proxy",
@@ -105,7 +108,7 @@
     ],
     "reporters": [
       "default",
-      "jest-snapshots-book"
+      ["jest-snapshots-book", {"verbose": true}]
     ]
   },
   "babel": {

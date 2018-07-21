@@ -1,0 +1,326 @@
+
+            <!doctype html>
+            <html lang="en">
+                <head>
+                    <meta charset="utf-8">
+                    <title>Paginator</title>
+                    <style>
+            .TOCContainer a{
+                display:block;
+                font-size: 1.2rem; 
+                margin-left: 1rem;
+            }
+
+            .SubHeader{ padding: 0.6rem; background-color: #d1d1d1; }
+            .Filters span { margin-left: 1rem; }
+
+            .TestResultContainer{ margin-top: 1.5rem; }
+            .TestResultContainer.passed .TestHeader{ padding: 0.6rem; background-color: #99e99b; }
+            .TestResultContainer.failed .TestHeader{ padding: 0.6rem; background-color: #ff9f9f; }
+            .TestResult{
+                display: flex;
+                justify-content: space-around;                
+            }
+
+            .ExpectedContainer, .ActualContainer {
+                padding: 0.6rem;
+                width: 100%;
+            }
+            .ExpectedHeader, .ActualHeader { color: #4c4c4c; }
+            .ExpectedContainer iframe, .ActualContainer iframe{
+                width: 100%;
+                height: 350px;
+                border: 1px solid #beb6b6;
+            }
+        </style>
+                    <script>
+            document.addEventListener("DOMContentLoaded", function(){
+                document.getElementById('show-all').addEventListener("click", function(e) {
+                    e.preventDefault();
+                    var resultContainers = document.getElementsByClassName("TestResultContainer");
+                    for (var i = 0; i < resultContainers.length; ++i) {
+                        var el = resultContainers[i];
+                        el.style.display = 'block';
+                    }                    
+                });
+
+                document.getElementById('show-passed').addEventListener("click", function(e) {
+                    e.preventDefault();
+                    var resultContainers = document.getElementsByClassName("TestResultContainer");
+                    for (var i = 0; i < resultContainers.length; ++i) {
+                        var el = resultContainers[i];
+                        if(el.classList.contains('passed')){
+                            el.style.display = 'block';
+                        } else {
+                            el.style.display = 'none';
+                        }
+                    }                    
+                });
+
+                document.getElementById('show-failed').addEventListener("click", function(e) {
+                    e.preventDefault();
+                    var resultContainers = document.getElementsByClassName("TestResultContainer");
+                    for (var i = 0; i < resultContainers.length; ++i) {
+                        var el = resultContainers[i];
+                        if(el.classList.contains('failed')){
+                            el.style.display = 'block';
+                        } else {
+                            el.style.display = 'none';
+                        }
+                    };
+                });               
+            });
+        </script>
+                </head>
+                <body>
+                <div><a href="../index.html">Table of contents</a></div>
+                <h1>Paginator</h1>
+                <div class="Filters">
+                    Show 
+                    <span><a id="show-all" href="#">all</a>(15)</span>
+                    <span><a id="show-passed" href="#">passed</a>(15)</span>
+                    <span><a id="show-failed" href="#">failed</a>(0)</span>
+                </div>
+                
+                    <div class="TestResultContainer passed">
+                        <div class="TestHeader">Total = 0, Current = 0</div>
+                        <div class="TestResult">
+                            
+                    <div class="ExpectedContainer">
+                        <div class="ExpectedHeader"></div>
+                        <iframe src="1/expectedHtml.html">
+                            Browser should support iframes.
+                        </iframe>
+                    </div>
+                
+                            
+                        </div>
+                    </div>
+                
+
+                    <div class="TestResultContainer passed">
+                        <div class="TestHeader">Total = 1, Current = -1</div>
+                        <div class="TestResult">
+                            
+                    <div class="ExpectedContainer">
+                        <div class="ExpectedHeader"></div>
+                        <iframe src="2/expectedHtml.html">
+                            Browser should support iframes.
+                        </iframe>
+                    </div>
+                
+                            
+                        </div>
+                    </div>
+                
+
+                    <div class="TestResultContainer passed">
+                        <div class="TestHeader">Total = 1, Current = 1</div>
+                        <div class="TestResult">
+                            
+                    <div class="ExpectedContainer">
+                        <div class="ExpectedHeader"></div>
+                        <iframe src="3/expectedHtml.html">
+                            Browser should support iframes.
+                        </iframe>
+                    </div>
+                
+                            
+                        </div>
+                    </div>
+                
+
+                    <div class="TestResultContainer passed">
+                        <div class="TestHeader">Total = 2, Current = 2</div>
+                        <div class="TestResult">
+                            
+                    <div class="ExpectedContainer">
+                        <div class="ExpectedHeader"></div>
+                        <iframe src="4/expectedHtml.html">
+                            Browser should support iframes.
+                        </iframe>
+                    </div>
+                
+                            
+                        </div>
+                    </div>
+                
+
+                    <div class="TestResultContainer passed">
+                        <div class="TestHeader">Total = 3, Current = 1</div>
+                        <div class="TestResult">
+                            
+                    <div class="ExpectedContainer">
+                        <div class="ExpectedHeader"></div>
+                        <iframe src="5/expectedHtml.html">
+                            Browser should support iframes.
+                        </iframe>
+                    </div>
+                
+                            
+                        </div>
+                    </div>
+                
+
+                    <div class="TestResultContainer passed">
+                        <div class="TestHeader">Total = 10, Current = 1</div>
+                        <div class="TestResult">
+                            
+                    <div class="ExpectedContainer">
+                        <div class="ExpectedHeader"></div>
+                        <iframe src="6/expectedHtml.html">
+                            Browser should support iframes.
+                        </iframe>
+                    </div>
+                
+                            
+                        </div>
+                    </div>
+                
+
+                    <div class="TestResultContainer passed">
+                        <div class="TestHeader">Total = 10, Current = 2</div>
+                        <div class="TestResult">
+                            
+                    <div class="ExpectedContainer">
+                        <div class="ExpectedHeader"></div>
+                        <iframe src="7/expectedHtml.html">
+                            Browser should support iframes.
+                        </iframe>
+                    </div>
+                
+                            
+                        </div>
+                    </div>
+                
+
+                    <div class="TestResultContainer passed">
+                        <div class="TestHeader">Total = 10, Current = 3</div>
+                        <div class="TestResult">
+                            
+                    <div class="ExpectedContainer">
+                        <div class="ExpectedHeader"></div>
+                        <iframe src="8/expectedHtml.html">
+                            Browser should support iframes.
+                        </iframe>
+                    </div>
+                
+                            
+                        </div>
+                    </div>
+                
+
+                    <div class="TestResultContainer passed">
+                        <div class="TestHeader">Total = 10, Current = 4</div>
+                        <div class="TestResult">
+                            
+                    <div class="ExpectedContainer">
+                        <div class="ExpectedHeader"></div>
+                        <iframe src="9/expectedHtml.html">
+                            Browser should support iframes.
+                        </iframe>
+                    </div>
+                
+                            
+                        </div>
+                    </div>
+                
+
+                    <div class="TestResultContainer passed">
+                        <div class="TestHeader">Total = 10, Current = 5</div>
+                        <div class="TestResult">
+                            
+                    <div class="ExpectedContainer">
+                        <div class="ExpectedHeader"></div>
+                        <iframe src="10/expectedHtml.html">
+                            Browser should support iframes.
+                        </iframe>
+                    </div>
+                
+                            
+                        </div>
+                    </div>
+                
+
+                    <div class="TestResultContainer passed">
+                        <div class="TestHeader">Total = 10, Current = 6</div>
+                        <div class="TestResult">
+                            
+                    <div class="ExpectedContainer">
+                        <div class="ExpectedHeader"></div>
+                        <iframe src="11/expectedHtml.html">
+                            Browser should support iframes.
+                        </iframe>
+                    </div>
+                
+                            
+                        </div>
+                    </div>
+                
+
+                    <div class="TestResultContainer passed">
+                        <div class="TestHeader">Total = 10, Current = 7</div>
+                        <div class="TestResult">
+                            
+                    <div class="ExpectedContainer">
+                        <div class="ExpectedHeader"></div>
+                        <iframe src="12/expectedHtml.html">
+                            Browser should support iframes.
+                        </iframe>
+                    </div>
+                
+                            
+                        </div>
+                    </div>
+                
+
+                    <div class="TestResultContainer passed">
+                        <div class="TestHeader">Total = 10, Current = 8</div>
+                        <div class="TestResult">
+                            
+                    <div class="ExpectedContainer">
+                        <div class="ExpectedHeader"></div>
+                        <iframe src="13/expectedHtml.html">
+                            Browser should support iframes.
+                        </iframe>
+                    </div>
+                
+                            
+                        </div>
+                    </div>
+                
+
+                    <div class="TestResultContainer passed">
+                        <div class="TestHeader">Total = 10, Current = 9</div>
+                        <div class="TestResult">
+                            
+                    <div class="ExpectedContainer">
+                        <div class="ExpectedHeader"></div>
+                        <iframe src="14/expectedHtml.html">
+                            Browser should support iframes.
+                        </iframe>
+                    </div>
+                
+                            
+                        </div>
+                    </div>
+                
+
+                    <div class="TestResultContainer passed">
+                        <div class="TestHeader">Total = 10, Current = 10</div>
+                        <div class="TestResult">
+                            
+                    <div class="ExpectedContainer">
+                        <div class="ExpectedHeader"></div>
+                        <iframe src="15/expectedHtml.html">
+                            Browser should support iframes.
+                        </iframe>
+                    </div>
+                
+                            
+                        </div>
+                    </div>
+                
+            </body>
+            </html>
+        

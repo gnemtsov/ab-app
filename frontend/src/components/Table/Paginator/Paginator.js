@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classes from './Paginator.css';
-import Buttona from '../../UI/Button/Button';
+import Button from '../../UI/Button/Button';
 
 const Paginator = (props) => {
     const { tp, cp, pageClickHandler } = props;
@@ -10,12 +10,12 @@ const Paginator = (props) => {
     if (tp !== undefined && tp > 0) {
         let buttons = [];
         buttons.push(
-            <Buttona
+            <Button
                 key={`pback`}
                 disabled={cp === 1}
                 clicked={(cp === 1 ? null : event => pageClickHandler(event, 'back'))}>
                 &larr;
-                </Buttona>
+                </Button>
         );
 
         const isDots = (i, tp, cp) =>
@@ -30,34 +30,34 @@ const Paginator = (props) => {
             if (flag && dots) {
                 flag = false;
                 buttons.push(
-                    <Buttona
+                    <Button
                         key={`p${i}`}
                         className={classes.Dots}
                         disabled={true}>
                         ...
-                </Buttona>
+                </Button>
                 );
             } else if (!dots) {
                 flag = true;
                 buttons.push(
-                    <Buttona
+                    <Button
                         key={`p${i}`}
                         disabled={i === cp}
                         clicked={(i === cp ? null : event => pageClickHandler(event, i))}>
                         {i}
-                    </Buttona>
+                    </Button>
                 );
 
             }
         }
 
         buttons.push(
-            <Buttona
+            <Button
                 key={`pforward`}
                 disabled={cp === tp}
                 clicked={(cp === tp ? null : event => pageClickHandler(event, 'forward'))}>
                 &rarr;
-                </Buttona>
+                </Button>
         );
         paginator =
             <div className={classes.Paginator}>

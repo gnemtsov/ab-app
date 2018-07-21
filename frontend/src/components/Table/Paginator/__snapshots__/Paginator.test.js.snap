@@ -1,8 +1,335 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Paginator /> 0 (0 total) 1`] = `""`;
+exports[`Paginator Total = 0, Current = 0 1`] = `null`;
 
-exports[`<Paginator /> 5 (10 total) 1`] = `
+exports[`Paginator Total = 1, Current = -1 1`] = `
+<div
+  class="Paginator"
+>
+  <button
+    class="Button"
+  >
+    ←
+  </button>
+  <button
+    class="Button"
+  >
+    1
+  </button>
+  <button
+    class="Button"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Total = 1, Current = 1 1`] = `
+<div
+  class="Paginator"
+>
+  <button
+    class="Button"
+    disabled=""
+  >
+    ←
+  </button>
+  <button
+    class="Button"
+    disabled=""
+  >
+    1
+  </button>
+  <button
+    class="Button"
+    disabled=""
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Total = 2, Current = 2 1`] = `
+<div
+  class="Paginator"
+>
+  <button
+    class="Button"
+  >
+    ←
+  </button>
+  <button
+    class="Button"
+  >
+    1
+  </button>
+  <button
+    class="Button"
+    disabled=""
+  >
+    2
+  </button>
+  <button
+    class="Button"
+    disabled=""
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Total = 3, Current = 1 1`] = `
+<div
+  class="Paginator"
+>
+  <button
+    class="Button"
+    disabled=""
+  >
+    ←
+  </button>
+  <button
+    class="Button"
+    disabled=""
+  >
+    1
+  </button>
+  <button
+    class="Button"
+  >
+    2
+  </button>
+  <button
+    class="Button"
+  >
+    3
+  </button>
+  <button
+    class="Button"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Total = 10, Current = 1 1`] = `
+<div
+  class="Paginator"
+>
+  <button
+    class="Button"
+    disabled=""
+  >
+    ←
+  </button>
+  <button
+    class="Button"
+    disabled=""
+  >
+    1
+  </button>
+  <button
+    class="Button"
+  >
+    2
+  </button>
+  <button
+    class="Button"
+  >
+    3
+  </button>
+  <button
+    class="Button"
+  >
+    4
+  </button>
+  <button
+    class="Button"
+  >
+    5
+  </button>
+  <button
+    class="Button Dots"
+    disabled=""
+  >
+    ...
+  </button>
+  <button
+    class="Button"
+  >
+    10
+  </button>
+  <button
+    class="Button"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Total = 10, Current = 2 1`] = `
+<div
+  class="Paginator"
+>
+  <button
+    class="Button"
+  >
+    ←
+  </button>
+  <button
+    class="Button"
+  >
+    1
+  </button>
+  <button
+    class="Button"
+    disabled=""
+  >
+    2
+  </button>
+  <button
+    class="Button"
+  >
+    3
+  </button>
+  <button
+    class="Button"
+  >
+    4
+  </button>
+  <button
+    class="Button"
+  >
+    5
+  </button>
+  <button
+    class="Button Dots"
+    disabled=""
+  >
+    ...
+  </button>
+  <button
+    class="Button"
+  >
+    10
+  </button>
+  <button
+    class="Button"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Total = 10, Current = 3 1`] = `
+<div
+  class="Paginator"
+>
+  <button
+    class="Button"
+  >
+    ←
+  </button>
+  <button
+    class="Button"
+  >
+    1
+  </button>
+  <button
+    class="Button"
+  >
+    2
+  </button>
+  <button
+    class="Button"
+    disabled=""
+  >
+    3
+  </button>
+  <button
+    class="Button"
+  >
+    4
+  </button>
+  <button
+    class="Button"
+  >
+    5
+  </button>
+  <button
+    class="Button Dots"
+    disabled=""
+  >
+    ...
+  </button>
+  <button
+    class="Button"
+  >
+    10
+  </button>
+  <button
+    class="Button"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Total = 10, Current = 4 1`] = `
+<div
+  class="Paginator"
+>
+  <button
+    class="Button"
+  >
+    ←
+  </button>
+  <button
+    class="Button"
+  >
+    1
+  </button>
+  <button
+    class="Button"
+  >
+    2
+  </button>
+  <button
+    class="Button"
+  >
+    3
+  </button>
+  <button
+    class="Button"
+    disabled=""
+  >
+    4
+  </button>
+  <button
+    class="Button"
+  >
+    5
+  </button>
+  <button
+    class="Button Dots"
+    disabled=""
+  >
+    ...
+  </button>
+  <button
+    class="Button"
+  >
+    10
+  </button>
+  <button
+    class="Button"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Total = 10, Current = 5 1`] = `
 <div
   class="Paginator"
 >
@@ -51,6 +378,278 @@ exports[`<Paginator /> 5 (10 total) 1`] = `
   </button>
   <button
     class="Button"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Total = 10, Current = 6 1`] = `
+<div
+  class="Paginator"
+>
+  <button
+    class="Button"
+  >
+    ←
+  </button>
+  <button
+    class="Button"
+  >
+    1
+  </button>
+  <button
+    class="Button Dots"
+    disabled=""
+  >
+    ...
+  </button>
+  <button
+    class="Button"
+  >
+    5
+  </button>
+  <button
+    class="Button"
+    disabled=""
+  >
+    6
+  </button>
+  <button
+    class="Button"
+  >
+    7
+  </button>
+  <button
+    class="Button Dots"
+    disabled=""
+  >
+    ...
+  </button>
+  <button
+    class="Button"
+  >
+    10
+  </button>
+  <button
+    class="Button"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Total = 10, Current = 7 1`] = `
+<div
+  class="Paginator"
+>
+  <button
+    class="Button"
+  >
+    ←
+  </button>
+  <button
+    class="Button"
+  >
+    1
+  </button>
+  <button
+    class="Button Dots"
+    disabled=""
+  >
+    ...
+  </button>
+  <button
+    class="Button"
+  >
+    6
+  </button>
+  <button
+    class="Button"
+    disabled=""
+  >
+    7
+  </button>
+  <button
+    class="Button"
+  >
+    8
+  </button>
+  <button
+    class="Button"
+  >
+    9
+  </button>
+  <button
+    class="Button"
+  >
+    10
+  </button>
+  <button
+    class="Button"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Total = 10, Current = 8 1`] = `
+<div
+  class="Paginator"
+>
+  <button
+    class="Button"
+  >
+    ←
+  </button>
+  <button
+    class="Button"
+  >
+    1
+  </button>
+  <button
+    class="Button Dots"
+    disabled=""
+  >
+    ...
+  </button>
+  <button
+    class="Button"
+  >
+    6
+  </button>
+  <button
+    class="Button"
+  >
+    7
+  </button>
+  <button
+    class="Button"
+    disabled=""
+  >
+    8
+  </button>
+  <button
+    class="Button"
+  >
+    9
+  </button>
+  <button
+    class="Button"
+  >
+    10
+  </button>
+  <button
+    class="Button"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Total = 10, Current = 9 1`] = `
+<div
+  class="Paginator"
+>
+  <button
+    class="Button"
+  >
+    ←
+  </button>
+  <button
+    class="Button"
+  >
+    1
+  </button>
+  <button
+    class="Button Dots"
+    disabled=""
+  >
+    ...
+  </button>
+  <button
+    class="Button"
+  >
+    6
+  </button>
+  <button
+    class="Button"
+  >
+    7
+  </button>
+  <button
+    class="Button"
+  >
+    8
+  </button>
+  <button
+    class="Button"
+    disabled=""
+  >
+    9
+  </button>
+  <button
+    class="Button"
+  >
+    10
+  </button>
+  <button
+    class="Button"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Total = 10, Current = 10 1`] = `
+<div
+  class="Paginator"
+>
+  <button
+    class="Button"
+  >
+    ←
+  </button>
+  <button
+    class="Button"
+  >
+    1
+  </button>
+  <button
+    class="Button Dots"
+    disabled=""
+  >
+    ...
+  </button>
+  <button
+    class="Button"
+  >
+    6
+  </button>
+  <button
+    class="Button"
+  >
+    7
+  </button>
+  <button
+    class="Button"
+  >
+    8
+  </button>
+  <button
+    class="Button"
+  >
+    9
+  </button>
+  <button
+    class="Button"
+    disabled=""
+  >
+    10
+  </button>
+  <button
+    class="Button"
+    disabled=""
   >
     →
   </button>
