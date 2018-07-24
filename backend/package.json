@@ -14,9 +14,14 @@
     "rand-token": "^0.4.0"
   },
   "devDependencies": {
+    "apollo-server": "^2.0.0",
+    "axios": "^0.18.0",
+    "chai": "^4.1.2",
     "dotenv": "^5.0.1",
-    "mocha": "^5.2.0",
-    "chai": "^4.1.2"
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "graphql": "^0.13.2",
+    "mocha": "^5.2.0"
   },
   "directories": {
     "test": "test"
