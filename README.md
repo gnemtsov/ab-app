@@ -1,49 +1,48 @@
 # Introduction
-AB-APP is an AWS serverless boilerplate application.
-This is a simple, but powerfull approach to create serverless applications in the AWS cloud. You can use AB-APP as a starting point for creating your own applications.
+AB-APP is an AWS serverless boilerplate application. You can use it as a starting point for your own applications. AB-APP is using [bit](https://bitsrc.io), so you can not only use it as a whole, but also make use of some parts of it.
 
-AB-APP is using [bit](https://bitsrc.io), so you can not only use it as a whole, but also make use of some parts of AB-APP in your applications.
+AB-APP is a site of fictional "Scientific Research Institute of Sorcery and Wizardry" from the famous novel by Boris and Arkady Strugatsky "[Monday Begins on Saturday](https://en.wikipedia.org/wiki/Monday_Begins_on_Saturday)". AB-APP exposes the list of institute departments for authenticated users. It also allows to add and edit departments.
 
-AB-APP is a site of fictional "Scientific Research Institute of Sorcery and Wizardry" from the famous novel by Boris and Arkady Strugatsky "Monday Begins on Saturday". AB-APP exposes the list of institute departments for authenticated users. It also allows to add and edit departments.
+AB-APP is deployend here: [d1v3l4fe3mshyi.cloudfront.net](d1v3l4fe3mshyi.cloudfront.net). It might not be the last version as we don't redeploy every time we push changes in repo. Also note that when visiting link for the first time application may fail due to AWS Lambda cold start. Just be patient and reload the page several times.
 
-Deployed app is availbale here: [d1v3l4fe3mshyi.cloudfront.net](d1v3l4fe3mshyi.cloudfront.net)
-
-## Current application state
-AB-APP is under development. **It is not finished**! Feel free to experiment with it, but don't use it in production as is.
+## Current status
+AB-APP is still under development. **It is not finished**! Feel free to experiment with it, but don't use it in production as is.
 
 ## Architecture
 
 ![AB-APP architecture](architecture-Main.png)
 
-The application uses RDS/DynamoDB and S3 for persistent storage. Lambda function holds backend logic. API Gateway as a proxy service to pass requests from the frontent to the backend. CloudFront CDN allows to deliver the application content fast.
+The application uses RDS/DynamoDB and S3 for persistent storage. A single lambda function holds all the backend logic. API Gateway (for now) is used as a proxy service to pass requests from the frontent to the backend. CloudFront CDN allows to deliver the application's content fast.
 
-The application has two main folders: **backend** and **frontend**. Backend folder contains backend code and frontend folder contains static content (frontend code, assets, etc.) AB-APP backend is written in Node.js. AB-APP frontend is written with React, Redux and Redux-Saga.
+The application has two main folders: **backend** and **frontend**. Backend folder contains backend code and frontend folder contains static content (frontend code, assets, etc.) 
+
+AB-APP backend is written in Node.js. AB-APP frontend is written with React, Redux and Redux-Saga.
 
 ## Features implemented
 Authentication using **JWT tokens** + tokens refresh.
 
-Functionality for viewing and editting data: 
-- **tables** with pagination, row selection, sorting and csv export; 
-- **forms** with live, backend-frontend consistent validation.
+**Tables** for viewing data with pagination, row selection, sorting and csv export.
+
+**Forms** for adding and editting data with live, backend-frontend consistent validation.
 
 ## TODO
-- Use AppSync instead of API Gateway. AppSync provides convenient way of communication between frontend and backend using GraphQL queries and is also responsible for offline and realtime functionality.
+- Replace API Gateway with AppSync. AppSync provides convenient way of communication between frontend and backend using GraphQL queries and is also responsible for offline and realtime functionality.
 - Add DynamoDB support
 - Add realtime features
 - Add PWA features and offline functionality
 
 # Table of contents
-- [Installation](https://github.com/gnemtsov/ab-app#installation)
+- [Installation for local development](https://github.com/gnemtsov/ab-app#installation)
+- [Starting AB-APP locally](https://github.com/gnemtsov/ab-app#starting-ab-app-locally)
 - JWT authentication
 - [Tables](https://github.com/gnemtsov/ab-app#tables)
-    - [Architecture](https://github.com/gnemtsov/ab-app#architecture)
-    - [Formatters functions](https://github.com/gnemtsov/ab-app#formatter-functions)
-    - [Table React component](https://github.com/gnemtsov/ab-app#table-react-component)
+    - [Architecture](https://github.com/gnemtsov/ab-app#architecture-1)
+    - [Formatters functions](https://github.com/gnemtsov/ab-app#formatters-functions)
+    - [Core table component](https://github.com/gnemtsov/ab-app#core-table-component)
 - [Forms](https://github.com/gnemtsov/ab-app#installation)
-    - [Architecture](https://github.com/gnemtsov/ab-app#installation)
-    - [Installation](https://github.com/gnemtsov/ab-app#installation)
-    - [Usage](https://github.com/gnemtsov/ab-app#installation)
-    - [Component properties](https://github.com/gnemtsov/ab-app#installation)
+    - [Architecture](https://github.com/gnemtsov/ab-app#architecture-2)
+    - [Validation](https://github.com/gnemtsov/ab-app#validation)
+    - [Core form component](https://github.com/gnemtsov/ab-app#core-form-component)
 - PWA and offline
 - Realtime
 - Testing
@@ -73,7 +72,7 @@ DB_PASSWORD="abapp"
 ```
 6. Create user **abapp** with password **abapp** in your mysql.user table and give appropriate rights to allow lambda backend to connect and work with your DB
 
-## Starting AB-APP locally
+# Starting AB-APP locally
 1. Run docker and then run `sam local start-api` to start local API Gateway (set --docker-volume-basedir parameter to your .../backend dir, if you use remote docker)
 2. Run `npm start` in frontend folder to start webpack development server
 3. Have fun! :smiley:
@@ -81,52 +80,50 @@ DB_PASSWORD="abapp"
 
 # Tables
 
-Table implementation includes backend and frontend functionality. 
+Tables are the best way to present data to the users of your application. AB-APP table implementation includes backend and frontend logic. 
 
-Tables have the following features:
+Implemented features:
 - Pagination
 - Sorting (hold shift for multisort) 
 - Row selection (hold ctrl or shift to select multiple rows)
 - CSV data export
-- Sticky toolbar
+- Sticky table toolbar
 - Easy custom styling
-- Very fast and lightweight
-- No devependencies
+- Very fast and lightweight, no devependencies
 
 ## Architecture
 
-The frontend "knows" only the table name. Everything else is fetched from the backend.
-
-On the backend there is corresponding .sql file for each application table. This file contains query that must be executed to fetch table data from a database. Column descriptions are stored as .json files.
+On the backend there is corresponding .sql file for each application table. This file contains query that must be executed to fetch table data from a database. Column descriptions are also stored on the backend as .json files.
 
 The backend is responsible for fetching table data from a database, applying backend formatters (see below) and providing column descriptions. 
 
-Frontend has two React components. Table high order component and table core component. 
+Frontend is responsible for rendering tables. It has two React components: high order table component (HOC) and core table component. The core table component can be used outside AB-APP as an independent React component. 
 
-Table HOC is responsible for fetching table data from the backend and applying frontend formatters. Table core component is responsible for rendering and providing main table functionality (selecting, sorting, pagination, etc.)
+HOC is responsible for fetching table data from the backend and applying frontend formatters. Core component is responsible for rendering and providing main table functionality (selecting, sorting, pagination, etc.)
 
 ![Tables architecture](architecture-Tables.png)
 
 ## Formatters functions
-There are backend and frontend libs of formatters functions. Formatter function receives two parametes: column description and raw table data. It should return rendered view to display on the page.
+Formatter function is a function that accepts column description and raw table data of the current row and returns rendered content of table cell. There are backend and frontend libs of formatters functions.
 
+Example:
 ```jsx
 const sampleFormatter = (col, row) => `<b>${row.lastname}${row.firstname}</b>`;
 ```
 
 Formatters are defined for a column and they are executed for each table cell in a column. There can only be one formatter per column. 
 
-Since formatter function is executed for each cell it slows down table creation. If possible you should try not to use formatters at all - try to get table data as it should be displayed right from a database. 
+Since formatter function is executed for each cell, it slows down table creation and/or rendering. If possible you should try not to use formatters at all - try to get table data as it should be displayed right from a database. 
 
-If you need to use a formatter, try to use frontend formatter. It is executed on the frontend and only for whose column cells that are currently rendered.
+If you need to use a formatter, try to use frontend formatter. It is executed on the frontend and only for whose column cells that are currently rendered on a page.
 
 Use backend formatters only if there is no other options. Backend formatters are executed on the backend and for all column cells at once.
 
-## Table React component
+## Core table component
 
 This component can be used in any application without conjunction with the AB-APP backend.
 
-### Component properties
+The component has the following properties:
 
 | Property | Type | Default value | Description |
 | --- | --- | --- | --- |
@@ -139,16 +136,18 @@ This component can be used in any application without conjunction with the AB-AP
 | rows | Array of objects | [] | Table data (see below) |
 
 
-#### Custom styling (className property)
+### Custom styling (className property)
 
-To apply custom styling you should set className property of the conf object. Your class will be put on top of default table styles, so all custom styles will override default. For example, to make headers' text green, you should set your custom class: `className = "CustomTable"`. Then write the following CSS in the .css file of your component, where you use table component:
+To apply custom styling you should define `className` property. Your class will be put on top of default table styles, so all your custom styles will override default. 
+
+For example, to make headers' text green, you should set your custom class: `className = "CustomTable"`. Then write the following CSS in the .css file of your component, where you use table component:
 ```css
 .CustomTable th {
     color: green;
 }
 ```
 
-#### Columns descriptions (cols property)
+### Columns descriptions (cols property)
 
 Each table column is an object with the following properties:
 
@@ -167,7 +166,7 @@ The following properties are available only when using tables as part of AB-APP:
 | frontendFormatter | String | '' | Name of frontend formatter function |
 | backendFormatter | String | '' | Name of backend formatter function |
 
-#### Table data (rows property)
+### Table data (rows property)
 
 Each table row is an object that holds the data of the table row. Object keys must be the same as **names** properties of the cols objects.
 
@@ -187,7 +186,7 @@ For example
 }]
 ```
 
-### Using as separate React component
+### Using component independently
 ```jsx
 import React, { Component } from 'react';
 
@@ -228,36 +227,60 @@ export default class App extends Component {
 
 # Forms
 
-Writing forms markup, programming fields validation can be hard. AB-APP is making the whole process a breeze. You just have to provide form data as a simple json config! :tada:
+Writing forms markup, programming fields validation (both frontend and backend) can be hard! AB-APP makes the whole process a breeze. You just provide form data as a simple json config and that's it! :tada:
 
-AB-APP form features:
-- Clean, responsible mobile-first css markup (horizontal or inline)
+Implemented features:
 - Live validation as user types
-- Consistent both frontend and backend validation using single sourse of truth (see Validation section below)
-- Automatic injection of fields validators according to DB column types
+- Consistent frontend-backend validation
+- Automatic validation according to DB column types
+- Clean, responsible mobile-first css markup (horizontal or inline)
 - Easy custom styling
-- Very fast and lightweight
-- No devependencies
-
-Forms can be rendered as horizontal (default, CSS grid is used) or inline (layout="inline" prop must be set, CSS flex is used). Styles of the form can be overriden by custom className.
+- Very fast and lightweight, no devependencies
 
 ## Architecture
 
-The frontend "knows" only the form's endpoint. It uses GET request to get the form's configuration, data and validation functions. It uses POST request to send user data to the backend.
+Architecture is similar to the table architecture. The frontend "knows" only the form's endpoint. It uses a GET request to get the form's configuration, data and validation functions. It uses a POST request to send user data to the backend.
 
-On the backend there is corresponding .json file for each form. This file contains fields descriptions. There is also an .sql file for some forms which holds the query for fetching form data from a database.
+On the backend there is a corresponding .json file for each form. This file holds fields descriptions. On the frontend this data goes into fields property of the table component. There is also an .sql file for some forms which holds the query for fetching data for the form fields from a database.
 
 The backend is responsible for building form config and sending it to the frontend. It is also responsible for accepting POST requests, validating data and putting it into the database. 
 
-Frontend has two React components. Form high order component and form core component. 
+The frontend has two React components: a high order component (HOC) and a core form component. 
 
-Form HOC is responsible for fetching form data from the backend and sending user data back (form submition). Table core component is responsible for rendering and validation.
+HOC is responsible for fetching form data from the backend and sending user data back - submition of the form. The core component is responsible for rendering and validation.
 
 ![Forms architecture](architecture-Forms.png)
 
-## Form React core component
+## Validation
 
-### Component properties
+Validation is a very important feature, because user experience depends on it a lot.
+
+AB-APP implements realtime validation as user types:
+![Live validation](validation.gif)
+
+There is a library of validation functions on the backend. When you configure form fields in the .json file you may put an array of validators functions names which you want to use with this field. 
+
+Some validators will be added in the fields configs automatically by fetching and parsing the corresponding column types from the database.
+
+All validators functions body's are stored on the backend and they are passed to the frontend as strings. On the frontend these functions are recreated using `new Function()` constructor with allows to create functions dynamically.
+
+Validator function accepts field value as the first parameter and then zero or multiple additional parameters to perform validation. It returns true or false, which means whether validation is passed or not.
+
+For example this validator checks that a string length is more that **min** and less than **max**.
+```jsx
+module.exports.strMinMax = (value, min, max) => value.length >= min && value.length <= max;
+```
+
+As user types in a field field's value is passed to all fields validators one by one. If non of the validators return false field is considered valid. If one of validators returns false (first wins) field is invalided and the validators message is shown. The message as well as additional validator parameters are stored along with validator function body in the object with validator description (see description of fields property of React component).
+
+This logic allows to write validators functions in one place - on the backend, making it the single source of truth. It also allows to apply same validators on the frontend as user types and then on the backend when it receives submitted form. We need to validate data on the backend, because we should never trust any data, which is coming from the frontend.
+
+## Core form component
+
+This component can be used in any application without conjunction with the AB-APP backend.
+
+The component has the following properties:
+
 
 | Property | Type | Default value | Description |
 | --- | --- | --- | --- |
@@ -271,7 +294,10 @@ Form HOC is responsible for fetching form data from the backend and sending user
 | fields | Array of objects | [] | Form fields (see below) |
 
 
-#### Custom styling
+### Styling
+
+Forms can be rendered as horizontal (default, CSS grid is used) or inline (layout="inline" prop must be set, CSS flex is used). Styles of the form can be overriden by custom className.
+
 You can put a custom class on top of default form styles, so all custom styles will override default. For example, to make labels green, you should set your custom class: `className = "CustomForm"`. Then write the following CSS in the .css file of your component, where you use react-ab-form:
 ```css
 .CustomForm .Label {
@@ -279,7 +305,7 @@ You can put a custom class on top of default form styles, so all custom styles w
 }
 ```
 
-#### Submitting form
+### Submitting form
 Use **submitHandler** property to set a function that will be invoked when form is submitted. Values of the form will be passed to this function as parameter. This function must return a promise. 
 
 If the promise resolves `doneText` is shown near the submit button. 
@@ -298,9 +324,9 @@ If the promise rejects (it can happen when the server invalidate a field), the e
 }
 ```
 
-If Form component receives error it show error message the same way it does when form field is invalidated on the frontend.
+If Form component receives error it shows error message the same way it does when form field is invalidated on the frontend.
 
-#### Form fields
+### Form fields
 
 Each form field is an object with the following properties.
 | Property | Type | Default value | Description |
@@ -317,7 +343,7 @@ Each form field is an object with the following properties.
 | validators | Array of objects | '' | Contains validators functions descriptions (one or multiple), see below |
 
 
-##### Field types
+#### Field types
 Fields can be one of the following types:
 
 | Field type  | Additional conditions | Renders as |
@@ -331,7 +357,7 @@ Fields can be one of the following types:
 | Boolean  | -  | input type="checkbox" |
 
 
-##### Field validators
+#### Field validators
 Each validator is described by separate object with the following properties:
 - **params**, (array): additional params values, passed to validator besides field value
 - **message** (string): message that should be shown when validator is not passed
@@ -339,8 +365,8 @@ Each validator is described by separate object with the following properties:
 
 When user changes field all validators are executed one by one with the current value of the field. If validator returns `false`, execution stops and current validator message is shown - field is considered invalid.
 
-### Using as separate React component
-In this code we use [axios](https://github.com/axios/axios) to send post request. 
+### Using component independently
+In this code we use [axios](https://github.com/axios/axios) to send a post request. 
 
 ```jsx
 import React, { Component } from 'react';
