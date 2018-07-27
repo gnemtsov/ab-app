@@ -3,14 +3,14 @@ AB-APP is an AWS serverless boilerplate application. You can use it as a startin
 
 AB-APP is a site of fictional "Scientific Research Institute of Sorcery and Wizardry" from the famous novel by Boris and Arkady Strugatsky "[Monday Begins on Saturday](https://en.wikipedia.org/wiki/Monday_Begins_on_Saturday)". AB-APP exposes the list of institute departments for authenticated users. It also allows to add and edit departments.
 
-AB-APP is deployed here: [d1v3l4fe3mshyi.cloudfront.net](d1v3l4fe3mshyi.cloudfront.net). It might not be the last version as we don't redeploy every time we push changes in the repo. Also, note that when visiting the link for the first time application may fail due to AWS Lambda cold start. Just be patient and reload the page several times.
+AB-APP is deployed here: [d1v3l4fe3mshyi.cloudfront.net](http://d1v3l4fe3mshyi.cloudfront.net). It might not be the last version as we don't redeploy every time we push changes in the repo. Also, note that when visiting the link for the first time application may fail due to AWS Lambda cold start. Just be patient and reload the page several times.
 
 ## Current status
 AB-APP is still under development. **It is not finished**! Feel free to experiment with it, but don't use it in production as is.
 
 ## Architecture
 
-![AB-APP architecture](architecture-Main.png)
+![AB-APP architecture](architecture-Main-API-Gateway.png)
 
 The application uses RDS/DynamoDB and S3 for persistent storage. A single lambda function holds all the backend logic. API Gateway (for now) is used as a proxy service to pass requests from the frontend to the backend. CloudFront CDN allows delivering the application's content fast.
 
@@ -39,7 +39,7 @@ Authentication using **JWT tokens** + tokens refresh.
     - [Architecture](https://github.com/gnemtsov/ab-app#architecture-1)
     - [Formatters functions](https://github.com/gnemtsov/ab-app#formatters-functions)
     - [Core table component](https://github.com/gnemtsov/ab-app#core-table-component)
-- [Forms](https://github.com/gnemtsov/ab-app#installation)
+- [Forms](https://github.com/gnemtsov/ab-app#forms)
     - [Architecture](https://github.com/gnemtsov/ab-app#architecture-2)
     - [Validation](https://github.com/gnemtsov/ab-app#validation)
     - [Core form component](https://github.com/gnemtsov/ab-app#core-form-component)
@@ -48,7 +48,7 @@ Authentication using **JWT tokens** + tokens refresh.
 - Testing
 - Deploying
 - Bit
-- [Contributing](https://github.com/gnemtsov/ab-app#installation)
+- [How to contribute](https://github.com/gnemtsov/ab-app#how-to-contribute)
 
 
 # Installation
@@ -93,7 +93,7 @@ Implemented features:
 
 ## Architecture
 
-On the backend, there is a corresponding .sql file for each application table. This file contains a query that must be executed to fetch table data from a database. Column descriptions are also stored on the backend. They are stored as .json files as array of objects. These descriptions go to `cols` property of the table React component (see below).
+On the backend, there is a corresponding .sql file for each application table. This file contains a query that is executed to fetch table data from a database. Column descriptions are also stored on the backend. They are stored as .json files as array of objects. These descriptions go to `cols` property of the table React component (see below).
 
 The backend is responsible for fetching table data from a database, applying backend "formatters" (see below) and providing column descriptions. 
 
@@ -101,7 +101,7 @@ The frontend is responsible for rendering tables. It has two React components: a
 
 HOC is responsible for fetching table data from the backend and applying frontend formatters. The core component is responsible for rendering and providing main table functionality (selecting, sorting, pagination, etc.)
 
-![Tables architecture](architecture-Tables.png)
+![Tables architecture](architecture-Tables-API-Gateway.png)
 
 ## Formatters functions
 Formatter function is a function that accepts column description and raw table data of the current row and returns the rendered content of table cell. There are backend and frontend libs of formatters functions.
@@ -161,10 +161,11 @@ Each table column is an object with the following properties:
 
 
 The following properties are available only when using tables as part of AB-APP:
+
 | Key | Type | Default | Description |
 | --- | --- | --- | --- |
-| frontendFormatter | String | '' | Name of frontend formatter function |
-| backendFormatter | String | '' | Name of backend formatter function |
+| frontendFormatter | String | '' | Name of the frontend formatter function |
+| backendFormatter | String | '' | Name of the backend formatter function |
 
 ### Table data (rows property)
 
@@ -249,7 +250,7 @@ The frontend has two React components: a high order component (HOC) and a core f
 
 HOC is responsible for fetching form data from the backend and sending user data back - submission of the form. The core component is responsible for rendering and validation.
 
-![Forms architecture](architecture-Forms.png)
+![Forms architecture](architecture-Forms-API-Gateway.png)
 
 ## Validation
 
@@ -329,6 +330,7 @@ If the form component receives error it shows error message the same way it does
 ### Form fields
 
 Each form field is an object with the following properties.
+
 | Property | Type | Default value | Description |
 | --- | --- | --- | --- |
 | name | String | none | Field name |
@@ -341,7 +343,6 @@ Each form field is an object with the following properties.
 | noEcho | Boolean | false | If set `true`, value of the field is obscured |
 | description | String | '' | String with additional field description. If set, small "i" icon appears near the field. When user hovers the icon this description appears as tooltip |
 | validators | Array of objects | '' | Contains validators functions descriptions (one or multiple), see below |
-
 
 #### Field types
 Fields can be one of the following types:
