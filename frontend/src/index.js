@@ -17,7 +17,7 @@ import axios from 'axios';
 axios.defaults.baseURL = 
     process.env.NODE_ENV === "development" 
         ? 'http://127.0.0.1:3000'
-        : 'https://api.production.com';
+        : 'https://kg0mslaalb.execute-api.eu-west-1.amazonaws.com/prod';
 
 const composeEnhancers =
     process.env.NODE_ENV === "development"

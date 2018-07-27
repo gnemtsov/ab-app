@@ -26,7 +26,7 @@ export function* loggedIn(action) {
     console.log('Saga, Auth, loggedIn: updating tokens..');
 
     localStorage.setItem('tokens', JSON.stringify(action.tokens));
-    axios.defaults.headers.common['x-access-token'] = action.tokens.accessToken;
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + action.tokens.accessToken;
 
     yield put({
         type: actionTypes.R_LOGIN_SUCCESS,
@@ -97,9 +97,9 @@ export function* refreshToken(action) {
 
 
 export function* logOut(action) {
-    console.log('Saga, Auth, logOut: logging out..');
+    console.log('Saga, Auth, logOut: logging out...');
     localStorage.removeItem('tokens');
-    delete axios.defaults.headers.common['x-access-token'];
+    delete axios.defaults.headers.common['Authorization'];
     yield put({
         type: actionTypes.R_LOGOUT
     });

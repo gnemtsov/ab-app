@@ -10,7 +10,7 @@ exports.getAsObject = (tableName, params = []) => {
     //fetch table rows from db
     const sql = fs.readFileSync(`tables/sql/${tableName}.sql`, 'utf8');
     const dbFetchPromise =
-        DB.then(conn => conn.execute(sql, params)).then(([rows]) => {
+        DB.connect().then(conn => conn.execute(sql, params)).then(([rows]) => {
             return rows.map(row => {
                 let frontendRow = {};
                 for (const col of cols) {

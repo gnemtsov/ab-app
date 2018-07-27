@@ -9,7 +9,11 @@ if (process.env.PROD === undefined) {
 }
 
 //core modules
-const { DB, HTTP, FORM } = require('core/index');
+const { HTTP } = require('core/index');
+
+//Needed for global error handler 
+Error.prepareStackTrace = (err, structuredStackTrace) => structuredStackTrace;
+Error.stackTraceLimit = 20;
 
 const buildErrorInfo = (err) => {
     return {
@@ -38,13 +42,15 @@ exports.handler = (event, context, callback) => {
 
     console.log(`| C ---> ${event.httpMethod} ---> ${event.pathParameters['proxy']}`);
 
-    //Needed for global error handler 
-    Error.prepareStackTrace = (err, structuredStackTrace) => structuredStackTrace;
-    Error.stackTraceLimit = 20;
-
     //global error handler
-    const handleFatalError = (err) => {
-        console.error('| error catched >>>>>>', err, '<<<<<<');
+    const handleFatalError = (err, type) => {
+        console.error(`| >>>>>> ${type} <<<<<<`)
+        console.error(`| ${err.message}`);
+        err.stack.forEach(c => {
+            console.error(`| ${c.getLineNumber()}:${c.getColumnNumber()} ${c.getEvalOrigin()}`);
+        });
+        console.error(`| <<<<<< ${type.replace(/.+?/g, '-')} >>>>>>`);
+
         // if c.getThis() returns a cyclic object,
         // error would be thrown in callback, and client would get 502.
         // TODO: do something
@@ -56,18 +62,24 @@ exports.handler = (event, context, callback) => {
         }));
     };
 
-    process.on('unhandledRejection', (reason, p) => {
-        handleFatalError(reason);
-    });
+    if (process.listenerCount('unhandledRejection') === 0) {
+        process.on('unhandledRejection', (reason, p) => {
+            handleFatalError(reason, 'unhandledRejection');
+        });
+    }
 
-    process.on('uncaughtException', (err) => {
-        handleFatalError(err);
-    });
+    if (process.listenerCount('uncaughtException') === 0) {
+        process.on('uncaughtException', (err) => {
+            handleFatalError(err, 'uncaughtException');
+        });
+    }
 
-    process.on('warning', (warn) => {
-        // TODO: save warning to S3 (or somewhere else)
-        console.log(buildErrorInfo(warn));
-    });
+    if (process.listenerCount('warning') === 0) {
+        process.on('warning', (warn) => {
+            // TODO: save warning to S3 (or somewhere else)
+            console.log(buildErrorInfo(warn));
+        });
+    }
 
     context.callbackWaitsForEmptyEventLoop = false;
 
@@ -101,11 +113,12 @@ exports.handler = (event, context, callback) => {
 
         //check token for protected action
         if (actionObj[method].open !== 1) {
-            if (event.headers['X-Access-Token'] === undefined) {
+            if (event.headers['Authorization'] === undefined) {
                 return callback(null, HTTP.response(403, { error: 'No token provided.' }));
             }
             try {
-                const token = event.headers['X-Access-Token'];
+                const token = event.headers['Authorization'].split(' ')[1];
+                console.log(token);
                 event.userData = jwt.verify(token, process.env.SECRET);
             } catch (error) {
                 return callback(null, HTTP.response(403, { error: 'Failed to verify token.' }));

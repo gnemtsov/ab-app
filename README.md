@@ -1,28 +1,40 @@
 # Introduction
-AB-APP is a AWS serverless boilerplate application.
-This is a simple, but powerfull approach to create serverless applications in AWS. Your can use AB-APP as a starting point for creating your own applications.
+AB-APP is an AWS serverless boilerplate application.
+This is a simple, but powerfull approach to create serverless applications in the AWS cloud. You can use AB-APP as a starting point for creating your own applications.
 
-AB-APP is using [bit](https://bitsrc.io), so you can not only use it as a starting point as a whole, but also make use of some parts of AB-APP in your applications.
+AB-APP is using [bit](https://bitsrc.io), so you can not only use it as a whole, but also make use of some parts of AB-APP in your applications.
 
 AB-APP is a site of fictional "Scientific Research Institute of Sorcery and Wizardry" from the famous novel by Boris and Arkady Strugatsky "Monday Begins on Saturday". AB-APP exposes the list of institute departments for authenticated users. It also allows to add and edit departments.
 
-## Architecture
+Deployed app is availbale here: [d1v3l4fe3mshyi.cloudfront.net](d1v3l4fe3mshyi.cloudfront.net)
 
-This is a little simplified architecture of the application.
+## Current application state
+AB-APP is under development. **It is not finished**! Feel free to experiment with it, but don't use it in production as is.
+
+## Architecture
 
 ![AB-APP architecture](architecture-Main.png)
 
-App has two main folders: **backend** and **frontend**. Backend folder contains backend code and frontend folder contains static content (frontend code, assets, etc.) AB-APP backend is written in Node.js. AB-APP frontend is written with React, Redux and Redux-Saga.
+The application uses RDS/DynamoDB and S3 for persistent storage. Lambda function holds backend logic. API Gateway as a proxy service to pass requests from the frontent to the backend. CloudFront CDN allows to deliver the application content fast.
+
+The application has two main folders: **backend** and **frontend**. Backend folder contains backend code and frontend folder contains static content (frontend code, assets, etc.) AB-APP backend is written in Node.js. AB-APP frontend is written with React, Redux and Redux-Saga.
 
 ## Features implemented
-1. **JWT authentication** with tokens refresh
-2. **Tables** with pagination, row selection, sorting and csv export
-3. **Forms** with live, backend-frontend consistent validation
+Authentication using **JWT tokens** + tokens refresh.
 
+Functionality for viewing and editting data: 
+- **tables** with pagination, row selection, sorting and csv export; 
+- **forms** with live, backend-frontend consistent validation.
+
+## TODO
+- Use AppSync instead of API Gateway. AppSync provides convenient way of communication between frontend and backend using GraphQL queries and is also responsible for offline and realtime functionality.
+- Add DynamoDB support
+- Add realtime features
+- Add PWA features and offline functionality
 
 # Table of contents
 - [Installation](https://github.com/gnemtsov/ab-app#installation)
-- [JWT authentication](https://github.com/gnemtsov/ab-app#installation)
+- JWT authentication
 - [Tables](https://github.com/gnemtsov/ab-app#tables)
     - [Architecture](https://github.com/gnemtsov/ab-app#architecture)
     - [Formatters functions](https://github.com/gnemtsov/ab-app#formatter-functions)
@@ -32,17 +44,18 @@ App has two main folders: **backend** and **frontend**. Backend folder contains 
     - [Installation](https://github.com/gnemtsov/ab-app#installation)
     - [Usage](https://github.com/gnemtsov/ab-app#installation)
     - [Component properties](https://github.com/gnemtsov/ab-app#installation)
-- [PWA](https://github.com/gnemtsov/ab-app#installation)
-- [Testing](https://github.com/gnemtsov/ab-app#installation)
-- [Deploying](https://github.com/gnemtsov/ab-app#installation)
-- [Bit](https://github.com/gnemtsov/ab-app#installation)
+- PWA and offline
+- Realtime
+- Testing
+- Deploying
+- Bit
 - [Contributing](https://github.com/gnemtsov/ab-app#installation)
 
 
 # Installation
-1. Install database (MariaDB), Node.js, NPM, docker, [sam-local](https://github.com/awslabs/aws-sam-local) and [Redux DevTools extension](https://github.com/zalmoxisus/redux-devtools-extension)
+1. Install database (MariaDB), Node.js, NPM, docker, [aws-sam-cli](https://github.com/awslabs/aws-sam-cli) and [Redux DevTools extension](https://github.com/zalmoxisus/redux-devtools-extension)
 2. Git clone or download project source
-3. Run `npm install` both in frontend and backend folders
+3. Run `npm install` in root folder, frontend and backend folders
 4. Import mysql.dump.sql in your MariaDB instance
 5. Create file `backend/.env` with the following content (replace DB_HOST with IP of your local DB instance):
 ```
@@ -92,7 +105,7 @@ Frontend has two React components. Table high order component and table core com
 
 Table HOC is responsible for fetching table data from the backend and applying frontend formatters. Table core component is responsible for rendering and providing main table functionality (selecting, sorting, pagination, etc.)
 
-![AB-APP architecture](architecture-Tables.png)
+![Tables architecture](architecture-Tables.png)
 
 ## Formatters functions
 There are backend and frontend libs of formatters functions. Formatter function receives two parametes: column description and raw table data. It should return rendered view to display on the page.
@@ -215,50 +228,63 @@ export default class App extends Component {
 
 # Forms
 
-[![NPM](https://img.shields.io/npm/v/react-ab-form.svg)](https://www.npmjs.com/package/react-ab-form) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+Writing forms markup, programming fields validation can be hard. AB-APP is making the whole process a breeze. You just have to provide form data as a simple json config! :tada:
 
-React-ab-form is a react component for creating forms. Writing forms markup, programming fields validation can be hard. React-ab-form is making the whole process a breeze. You just provide form data as a simple javascript object, config as component props and let her rip! :tada:
+AB-APP form features:
+- Clean, responsible mobile-first css markup (horizontal or inline)
+- Live validation as user types
+- Consistent both frontend and backend validation using single sourse of truth (see Validation section below)
+- Automatic injection of fields validators according to DB column types
+- Easy custom styling
+- Very fast and lightweight
+- No devependencies
 
-Live example is published on [github.io](https://gnemtsov.github.io/react-ab-form/).
+Forms can be rendered as horizontal (default, CSS grid is used) or inline (layout="inline" prop must be set, CSS flex is used). Styles of the form can be overriden by custom className.
 
-React-ab-form produces form with live validation as user types, nice, clean responsible mobile-first css markup. Forms can be rendered as horizontal (default, CSS grid is used) or inline (layout="inline" prop must be set, CSS flex is used). Styles of the form can be overriden by custom className.
+## Architecture
 
-React-ab-form is a part of [AB-APP](https://github.com/gnemtsov/ab-app):rocket: boilerplate for creating serverless apps in AWS. AB-APP includes backend logic of forms with self-consistent backend-frontend form validation and more.
+The frontend "knows" only the form's endpoint. It uses GET request to get the form's configuration, data and validation functions. It uses POST request to send user data to the backend.
 
-## Component properties
+On the backend there is corresponding .json file for each form. This file contains fields descriptions. There is also an .sql file for some forms which holds the query for fetching form data from a database.
 
-### conf
-*[Object]* Contains general configuration.
+The backend is responsible for building form config and sending it to the frontend. It is also responsible for accepting POST requests, validating data and putting it into the database. 
 
-#### layout
-*[String]* If not set, the form renders as horizontal form. Can be set to `layout="inline"` for an inline form.
+Frontend has two React components. Form high order component and form core component. 
 
-#### infoIcon
-*[HTML | JSX]* Here you can put your custom "i" icon - it can be a react component.
+Form HOC is responsible for fetching form data from the backend and sending user data back (form submition). Table core component is responsible for rendering and validation.
 
-#### buttonText
-*[String | Array of strings]* Text for the submit button. If array is given it must contain two elements: one for default state and one for sending state. Default value is ["Submit", "Sending..."].
+![Forms architecture](architecture-Forms.png)
 
-#### doneText
-*[String]* Text that appers near the submit button if the form was submitted successfully. Default value is "Done!".
+## Form React core component
 
-#### doneTextDuration
-*[Integer]* Number of milliseconds to display doneText near the submit button. Default value is 2000.
+### Component properties
 
-#### className
-*[String]* Name of a custom class. This custom class is put on top of default form styles, so all custom styles override default. For example to make labels green, you should set your custom class: `className = "CustomForm"`. Then write the following CSS in the .css file of your component, where you use react-ab-form:
+| Property | Type | Default value | Description |
+| --- | --- | --- | --- |
+| layout | String ('horizontal' or 'inline') | 'horizontal' | Form layout type |
+| infoIcon | HTML or JSX | feather info icon | Here you can put your custom "i" icon - it can be a react component |
+| buttonText | String or Array of strings | ["Submit", "Sending..."] | Text for the submit button. If array is given it must contain two elements: one for default state and one for sending state |
+| doneText | String | 'Done!' | Text that appers near the submit button if the form was submitted successfully |
+| doneTextDuration | Integer | 2000 | Number of milliseconds to display doneText near the submit button |
+| className | String | '' | Name of a custom class (see below) |
+| submitHandler | Function | null | Function that will be invoked when form is submitted |
+| fields | Array of objects | [] | Form fields (see below) |
+
+
+#### Custom styling
+You can put a custom class on top of default form styles, so all custom styles will override default. For example, to make labels green, you should set your custom class: `className = "CustomForm"`. Then write the following CSS in the .css file of your component, where you use react-ab-form:
 ```css
 .CustomForm .Label {
     color: green;
 }
 ```
 
-#### submitHandler
-*[Function]* Function that will be invoked when form is submitted. Values of the form will be passed to this function as parameter. This function must return a promise. 
+#### Submitting form
+Use **submitHandler** property to set a function that will be invoked when form is submitted. Values of the form will be passed to this function as parameter. This function must return a promise. 
 
 If the promise resolves `doneText` is shown near the submit button. 
 
-If the promise rejects (it can happen when the server invalidate a field), the error will be catched by react-ab-form component. It expects to receive the error in the following format:
+If the promise rejects (it can happen when the server invalidate a field), the error will be catched by Form component. It expects to receive the error in the following format:
 ```
 {
     response: {
@@ -272,26 +298,27 @@ If the promise rejects (it can happen when the server invalidate a field), the e
 }
 ```
 
-#### fields
-*[Array of objects]* Each form field is an object with the following properties.
+If Form component receives error it show error message the same way it does when form field is invalidated on the frontend.
 
-##### name
-*[String]* Field name.
+#### Form fields
 
-##### label
-*[String]* Field label.
+Each form field is an object with the following properties.
+| Property | Type | Default value | Description |
+| --- | --- | --- | --- |
+| name | String | none | Field name |
+| label | String | '' | Field label |
+| placeholder | String | '' | Field placeholder |
+| value | String | none | Field value |
+| required | Boolean | false | Whether field is required |
+| type | Boolean | false | Field type (see below) |
+| allowedValues | Array of strings | [] | Contains allowed values for the field (see "type" property description for more details) |
+| noEcho | Boolean | false | If set `true`, value of the field is obscured |
+| description | String | '' | String with additional field description. If set, small "i" icon appears near the field. When user hovers the icon this description appears as tooltip |
+| validators | Array of objects | '' | Contains validators functions descriptions (one or multiple), see below |
 
-##### placeholder
-*[String]* Field placeholder.
 
-##### value
-*[String]* Field value.
-
-##### required
-*[Boolean]* Whether field is required.
-
-##### type
-*[String]* Fields can be one of the following types:
+##### Field types
+Fields can be one of the following types:
 
 | Field type  | Additional conditions | Renders as |
 | ------------- | ------------- | ------------- |
@@ -303,17 +330,8 @@ If the promise rejects (it can happen when the server invalidate a field), the e
 | Number  | -  | input type="text" |
 | Boolean  | -  | input type="checkbox" |
 
-##### allowedValues
-*[Array]* Contains allowed values for the field (see "type" property description above).
 
-##### noEcho
-*[Boolean]* If set `true`, value of the field is obscured (see "type" property description above).
-
-##### description
-*[String]* String with additional field description. If set, small "i" icon appears near the field. When user hovers the icon this description appears as tooltip.
-
-##### validators
-*[Array of objects]* Contains validators functions descriptions (one or multiple). 
+##### Field validators
 Each validator is described by separate object with the following properties:
 - **params**, (array): additional params values, passed to validator besides field value
 - **message** (string): message that should be shown when validator is not passed
@@ -321,21 +339,14 @@ Each validator is described by separate object with the following properties:
 
 When user changes field all validators are executed one by one with the current value of the field. If validator returns `false`, execution stops and current validator message is shown - field is considered invalid.
 
-
-## Install
-
-```bash
-npm install --save react-ab-form
-```
-
-## Usage
+### Using as separate React component
 In this code we use [axios](https://github.com/axios/axios) to send post request. 
 
 ```jsx
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import AbForm from 'react-ab-form';
+import FormComponent from 'Form';
 
 export default class App extends Component {
     render() {
@@ -368,7 +379,7 @@ export default class App extends Component {
             }
         ]
 
-        return <AbForm data={{conf, fields}} />;
+        return <FormComponent {...conf} fields={fields} />;
     }
 }
 ```

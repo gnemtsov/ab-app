@@ -39,7 +39,7 @@ module.exports.POST = (event, context, callback) => {
 			`;
 			const params = [values['d_title'], values['d_head'], values['d_created'], values['d_size'], values['d_id']];
 			
-			DB.then(conn => conn.execute(sql, params))
+			DB.connect().then(conn => conn.execute(sql, params))
 				.then(() => callback(null, HTTP.response(200)));
 		});
 };

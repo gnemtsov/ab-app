@@ -12,7 +12,7 @@
         "placeholder": "Department title",
         "validators": [
             { 
-                "f": "strMinMax",
+                "name": "strMinMax",
                 "message": "Title must be bigger than %0% and smaller than %1% chars", 
                 "params": [6, 64] 
             }
@@ -28,7 +28,7 @@
         "placeholder": "Department head's name",
         "validators": [
             { 
-                "f": "strMinMax",
+                "name": "strMinMax",
                 "message": "Head must be bigger than %0% and smaller than %1% chars", 
                 "params": [3, 32] 
             }
@@ -43,7 +43,7 @@
         "placeholder": "Department size",
         "validators": [
             { 
-                "f": "numMin",
+                "name": "numMin",
                 "message": "There must be at least %0% computers", 
                 "params": [5] 
             }

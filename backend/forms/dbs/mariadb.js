@@ -10,13 +10,13 @@ module.exports = [
 
             //type validator
             const numType = {
-                f: 'numType',
+                name: 'numType',
                 message: 'Value must a number'
             };
 
             //min validator         
             let numMin = {
-                f: 'numMin',
+                name: 'numMin',
                 message: 'Value must be greater than %0%'
             };
             switch (attr) {
@@ -37,7 +37,7 @@ module.exports = [
 
             //max validator         
             let numMax = {
-                f: 'numMax',
+                name: 'numMax',
                 message: 'Value must be smaller than %0%'
             };
             switch (type) {
@@ -75,7 +75,7 @@ module.exports = [
             
             // Max length validator
             let strMax = {
-				f: 'strMax',
+				name: 'strMax',
 				message: 'String must be shorter or equal to %0% characters'
 			};
             switch (type) {
@@ -119,13 +119,13 @@ module.exports = [
 			            
             //type validator
             const floatType = {
-                f: 'floatType',
+                name: 'floatType',
                 message: 'Value must a number'
             };
 
             //min validator         
             let numMin = {
-                f: 'numMin',
+                name: 'numMin',
                 message: 'Value must be greater than %0%'
             };
             const unsigned = attr1 == 'UNSIGNED' || attr2 == 'UNSIGNED';
@@ -150,7 +150,7 @@ module.exports = [
 
             //max validator         
             let numMax = {
-                f: 'numMax',
+                name: 'numMax',
                 message: 'Value must be smaller than %0%'
             };
 			switch (type) {
@@ -189,20 +189,18 @@ module.exports = [
             type = type.toUpperCase();
 			
 			const strIsDate = {
+                name: 'strIsDate',
 				message: 'Value must be a date'
-			}
-			switch (type) {
-				case 'DATE': strIsDate.f = 'strIsDate'; break;
 			}
 			
 			const dateMin = {
-				f: 'dateMin',
+				name: 'dateMin',
 				message: 'Date must be bigger than %0%',
 				params: ['1000-01-01']
 			}
 			
 			const dateMax = {
-				f: 'dateMax',
+				name: 'dateMax',
 				message: 'Date must be less than %0%',
 				params: ['9999-12-31']
 			}

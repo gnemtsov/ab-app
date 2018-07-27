@@ -7,7 +7,7 @@
         "required": true,
         "validators": [
             { 
-                "f": "strMinMax",
+                "name": "strMinMax",
                 "message": "Login must be bigger than %0% and smaller than %1% chars", 
                 "params": [4, 32] 
             }

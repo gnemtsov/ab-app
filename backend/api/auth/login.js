@@ -37,7 +37,7 @@ module.exports.POST = (event, context, callback) => {
 				WHERE u_login = ?
 			`;
 
-			DB.then(conn => conn.execute(sql, [u_login]))
+			DB.connect().then(conn => conn.execute(sql, [u_login]))
 				.then(([rows]) => {
 					if (!rows.length) {
 						return callback(null, HTTP.response(400, FORM.invalidField('login', 'User not found.')));
@@ -64,7 +64,7 @@ module.exports.POST = (event, context, callback) => {
 							VALUES (${rows[0].u_id}, '${refreshToken}', NOW(), NOW(), NOW() + INTERVAL 1 MONTH, '${event.requestContext.identity.sourceIp}')
 						`;
 
-						DB.then(conn => conn.query(sql))
+						DB.connect().then(conn => conn.query(sql))
 							.then(() =>
 								callback(null, HTTP.response(200, { accessToken: accessToken, refreshToken: refreshToken }))
 							);

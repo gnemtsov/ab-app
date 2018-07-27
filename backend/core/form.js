@@ -26,14 +26,14 @@ exports.getAsObject = (formName, params = []) => {
     if (fs.existsSync(sqlFile)) {
         const sql = fs.readFileSync(`forms/sql/${formName}.sql`, 'utf8');
         dbPromises.push(
-            DB.then(conn => conn.execute(sql, params))
+            DB.connect().then(conn => conn.execute(sql, params))
                 .then(([rows]) => {
                     if (rows.length === 1) {
                         fields.forEach(field => field.value = rows[0][field.name]);
                     }
                 })
         );
-    } 
+    }
 
     //add DB validators
     dbPromises.push(addDBValidators(fields));
@@ -42,7 +42,9 @@ exports.getAsObject = (formName, params = []) => {
         fields.forEach(field => {
             if (field.validators !== undefined) {
                 field.validators.forEach(validator => {
-                    validator.f = VALIDATORS[validator.f].toString();
+                    if (VALIDATORS[validator.name] !== undefined) {
+                        validator.f = VALIDATORS[validator.name].toString();
+                    }
                 });
             }
         });
@@ -57,16 +59,16 @@ exports.isValid = (formName, data) => {
         .then(() => {
             for (const field of fields) {
                 const {
-                    name,
+                    name: fieldName,
                     required,
                     validators = [],
                 } = field;
 
-                const value = data[name];
+                const value = data[fieldName];
 
                 if (value === undefined || value === '') {
                     if (required) {
-                        return invalidField(name, 'Value is required');
+                        return invalidField(fieldName, 'Value is required');
                     } else {
                         continue;
                     }
@@ -74,10 +76,10 @@ exports.isValid = (formName, data) => {
 
                 if (validators.length) {
                     for (var i = 0; i < validators.length; i++) {
-                        const { f, message, params = [] } = validators[i];
-                        if (!VALIDATORS[f](value, ...params)) {
+                        const { name: validatorName, message, params = [] } = validators[i];
+                        if (!VALIDATORS[validatorName](value, ...params)) {
                             return invalidField(
-                                name,
+                                fieldName,
                                 message.replace(/%([0-9]+)%/g, (...args) => params[Number(args[1])])
                             );
                         }
@@ -101,7 +103,7 @@ const addDBValidators = (fields) => {
         if (table !== undefined && !tablesList.includes(table)) {
             tablesList.push(table);
             dbPromises.push(
-                DB.then(conn => conn.execute(`SHOW COLUMNS FROM ${table}`))
+                DB.connect().then(conn => conn.execute(`SHOW COLUMNS FROM ${table}`))
                     .then(([rows]) => {
                         let tableCols = {};
                         rows.forEach(col => tableCols[col.Field] = col);
@@ -119,7 +121,7 @@ const addDBValidators = (fields) => {
                                         } = regexp.f(regexpResult);
 
                                         if (field.type !== undefined && field.type !== 'Hidden' && field.type !== type) {
-                                           throw new Error(`Field and db column types mismatch.`);
+                                            throw new Error(`Field and db column types mismatch.`);
                                         }
                                         field.type = U.coalesce(field.type, type);
 

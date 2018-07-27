@@ -22,7 +22,7 @@ module.exports.POST = (event, context, callback) => {
 		WHERE rt_user_id = ? AND rt_token = ? AND rt_expires > NOW()       
 	`;
 
-	DB.then(conn => conn.execute(sql, [sub, refreshToken]))
+	DB.connect().then(conn => conn.execute(sql, [sub, refreshToken]))
 		.then(([rows]) => {
 			if (!rows.length || rows.length > 1) {
 				return callback(null, HTTP.response(401, { error: 'Refresh token unknown, expired or ambigous.' }));
@@ -49,7 +49,7 @@ module.exports.POST = (event, context, callback) => {
 					WHERE rt_id = ${rows[0].rt_id}
 				`;
 
-				DB.then(conn => conn.query(sql))
+				DB.connect().then(conn => conn.query(sql))
 					.then(() =>
 						callback(null, HTTP.response(200, { accessToken: newAccessToken, refreshToken: newRefreshToken }))
 					);

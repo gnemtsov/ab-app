@@ -1,11 +1,8 @@
 {
-  "name": "aberp-api",
+  "name": "abapp-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "mocha"
-  },
   "author": "ERP-LAB",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -14,16 +11,7 @@
     "rand-token": "^0.4.0"
   },
   "devDependencies": {
-    "apollo-server": "^2.0.0",
-    "axios": "^0.18.0",
-    "chai": "^4.1.2",
-    "dotenv": "^5.0.1",
-    "express": "^4.16.3",
-    "express-graphql": "^0.6.12",
-    "graphql": "^0.13.2",
-    "mocha": "^5.2.0"
-  },
-  "directories": {
-    "test": "test"
+    "dotenv": "^5.0.1"
   }
+
 }
