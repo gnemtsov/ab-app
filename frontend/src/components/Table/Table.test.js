@@ -43,7 +43,7 @@ describe('Table', () => {
     cols = [
         { name: 'name', title: 'Pet name' },
         { name: 'class', title: 'Animal class', sortOrder: 1, sortDirection: 'ASC' },
-        { name: 'age', title: 'Age', sortOrder: 2, sortDirection: 'DESC' },
+        { name: 'age', title: 'Age', sortOrder: 2, sortDirection: 'ASC' },
         { name: 'gender', title: 'Gender' }
     ];
     snapshoot('With sorting', conf, cols, rows);

@@ -3,7 +3,7 @@ AB-APP is an AWS serverless boilerplate application. You can use it as a startin
 
 AB-APP is a site of fictional "Scientific Research Institute of Sorcery and Wizardry" from the famous novel by Boris and Arkady Strugatsky "[Monday Begins on Saturday](https://en.wikipedia.org/wiki/Monday_Begins_on_Saturday)". AB-APP exposes the list of institute departments for authenticated users. It also allows to add and edit departments.
 
-AB-APP is deployed here: [d1v3l4fe3mshyi.cloudfront.net](http://d1v3l4fe3mshyi.cloudfront.net). It might not be the last version as we don't redeploy every time we push changes in the repo. Also, note that when visiting the link for the first time application may fail due to AWS Lambda cold start. Just be patient and reload the page several times.
+AB-APP is deployed here: [d1v3l4fe3mshyi.cloudfront.net](http://d1v3l4fe3mshyi.cloudfront.net). It might not be the last version as we don't redeploy every time we push changes in the repo. Also, note that when visiting the link for the first time application may load slowly. This is because of the lambda cold start. In production warm up dump requests should be used to keep your lambda in a warm state.
 
 ## Current status
 AB-APP is still under development. **It is not finished**! Feel free to experiment with it, but don't use it in production as is.

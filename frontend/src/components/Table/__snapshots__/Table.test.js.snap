@@ -199,7 +199,7 @@ exports[`Table With pagination 1`] = `
           Animal class↗
         </th>
         <th>
-          Age↘
+          Age↗
         </th>
         <th>
           Gender
@@ -264,13 +264,13 @@ exports[`Table With pagination 1`] = `
         class="Odd"
       >
         <td>
-          Molly
+          Bonnie
         </td>
         <td>
           Cat
         </td>
         <td>
-          15
+          2
         </td>
         <td>
           female
@@ -280,13 +280,13 @@ exports[`Table With pagination 1`] = `
         class=""
       >
         <td>
-          Bonnie
+          Molly
         </td>
         <td>
           Cat
         </td>
         <td>
-          2
+          15
         </td>
         <td>
           female
@@ -337,7 +337,7 @@ exports[`Table With sorting 1`] = `
           Animal class↗
         </th>
         <th>
-          Age↘
+          Age↗
         </th>
         <th>
           Gender
@@ -366,22 +366,6 @@ exports[`Table With sorting 1`] = `
         class="Odd"
       >
         <td>
-          Molly
-        </td>
-        <td>
-          Cat
-        </td>
-        <td>
-          15
-        </td>
-        <td>
-          female
-        </td>
-      </tr>
-      <tr
-        class=""
-      >
-        <td>
           Bonnie
         </td>
         <td>
@@ -395,23 +379,23 @@ exports[`Table With sorting 1`] = `
         </td>
       </tr>
       <tr
-        class="Odd"
+        class=""
       >
         <td>
-          Oscar
+          Molly
         </td>
         <td>
-          Dog
+          Cat
         </td>
         <td>
-          5
+          15
         </td>
         <td>
-          male
+          female
         </td>
       </tr>
       <tr
-        class=""
+        class="Odd"
       >
         <td>
           Buddy
@@ -421,6 +405,22 @@ exports[`Table With sorting 1`] = `
         </td>
         <td>
           3
+        </td>
+        <td>
+          male
+        </td>
+      </tr>
+      <tr
+        class=""
+      >
+        <td>
+          Oscar
+        </td>
+        <td>
+          Dog
+        </td>
+        <td>
+          5
         </td>
         <td>
           male
