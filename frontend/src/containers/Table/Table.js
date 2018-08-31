@@ -33,7 +33,7 @@ export class Table extends Component {
                 return col;
             });
 
-            this.state = { cols, rows }
+            this.state = { cols, rows };
         }
     }
 
@@ -47,7 +47,7 @@ export class Table extends Component {
     render() {
         let table = <Spinner />;
         if (this.state.cols !== undefined) {
-            table = <TableComponent {...this.conf} {...this.state} />;
+            table = <TableComponent {...this.conf} {...this.state} filter={this.props.filter} setFilter={this.props.setFilter}/>;
         }
 
         return (

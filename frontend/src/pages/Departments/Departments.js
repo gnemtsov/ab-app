@@ -20,6 +20,8 @@ export class Departments extends Component {
                 <Table
                     title="Departments"
                     conf={{ emptyTableMessage: 'No departments found' }}
+                    setFilter={this.props.onSetFilter}
+                    filter={this.props.filter}
                     {...this.props.departments} />;
         }
 
@@ -33,8 +35,11 @@ export class Departments extends Component {
 }
 
 const mapStateToProps = state => {
+	let {departments, filter} = state.departments;
+	
     return {
-        departments: state.departments.departments,
+        departments: departments,
+        filter: filter,
         error: state.departments.error,
         isAuthenticated: state.auth.isAuthenticated
     };
@@ -44,7 +49,11 @@ const mapDispatchToProps = dispatch => {
     return {
         onInitDepartments: () => dispatch({
             type: actionTypes.S_INIT_DEPARTMENTS
-        })
+        }),
+        onSetFilter: (filter) => dispatch({
+			type: actionTypes.R_SET_DEPARTMENTS_FILTER,
+			filter: filter
+		})
     }
 }
 

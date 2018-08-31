@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import memoize from 'memoize-one';
 
+import Search from './Search/Search';
 import Paginator from './Paginator/Paginator';
 import Toolbar from './Toolbar/Toolbar';
 import classes from './Table.css';
@@ -39,6 +41,14 @@ export default class Table extends Component {
         headerHeight: 0,
         bodyHeight: 0
     }
+    
+    filterRows = memoize (
+		(rows, filter) => rows.filter( Search.useFilter.bind(null, filter) )
+    );
+    
+    totalPages = memoize (
+		(totalRows, rowsPerPage) => Math.ceil(totalRows / rowsPerPage)
+    );
 
     constructor(props) { //constructor updates initial state
         super(props);
@@ -48,7 +58,7 @@ export default class Table extends Component {
 
         let { rowsPerPage, cols, rows } = props;
         const totalRows = rows.length;
-        const totalPages = Math.ceil(totalRows / rowsPerPage);
+        const totalPages = this.totalPages(totalRows, rowsPerPage);
 
         //make defaultSortParams
         let sortCols = cols.filter(col => col.sortDirection !== undefined);
@@ -275,12 +285,11 @@ export default class Table extends Component {
             return <div>{this.props.emptyTableMessage}</div>;
         }
 
-        const {
+        let {
             cols,
-            rows,
-            totalPages,
             currentPage
         } = this.state;
+		const rows = this.filterRows(this.state.rows, this.props.filter);
 
         const totalCols = cols.length;
         const totalRows = rows.length;
@@ -290,6 +299,12 @@ export default class Table extends Component {
             selectable,
             csvExport
         } = this.props;
+        
+        const totalPages = this.totalPages(totalRows, rowsPerPage);
+        
+        if (currentPage > totalPages) {
+			currentPage = 1;
+		}
 
         const pageFirstRow = (currentPage - 1) * rowsPerPage;
         const pageLastRow = totalRows < pageFirstRow + rowsPerPage ? totalRows : pageFirstRow + rowsPerPage;
@@ -383,24 +398,27 @@ export default class Table extends Component {
         }
 
         return (
-            <div
-                className={classes.Container}
-                onMouseEnter={this.toolbarShow}
-                onMouseLeave={this.toolbarHide}>
-                <table
-                    className={classes.Table}>
-                    <thead ref={this.refHeader} onMouseEnter={this.toolbarShow}>{thead}</thead>
-                    <tfoot onMouseEnter={this.toolbarHide}>{tfoot}</tfoot>
-                    <tbody ref={this.refBody} onMouseEnter={this.toolbarShow}>{tbody}</tbody>
-                </table>
-                <Toolbar
-                    show={this.state.toolbarShow}
-                    defaultTop={this.state.headerHeight}
-                    boundaryTop={this.state.bodyTop}
-                    boundaryBottom={this.state.bodyTop + this.state.bodyHeight}
-                    defaultSortHandler={this.defaultSortHandler}
-                    csvExportHandler={csvExport ? this.csvExportHandler : null}
-                    selectAllHandler={selectable ? this.selectAllHandler : null} />
+			<div>
+				<Search setFilter={this.props.setFilter}/>
+				<div
+					className={classes.Container}
+					onMouseEnter={this.toolbarShow}
+					onMouseLeave={this.toolbarHide}>
+					<table
+						className={classes.Table}>
+						<thead ref={this.refHeader} onMouseEnter={this.toolbarShow}>{thead}</thead>
+						<tfoot onMouseEnter={this.toolbarHide}>{tfoot}</tfoot>
+						<tbody ref={this.refBody} onMouseEnter={this.toolbarShow}>{tbody}</tbody>
+					</table>
+					<Toolbar
+						show={this.state.toolbarShow}
+						defaultTop={this.state.headerHeight}
+						boundaryTop={this.state.bodyTop}
+						boundaryBottom={this.state.bodyTop + this.state.bodyHeight}
+						defaultSortHandler={this.defaultSortHandler}
+						csvExportHandler={csvExport ? this.csvExportHandler : null}
+						selectAllHandler={selectable ? this.selectAllHandler : null} />
+				</div>
             </div>
         );
     }

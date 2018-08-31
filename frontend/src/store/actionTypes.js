@@ -12,6 +12,7 @@ export const S_REFRESH_TOKEN = 'S_REFRESH_TOKEN';
 /************departments***************/
 //reducer
 export const R_SET_DEPARTMENTS = 'R_SET_DEPARTMENTS';
+export const R_SET_DEPARTMENTS_FILTER = 'R_SET_DEPARTMENTS_FILTER';
 export const R_FETCH_DEPARTMENTS_FAILED = 'R_FETCH_DEPARTMENTS_FAILED';
 //saga
 export const S_INIT_DEPARTMENTS = 'S_INIT_DEPARTMENTS';

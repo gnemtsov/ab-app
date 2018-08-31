@@ -34,6 +34,7 @@
     "html-webpack-plugin": "2.29.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "20.0.4",
+    "memoize-one": "^4.0.0",
     "moment": "^2.22.2",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
@@ -86,7 +87,7 @@
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
     ],
     "modulePathIgnorePatterns": [
-        "<rootDir>/snapshots-book"
+      "<rootDir>/snapshots-book"
     ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
@@ -108,7 +109,12 @@
     ],
     "reporters": [
       "default",
-      ["jest-snapshots-book", {"verbose": true}]
+      [
+        "jest-snapshots-book",
+        {
+          "verbose": true
+        }
+      ]
     ]
   },
   "babel": {
