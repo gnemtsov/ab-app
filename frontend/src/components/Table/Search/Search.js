@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import FormElement from '../../Form/FormElement/FormElement';
+import * as actionTypes from '../../../store/actionTypes';
 
 import classes from './Search.css';
 
-export default class Search extends Component {
+class Search extends Component {
 	buildFilter(search) {
 		return {
 			d_title: search
@@ -33,7 +35,7 @@ export default class Search extends Component {
 			<div className={classes.Search}>
 				<FormElement
 					key={this.props.id + '_search'}
-					inputChanged={data => this.props.setFilter(this.buildFilter(data.target.value))}
+					inputChanged={data => this.props.onSetFilter(this.buildFilter(data.target.value))}
 					message={''}
 					placeholder={'search'}
 					label={'search'}
@@ -42,3 +44,14 @@ export default class Search extends Component {
 		);
 	}
 }
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onSetFilter: (filter) => dispatch({
+			type: actionTypes.R_SET_DEPARTMENTS_FILTER,
+			filter: filter
+		})
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Search);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import memoize from 'memoize-one';
 
@@ -7,7 +8,7 @@ import Paginator from './Paginator/Paginator';
 import Toolbar from './Toolbar/Toolbar';
 import classes from './Table.css';
 
-export default class Table extends Component {
+class Table extends Component {
     defaultSortParams = []
 
     static defaultProps = {
@@ -399,7 +400,7 @@ export default class Table extends Component {
 
         return (
 			<div>
-				<Search setFilter={this.props.setFilter}/>
+				<Search />
 				<div
 					className={classes.Container}
 					onMouseEnter={this.toolbarShow}
@@ -423,3 +424,11 @@ export default class Table extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        filter: state.departments.filter
+    };
+}
+
+export default connect(mapStateToProps, null)(Table);

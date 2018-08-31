@@ -13,7 +13,6 @@ const setDepartments = (state, action) => {
 };
 
 const setFilter = (state, action) => {
-	console.log('setFilter', action);
 	return { ...state, filter: action.filter };
 }
 

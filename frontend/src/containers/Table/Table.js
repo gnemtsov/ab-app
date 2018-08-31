@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import memoize from 'memoize-one';
 
 import ErrorBoundary from '../../hoc/errorBoundary/errorBoundary';
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -12,42 +13,40 @@ export class Table extends Component {
     conf = {
         selectable: true
     }
-
-    state = {}
+    
+    formattersToFunctions = memoize (
+		(cols) => cols.map( col => { //make functions out of formatters
+			const newCol = {...col};
+			if (newCol.frontendFormatter !== undefined) {
+				newCol.formatter = Formatters[newCol.frontendFormatter];
+				delete newCol.frontendFormatter;
+			}
+			return newCol;
+		})
+    );
 
     constructor(props) {
         super(props);
-        let { conf, cols, rows } = props;
 
         this.conf = {
             ...this.conf,
-            ...conf
-        }
-
-        if (cols !== undefined) {            
-            cols = cols.map(col => { //make functions out of formatters
-                if (col.frontendFormatter !== undefined) {
-                    col.formatter = Formatters[col.frontendFormatter];
-                    delete col.frontendFormatter;
-                }
-                return col;
-            });
-
-            this.state = { cols, rows };
+            ...props.conf
         }
     }
 
     componentDidMount() {
-        if (this.state.cols === undefined) {
+        /*if (this.state.cols === undefined) {
             axios.get(this.props.api)
                 .then(result => this.setState(...result.data));
-        }
+        }*/
     }
 
     render() {
         let table = <Spinner />;
-        if (this.state.cols !== undefined) {
-            table = <TableComponent {...this.conf} {...this.state} filter={this.props.filter} setFilter={this.props.setFilter}/>;
+		let {cols, rows} = this.props;
+        if (cols !== undefined) {
+			cols = this.formattersToFunctions(cols);
+            table = <TableComponent {...this.conf} cols={cols} rows={rows} />;
         }
 
         return (
