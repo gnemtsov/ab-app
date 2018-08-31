@@ -57,9 +57,7 @@ class Table extends Component {
         this.refHeader = React.createRef()
         this.refBody = React.createRef()
 
-        let { rowsPerPage, cols, rows } = props;
-        const totalRows = rows.length;
-        const totalPages = this.totalPages(totalRows, rowsPerPage);
+        const cols = props.cols;
 
         //make defaultSortParams
         let sortCols = cols.filter(col => col.sortDirection !== undefined);
@@ -72,15 +70,9 @@ class Table extends Component {
             }));
         }
 
-        rows = this.multiSort(rows, this.defaultSortParams); //sort rows
-
         this.state = {
             ...this.state,
-            cols,
-            rows,
-            isEmpty: !cols.length || !rows.length,
-            sortParams: this.defaultSortParams,
-            totalPages
+            sortParams: this.defaultSortParams
         };
     }
 
@@ -98,40 +90,42 @@ class Table extends Component {
     }
 
 
-    multiSort = (arr, sortParams) => {
-        if (!sortParams.length) {
-            return arr.slice();
-        }
+    multiSort = memoize(
+		(arr, sortParams) => {
+			if (!sortParams.length) {
+				return arr.slice();
+			}
 
-        const cols = sortParams.map((col) => col.name);
-        const dirs = sortParams.map((col) => col.dir);
+			const cols = sortParams.map((col) => col.name);
+			const dirs = sortParams.map((col) => col.dir);
 
-        const sortRecursive = (a, b, cols, dirs, index) => {
-            const col = cols[index];
-            const dir = dirs[index];
-            let x = a.data[col];
-            let y = b.data[col];
+			const sortRecursive = (a, b, cols, dirs, index) => {
+				const col = cols[index];
+				const dir = dirs[index];
+				let x = a.data[col];
+				let y = b.data[col];
 
-            if (typeof x === 'string' || typeof y === 'string') {
-                x = x === null ? '' : x.toLowerCase();
-                y = y === null ? '' : y.toLowerCase();
-            }
+				if (typeof x === 'string' || typeof y === 'string') {
+					x = x === null ? '' : x.toLowerCase();
+					y = y === null ? '' : y.toLowerCase();
+				}
 
-            if (x < y) {
-                return dir === 'DESC' ? 1 : -1;
-            }
+				if (x < y) {
+					return dir === 'DESC' ? 1 : -1;
+				}
 
-            if (x > y) {
-                return dir === 'DESC' ? -1 : 1;
-            }
+				if (x > y) {
+					return dir === 'DESC' ? -1 : 1;
+				}
 
-            return cols.length - 1 > index ? sortRecursive(a, b, cols, dirs, index + 1) : a.i - b.i;
-        }
+				return cols.length - 1 > index ? sortRecursive(a, b, cols, dirs, index + 1) : a.i - b.i;
+			}
 
-        let sortArr = arr.map((data, i) => ({ data, i })); //mapping needed to make sort stable for equal values
-        sortArr.sort((a, b) => sortRecursive(a, b, cols, dirs, 0));
-        return sortArr.map(el => el.data);
-    }
+			let sortArr = arr.map((data, i) => ({ data, i })); //mapping needed to make sort stable for equal values
+			sortArr.sort((a, b) => sortRecursive(a, b, cols, dirs, 0));
+			return sortArr.map(el => el.data);
+		}
+	);
 
     headerMouseDownHandler = (event, colName) => { //sort handler
         event.preventDefault();
@@ -169,7 +163,6 @@ class Table extends Component {
         const selected = this.state.selected.map(i => sortedRows.indexOf(sortedRows[i])); //remap selected values
 
         this.setState({
-            rows: sortedRows,
             selected: selected,
             sortParams: sortParams
         });
@@ -282,125 +275,121 @@ class Table extends Component {
     }
 
     render() {
-        if (this.state.isEmpty) {
-            return <div>{this.props.emptyTableMessage}</div>;
-        }
-
-        let {
-            cols,
-            currentPage
-        } = this.state;
-		const rows = this.filterRows(this.state.rows, this.props.filter);
+        let currentPage = this.state.currentPage;
+        const cols = this.props.cols;
+		let rows = this.filterRows(this.props.rows, this.props.filter);
 
         const totalCols = cols.length;
         const totalRows = rows.length;
-
-        const {
-            rowsPerPage,
-            selectable,
-            csvExport
-        } = this.props;
         
-        const totalPages = this.totalPages(totalRows, rowsPerPage);
-        
-        if (currentPage > totalPages) {
-			currentPage = 1;
-		}
+        let table = <div>{this.props.emptyTableMessage}</div>;
+        if (totalCols > 0 && totalRows > 0) {    
+			rows = this.multiSort(rows, this.state.sortParams);
 
-        const pageFirstRow = (currentPage - 1) * rowsPerPage;
-        const pageLastRow = totalRows < pageFirstRow + rowsPerPage ? totalRows : pageFirstRow + rowsPerPage;
+			const {
+				rowsPerPage,
+				selectable,
+				csvExport
+			} = this.props;
+			
+			const totalPages = this.totalPages(totalRows, rowsPerPage);
+			
+			if (currentPage > totalPages) {
+				currentPage = 1;
+			}
 
-        let cells = [];
+			const pageFirstRow = (currentPage - 1) * rowsPerPage;
+			const pageLastRow = totalRows < pageFirstRow + rowsPerPage ? totalRows : pageFirstRow + rowsPerPage;
 
-        //head
-        let thead = [];
-        for (const col of cols) {
-            let sortObj = this.state.sortParams.find(el => el.name === col.name);
-            let sort = '';
-            if (sortObj !== undefined) {
-                switch (sortObj.dir) {
-                    case 'ASC': sort = '\u2197'; break;
-                    case 'DESC': sort = '\u2198'; break;
-                    default: sort = '';
-                }
-            }
-            cells.push(
-                <th
-                    key={`th${col.name}`}
-                    onMouseDown={event => this.headerMouseDownHandler(event, col.name)}>
-                    {[col.title, sort]}
-                </th>
-            );
-        };
-        thead = <tr key="thr">{cells}</tr>;
+			let cells = [];
 
-        //footer
-        let paginator = null;
-        if (totalPages > 1) {
-            paginator =
-                <Paginator
-                    cp={currentPage}
-                    tp={totalPages}
-                    pageClickHandler={this.pageClickHandler} />;
-        }
-        let tfoot =
-            <tr key="tfr">
-                <td colSpan={totalCols}>
-                    <div className={classes.Footer}>
-                        <div className={classes.Legend}>Rows {pageFirstRow + 1} to {pageLastRow} of {totalRows}</div>
-                        {paginator}
-                    </div>
-                </td>
-            </tr>;
+			//head
+			let thead = [];
+			for (const col of cols) {
+				let sortObj = this.state.sortParams.find(el => el.name === col.name);
+				let sort = '';
+				if (sortObj !== undefined) {
+					switch (sortObj.dir) {
+						case 'ASC': sort = '\u2197'; break;
+						case 'DESC': sort = '\u2198'; break;
+						default: sort = '';
+					}
+				}
+				cells.push(
+					<th
+						key={`th${col.name}`}
+						onMouseDown={event => this.headerMouseDownHandler(event, col.name)}>
+						{[col.title, sort]}
+					</th>
+				);
+			};
+			thead = <tr key="thr">{cells}</tr>;
 
-        //body
-        let tbody = [];
-        for (let i = pageFirstRow; i < pageLastRow; i++) {
-            let attachedClasses = [];
-            cells = [];
-            const row = rows[i];
+			//footer
+			let paginator = null;
+			if (totalPages > 1) {
+				paginator =
+					<Paginator
+						cp={currentPage}
+						tp={totalPages}
+						pageClickHandler={this.pageClickHandler} />;
+			}
+			let tfoot =
+				<tr key="tfr">
+					<td colSpan={totalCols}>
+						<div className={classes.Footer}>
+							<div className={classes.Legend}>Rows {pageFirstRow + 1} to {pageLastRow} of {totalRows}</div>
+							{paginator}
+						</div>
+					</td>
+				</tr>;
 
-            for (const col of cols) {
-                const tdKey = `td${i}${col.name}`;
+			//body
+			let tbody = [];
+			for (let i = pageFirstRow; i < pageLastRow; i++) {
+				let attachedClasses = [];
+				cells = [];
+				const row = rows[i];
 
-                let value = col.formatter ? col.formatter(col, row) : row[col.name];
+				for (const col of cols) {
+					const tdKey = `td${i}${col.name}`;
 
-                if (col.html) {
-                    cells.push(
-                        <td
-                            key={tdKey}
-                            dangerouslySetInnerHTML={{ __html: value }}>
-                        </td>
-                    );
-                } else {
-                    cells.push(
-                        <td key={tdKey}>
-                            {value}
-                        </td>
-                    );
-                }
-            }
+					let value = col.formatter ? col.formatter(col, row) : row[col.name];
 
-            if (this.state.selected.indexOf(i) !== -1) {
-                attachedClasses.push(classes.Selected);
-            }
-            if (i % 2 === 0) {
-                attachedClasses.push(classes.Odd);
-            }
+					if (col.html) {
+						cells.push(
+							<td
+								key={tdKey}
+								dangerouslySetInnerHTML={{ __html: value }}>
+							</td>
+						);
+					} else {
+						cells.push(
+							<td key={tdKey}>
+								{value}
+							</td>
+						);
+					}
+				}
 
-            tbody.push(
-                <tr
-                    key={`tbr${i}`}
-                    className={attachedClasses.join(' ')}
-                    onMouseDown={selectable ? event => this.rowMouseDownHandler(event, i, pageFirstRow, pageLastRow) : null}>
-                    {cells}
-                </tr>
-            );
-        }
+				if (this.state.selected.indexOf(i) !== -1) {
+					attachedClasses.push(classes.Selected);
+				}
+				if (i % 2 === 0) {
+					attachedClasses.push(classes.Odd);
+				}
 
-        return (
-			<div>
-				<Search />
+				tbody.push(
+					<tr
+						key={`tbr${i}`}
+						className={attachedClasses.join(' ')}
+						onMouseDown={selectable ? event => this.rowMouseDownHandler(event, i, pageFirstRow, pageLastRow) : null}>
+						{cells}
+					</tr>
+				);
+			}
+			
+			table = (
 				<div
 					className={classes.Container}
 					onMouseEnter={this.toolbarShow}
@@ -420,6 +409,13 @@ class Table extends Component {
 						csvExportHandler={csvExport ? this.csvExportHandler : null}
 						selectAllHandler={selectable ? this.selectAllHandler : null} />
 				</div>
+			);
+		}
+
+        return (
+			<div>
+				<Search />
+				{table}
             </div>
         );
     }
