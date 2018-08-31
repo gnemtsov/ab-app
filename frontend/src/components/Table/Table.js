@@ -414,7 +414,7 @@ class Table extends Component {
 
         return (
 			<div>
-				<Search />
+				<Search cols={this.props.cols}/>
 				{table}
             </div>
         );
