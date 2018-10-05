@@ -44,7 +44,7 @@ class Table extends Component {
     }
     
     filterRows = memoize (
-		(rows, filter) => rows.filter( Search.useFilter.bind(null, filter) )
+		(rows, cols, filter) => rows.filter( Search.useFilter.bind(null, filter, cols) )
     );
     
     totalPages = memoize (
@@ -277,7 +277,7 @@ class Table extends Component {
     render() {
         let currentPage = this.state.currentPage;
         const cols = this.props.cols;
-		let rows = this.filterRows(this.props.rows, this.props.filter);
+		let rows = this.filterRows(this.props.rows, cols, this.props.filter);
 
         const totalCols = cols.length;
         const totalRows = rows.length;

@@ -55,7 +55,7 @@ class Search extends Component {
 		return filter;
 	}
 	
-	static useFilter(filter, row) {
+	static useFilter(filter, cols, row) {
 		if (!filter) {
 			return true;
 		}
@@ -64,8 +64,16 @@ class Search extends Component {
 			if (!filter.hasOwnProperty(key)) {
 				continue;
 			}
-			
-			if (!row[key] || row[key].toString().indexOf(filter[key]) < 0) {
+			const col = cols.find(x => x.name === key);
+			if (!col) {
+				continue;
+			}
+						
+			if (!row[key]) {
+				return false;
+			}
+			const value = col.formatter ? col.formatter(col, row) : row[key];
+			if (value.toString().indexOf(filter[key]) < 0) {
 				return false;
 			}
 		}
