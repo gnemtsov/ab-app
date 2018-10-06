@@ -1,4 +1,9 @@
 .Search {
 	width: 100%;
 	margin: 0.5em;
+	
+	display: grid;
+	grid-template-columns: 5fr 1fr;
+	grid-template-rows: auto auto;
+	grid-template-areas: "input-label option-label" "input option";
 }

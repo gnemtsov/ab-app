@@ -95,7 +95,14 @@ class Search extends Component {
 					message={''}
 					placeholder={'search'}
 					label={'search'}
-					type={'String'} />
+					type={'String'}
+					labelStyle={{
+						gridArea: 'input-label',
+						textAlign: 'left'
+					}}
+					bodyStyle={{
+						gridArea: 'input'
+					}} />
 				<FormElement
 					key={this.props.id + '_select'}
 					inputChanged={data => {
@@ -104,7 +111,14 @@ class Search extends Component {
 					message={''}
 					label={'search by'}
 					allowedValues={Object.keys(this.state.options)}
-					type={'String'} />
+					type={'String'}
+					labelStyle={{
+						gridArea: 'option-label',
+						textAlign: 'left'
+					}}
+					bodyStyle={{
+						gridArea: 'option'
+					}} />
 			</div>
 		);
 	}

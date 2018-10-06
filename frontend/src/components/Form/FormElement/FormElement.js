@@ -11,15 +11,19 @@ const FormElement = (props) => {
     let layoutClass = props.layout === 'inline' ? classes.Inline : classes.Horizontal;
 
     //------->label
+    const labelStyle = props.labelStyle ? props.labelStyle : undefined;
     const label =
         <label
             key={props.id + '_label'}
             className={classes.Label + ' ' + layoutClass}
-            htmlFor={props.id}>
+            htmlFor={props.id}
+            style={labelStyle} >
             {props.label + (props.required ? '*' : '')}
         </label>;
 
     //------->input
+    const style = props.bodyStyle ? props.bodyStyle : undefined;
+    
     let inputContainerClasses = [classes.InputContainer, layoutClass];
     let inputClasses = [];
     if (props.message.length) {
@@ -177,6 +181,7 @@ const FormElement = (props) => {
         return ([
             label,
             <div
+				style={style}
                 key={props.id + '_inputContainer'}
                 className={inputContainerClasses.join(' ')}>
                 {[input, message]}
