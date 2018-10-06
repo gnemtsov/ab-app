@@ -1,6 +1,6 @@
 .Container {
     display: grid;
-    grid-template-columns: max-content min-content;
+    grid-template-columns: minmax(max-content, auto) min-content;
 }
 
 .Table {
