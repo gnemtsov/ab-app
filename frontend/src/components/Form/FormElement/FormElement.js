@@ -11,24 +11,24 @@ const FormElement = (props) => {
     let layoutClass = props.layout === 'inline' ? classes.Inline : classes.Horizontal;
 
     //------->label
-    const labelStyle = props.labelStyle ? props.labelStyle : undefined;
     const label =
         <label
             key={props.id + '_label'}
-            className={classes.Label + ' ' + layoutClass}
+            className={classes.Label + ' ' + layoutClass + ' ' + ((props.labelStyle && props.labelStyle.leftText) ? classes.LeftText : '')}
             htmlFor={props.id}
-            style={labelStyle} >
+            style={props.labelStyle ? {gridArea: props.labelStyle.gridArea} : undefined} >
             {props.label + (props.required ? '*' : '')}
         </label>;
 
     //------->input
-    const style = props.bodyStyle ? props.bodyStyle : undefined;
-    
     let inputContainerClasses = [classes.InputContainer, layoutClass];
     let inputClasses = [];
     if (props.message.length) {
         inputClasses.push(classes.Invalid);
     }
+    if (props.bodyStyle && props.bodyStyle.leftText) {
+		inputClasses.push(classes.LeftText);
+	}
     let input = [];
     switch (props.type) {
 
@@ -181,7 +181,7 @@ const FormElement = (props) => {
         return ([
             label,
             <div
-				style={style}
+				style={props.bodyStyle ? {gridArea: props.bodyStyle.gridArea} : undefined}
                 key={props.id + '_inputContainer'}
                 className={inputContainerClasses.join(' ')}>
                 {[input, message]}

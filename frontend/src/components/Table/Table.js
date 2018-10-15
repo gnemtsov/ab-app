@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import memoize from 'memoize-one';
 
@@ -8,7 +7,14 @@ import Paginator from './Paginator/Paginator';
 import Toolbar from './Toolbar/Toolbar';
 import classes from './Table.css';
 
+import ErrorBoundary from '../../hoc/errorBoundary/errorBoundary';
+import Spinner from '../UI/Spinner/Spinner';
+
 class Table extends Component {
+	conf = {
+        selectable: true
+    }
+	
     defaultSortParams = []
 
     static defaultProps = {
@@ -37,22 +43,18 @@ class Table extends Component {
         totalPages: 1,
         currentPage: 1,
         toolbarShow: false,
-        isEmpty: true,
         bodyTop: 0,
         headerHeight: 0,
         bodyHeight: 0
     }
-    
-    filterRows = memoize (
-		(rows, cols, filter) => rows.filter( Search.useFilter.bind(null, filter, cols) )
-    );
-    
-    totalPages = memoize (
-		(totalRows, rowsPerPage) => Math.ceil(totalRows / rowsPerPage)
-    );
 
     constructor(props) { //constructor updates initial state
         super(props);
+        
+        this.conf = {
+            ...this.conf,
+            ...props.conf
+        }
 
         this.refHeader = React.createRef()
         this.refBody = React.createRef()
@@ -72,12 +74,14 @@ class Table extends Component {
 
         this.state = {
             ...this.state,
-            sortParams: this.defaultSortParams
+            sortParams: this.defaultSortParams,
+            cols: props.cols,
+            rows: props.rows
         };
     }
 
     componentDidMount() {
-        if (!this.state.isEmpty) {
+        if (!this.props.isEmpty) {
             const bodyRect = this.refBody.current.getBoundingClientRect();
             const headerRect = this.refHeader.current.getBoundingClientRect();
 
@@ -269,30 +273,39 @@ class Table extends Component {
 
     defaultSortHandler = (event) => {
         this.setState({
-            rows: this.multiSort(this.state.rows, this.defaultSortParams),
+            rows: this.multiSort(this.props.rows, this.defaultSortParams),
             sortParams: this.defaultSortParams,
         });
     }
 
+	componentDidUpdate(prevProps, prevState) {
+		if ((this.props.rows !== prevProps.rows) || (this.state.sortParams !== prevState.sortParams)) {
+			this.setState({
+				rows: this.multiSort(this.props.rows, this.state.sortParams)
+			});
+		}
+	}
+
     render() {
         let currentPage = this.state.currentPage;
-        const cols = this.props.cols;
-		let rows = this.filterRows(this.props.rows, cols, this.props.filter);
+        const cols = this.state.cols;
+		const rows = this.state.rows;
 
         const totalCols = cols.length;
         const totalRows = rows.length;
         
         let table = <div>{this.props.emptyTableMessage}</div>;
-        if (totalCols > 0 && totalRows > 0) {    
-			rows = this.multiSort(rows, this.state.sortParams);
-
+        if (!this.props.isEmpty) {    
 			const {
 				rowsPerPage,
-				selectable,
 				csvExport
 			} = this.props;
 			
-			const totalPages = this.totalPages(totalRows, rowsPerPage);
+			const {
+				selectable
+			} = this.conf;
+			
+			const totalPages = Math.ceil(totalRows / rowsPerPage);
 			
 			if (currentPage > totalPages) {
 				currentPage = 1;
@@ -366,7 +379,7 @@ class Table extends Component {
 					} else {
 						cells.push(
 							<td key={tdKey}>
-								{value}
+								{value.JSX ? value.JSX : value}
 							</td>
 						);
 					}
@@ -412,19 +425,25 @@ class Table extends Component {
 			);
 		}
 
+		let allTable = <Spinner />;
+        if (cols.length !== 0) {
+            allTable = (
+				<div>
+					<Search onSetFilter={this.props.onSetFilter} cols={this.props.cols}/>
+					{table}
+				</div>
+			);
+        }
+
         return (
-			<div>
-				<Search cols={this.props.cols}/>
-				{table}
-            </div>
+            <React.Fragment>
+                <h1>{this.props.title}</h1>
+                <ErrorBoundary>
+					{allTable}
+				</ErrorBoundary>
+			</React.Fragment>
         );
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        filter: state.departments.filter
-    };
-}
-
-export default connect(mapStateToProps, null)(Table);
+export default Table;

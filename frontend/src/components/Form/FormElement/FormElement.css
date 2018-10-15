@@ -190,3 +190,8 @@
         grid-column: 3 / 3;
     }
 }
+
+/********Additional classes*********/
+.LeftText {
+	text-align: left !important;
+}
