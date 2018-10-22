@@ -7,6 +7,8 @@ import Paginator from './Paginator/Paginator';
 import Toolbar from './Toolbar/Toolbar';
 import classes from './Table.css';
 
+import * as Formatters from './Formatters/Formatters';
+
 import ErrorBoundary from '../../hoc/errorBoundary/errorBoundary';
 import Spinner from '../UI/Spinner/Spinner';
 
@@ -36,17 +38,64 @@ class Table extends Component {
     }
 
     state = {
-        cols: [],
-        rows: [],
         sortParams: [],
-        selected: [],
-        totalPages: 1,
+        selected: [], // array of selected rows
         currentPage: 1,
         toolbarShow: false,
         bodyTop: 0,
         headerHeight: 0,
         bodyHeight: 0
     }
+	
+	filterRows = memoize(
+		(rows, cols, filter) => {
+			return rows.filter( this.useFilter.bind(null, filter, cols) )
+		}
+	);
+	
+	formattersToFunctions = memoize(
+		(cols) => {
+			return cols.map( col => { //make functions out of formatters
+				const newCol = {...col};
+				if (newCol.frontendFormatter !== undefined) {
+					newCol.formatter = Formatters[newCol.frontendFormatter];
+					delete newCol.frontendFormatter;
+				}
+				return newCol;
+			});
+		}
+	);
+	
+	useFilter = memoize(
+		(filter, cols, row) => {
+			if (!filter) {
+				return true;
+			}
+			
+			for (const key in filter) {
+				if (!filter.hasOwnProperty(key)) {
+					continue;
+				}
+				const col = cols.find(x => x.name === key);
+				if (!col) {
+					continue;
+				}
+							
+				if (!row[key]) {
+					return false;
+				}
+				const value = col.formatter ? col.formatter(col, row) : row[key];
+				if (value.toString().indexOf(filter[key]) < 0) {
+					return false;
+				}
+			}
+			return true;
+		}
+	);
+	
+	getPage = memoize(
+		(rows, firstIndex, lastIndex) => rows.slice(firstIndex. lastIndex)
+	);
 
     constructor(props) { //constructor updates initial state
         super(props);
@@ -74,14 +123,12 @@ class Table extends Component {
 
         this.state = {
             ...this.state,
-            sortParams: this.defaultSortParams,
-            cols: props.cols,
-            rows: props.rows
+            sortParams: this.defaultSortParams
         };
     }
 
     componentDidMount() {
-        if (!this.props.isEmpty) {
+        if (this.props.rows.length > 0) {
             const bodyRect = this.refBody.current.getBoundingClientRect();
             const headerRect = this.refHeader.current.getBoundingClientRect();
 
@@ -163,47 +210,51 @@ class Table extends Component {
             }
         }
 
-        const sortedRows = this.multiSort(this.state.rows, sortParams); //sort rows
-        const selected = this.state.selected.map(i => sortedRows.indexOf(sortedRows[i])); //remap selected values
-
         this.setState({
-            selected: selected,
             sortParams: sortParams
         });
     }
 
-    rowMouseDownHandler = (event, row, pageFirstRow, pageLastRow) => { //select handler
+    rowMouseDownHandler = (event, row, page) => { //select handler
         let selected = this.state.selected.slice();
 
         if (event.ctrlKey) {
+			// ctrl  -  select or unselect one
             const selectedRowIndex = selected.indexOf(row);
             selectedRowIndex === -1 ? selected.push(row) : selected.splice(selectedRowIndex, 1);
         } else if (event.shiftKey) {
+			// shift  -  select rows between last selected on this page and clicked row 
             event.preventDefault();
             const selectedRowIndex = selected.indexOf(row);
-            const selectedOnPage = selected.filter(i => i >= pageFirstRow && i <= pageLastRow);
+            const selectedOnPage = selected.filter(r => page.indexOf(r) !== -1);
             const lastSelectedRow = selectedOnPage.length ? selectedOnPage[selectedOnPage.length - 1] : row;
-
-            const selectAction = (i) => {
-                const selectedI = selected.indexOf(i);
-                if (selectedRowIndex === -1) {
-                    selectedI === -1 && selected.push(i);
-                } else {
-                    row !== i && selected.splice(selectedI, 1);
-                }
+            const lastSelectedRowIndex = page.indexOf(lastSelectedRow);
+            const rowOnPageIndex = page.indexOf(row);
+			
+            const selectAction = (r) => {
+				const selectedI = selected.indexOf(r);
+				if (selectedRowIndex === -1) {
+					// If clicked on not selected  -  select
+					selectedI === -1 && selected.push(r);
+				} else {
+					// If clicked on selected  -  unselect
+					selectedI !== -1 && selected.splice(selectedI, 1);
+				}
             }
 
-            if (row > lastSelectedRow) {
-                for (let i = lastSelectedRow; i <= row; i++) {
-                    selectAction(i);
+            if (rowOnPageIndex > lastSelectedRowIndex) {
+                for (let i = lastSelectedRowIndex; i <= rowOnPageIndex; i++) {
+                    selectAction(page[i]);
                 }
             } else {
-                for (let i = lastSelectedRow; i >= row; i--) {
-                    selectAction(i);
+                for (let i = lastSelectedRowIndex; i >= rowOnPageIndex; i--) {
+                    selectAction(page[i]);
                 }
             }
         } else {
-            selected = selected.filter(row => row < pageFirstRow || row > pageLastRow);
+			// drop everything from current page
+            selected = selected.filter(r => page.indexOf(r) === -1);
+            // add clicked row
             selected.push(row);
         }
 
@@ -225,7 +276,11 @@ class Table extends Component {
     toolbarHide = () => this.setState({ toolbarShow: false })
 
     csvExportHandler = (event) => {
-        const { cols, rows } = this.state;
+        const cols = this.formattersToFunctions(this.props.cols);
+		const rows = this.multiSort(
+			this.filterRows(this.props.rows, cols, this.props.filter),
+			this.state.sortParams
+		);
 
         let table = 'No data specified';
         if (cols.length) {
@@ -264,8 +319,8 @@ class Table extends Component {
     selectAllHandler = (event) => {
         let selected = [];
         if (!this.state.selected.length) {
-            for (let i = 0; i < this.state.rows.length; i++) {
-                selected.push(i);
+            for (let i = 0; i < this.props.rows.length; i++) {
+                selected.push(this.props.rows[i]);
             }
         }
         this.setState({ selected: selected })
@@ -273,29 +328,23 @@ class Table extends Component {
 
     defaultSortHandler = (event) => {
         this.setState({
-            rows: this.multiSort(this.props.rows, this.defaultSortParams),
-            sortParams: this.defaultSortParams,
+            sortParams: this.defaultSortParams
         });
     }
 
-	componentDidUpdate(prevProps, prevState) {
-		if ((this.props.rows !== prevProps.rows) || (this.state.sortParams !== prevState.sortParams)) {
-			this.setState({
-				rows: this.multiSort(this.props.rows, this.state.sortParams)
-			});
-		}
-	}
-
     render() {
-        let currentPage = this.state.currentPage;
-        const cols = this.state.cols;
-		const rows = this.state.rows;
-
-        const totalCols = cols.length;
-        const totalRows = rows.length;
+        const isEmpty = this.props.rows.length === 0;
+        const cols = this.formattersToFunctions(this.props.cols);
         
         let table = <div>{this.props.emptyTableMessage}</div>;
-        if (!this.props.isEmpty) {    
+        if (!isEmpty) {
+			const rows = this.multiSort(
+				this.filterRows(this.props.rows, cols, this.props.filter),
+				this.state.sortParams
+			);
+			const totalCols = cols.length;
+			const totalRows = rows.length;
+			
 			const {
 				rowsPerPage,
 				csvExport
@@ -307,9 +356,7 @@ class Table extends Component {
 			
 			const totalPages = Math.ceil(totalRows / rowsPerPage);
 			
-			if (currentPage > totalPages) {
-				currentPage = 1;
-			}
+			const currentPage = this.state.currentPage > totalPages ? 1 : this.state.currentPage;
 
 			const pageFirstRow = (currentPage - 1) * rowsPerPage;
 			const pageLastRow = totalRows < pageFirstRow + rowsPerPage ? totalRows : pageFirstRow + rowsPerPage;
@@ -359,6 +406,7 @@ class Table extends Component {
 
 			//body
 			let tbody = [];
+			const page = this.getPage(rows, pageFirstRow, pageLastRow);
 			for (let i = pageFirstRow; i < pageLastRow; i++) {
 				let attachedClasses = [];
 				cells = [];
@@ -385,7 +433,7 @@ class Table extends Component {
 					}
 				}
 
-				if (this.state.selected.indexOf(i) !== -1) {
+				if (this.state.selected.indexOf(row) !== -1) {
 					attachedClasses.push(classes.Selected);
 				}
 				if (i % 2 === 0) {
@@ -396,7 +444,7 @@ class Table extends Component {
 					<tr
 						key={`tbr${i}`}
 						className={attachedClasses.join(' ')}
-						onMouseDown={selectable ? event => this.rowMouseDownHandler(event, i, pageFirstRow, pageLastRow) : null}>
+						onMouseDown={selectable ? event => this.rowMouseDownHandler(event, row, page) : null}>
 						{cells}
 					</tr>
 				);
@@ -429,7 +477,7 @@ class Table extends Component {
         if (cols.length !== 0) {
             allTable = (
 				<div>
-					<Search onSetFilter={this.props.onSetFilter} cols={this.props.cols}/>
+					<Search onSetFilter={this.props.onSetFilter} cols={cols} id={"search"}/>
 					{table}
 				</div>
 			);

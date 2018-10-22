@@ -1,0 +1,315 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormElement checkbox 1`] = `
+Array [
+  <label
+    class="Label Horizontal "
+    for="test"
+>
+    undefined
+</label>,
+  <div
+    class="InputContainer Horizontal MouseTriggered"
+>
+    <input
+        class="InputCheck"
+        id="test"
+        type="checkbox"
+    >
+        
+    </input>
+    <div
+        class="Message"
+    >
+        
+    </div>
+</div>,
+  <div
+    class="InfoIcon Horizontal"
+>
+    
+</div>,
+]
+`;
+
+exports[`FormElement date 1`] = `
+Array [
+  <label
+    class="Label Horizontal "
+    for="test"
+>
+    undefined
+</label>,
+  <div
+    class="InputContainer Horizontal"
+>
+    <div>
+        <div
+            class="react-datepicker-wrapper"
+        >
+            <div
+                class="react-datepicker__input-container"
+            >
+                <input
+                    class="InputText"
+                    type="text"
+                    value="05/05/2005"
+                >
+                    
+                </input>
+            </div>
+        </div>
+    </div>
+    <div
+        class="Message"
+    >
+        
+    </div>
+</div>,
+  <div
+    class="InfoIcon Horizontal"
+>
+    
+</div>,
+]
+`;
+
+exports[`FormElement hidden 1`] = `
+Array [
+  <div>
+    
+</div>,
+  <input
+    id="test"
+    type="hidden"
+    value="hidden"
+>
+    
+</input>,
+  <div>
+    
+</div>,
+]
+`;
+
+exports[`FormElement number 1`] = `
+Array [
+  <label
+    class="Label Horizontal "
+    for="test"
+>
+    undefined
+</label>,
+  <div
+    class="InputContainer Horizontal"
+>
+    <input
+        class="InputText"
+        id="test"
+        type="text"
+        value="5"
+    >
+        
+    </input>
+    <div
+        class="Message"
+    >
+        
+    </div>
+</div>,
+  <div
+    class="InfoIcon Horizontal"
+>
+    
+</div>,
+]
+`;
+
+exports[`FormElement password 1`] = `
+Array [
+  <label
+    class="Label Horizontal "
+    for="test"
+>
+    undefined
+</label>,
+  <div
+    class="InputContainer Horizontal"
+>
+    <input
+        class="InputText"
+        id="test"
+        type="password"
+        value="Test"
+    >
+        
+    </input>
+    <div
+        class="Message"
+    >
+        
+    </div>
+</div>,
+  <div
+    class="InfoIcon Horizontal"
+>
+    
+</div>,
+]
+`;
+
+exports[`FormElement radio 1`] = `
+Array [
+  <label
+    class="Label Horizontal "
+    for="test"
+>
+    undefined
+</label>,
+  <div
+    class="InputContainer Horizontal MouseTriggered"
+>
+    <label
+        class="InputRadioContainer"
+    >
+        <input
+            checked=""
+            class="InputRadio"
+            id="test0"
+            type="radio"
+            value="1"
+        >
+            
+        </input>
+        1
+    </label>
+    <label
+        class="InputRadioContainer"
+    >
+        <input
+            class="InputRadio"
+            id="test1"
+            type="radio"
+            value="2"
+        >
+            
+        </input>
+        2
+    </label>
+    <div
+        class="Message"
+    >
+        
+    </div>
+</div>,
+  <div
+    class="InfoIcon Horizontal"
+>
+    
+</div>,
+]
+`;
+
+exports[`FormElement select 1`] = `
+Array [
+  <label
+    class="Label Horizontal "
+    for="test"
+>
+    undefined
+</label>,
+  <div
+    class="InputContainer Horizontal"
+>
+    <select
+        class="Select"
+        id="test"
+    >
+        <option
+            selected=""
+        >
+            1
+        </option>
+        <option>
+            2
+        </option>
+        <option>
+            3
+        </option>
+    </select>
+    <div
+        class="Message"
+    >
+        
+    </div>
+</div>,
+  <div
+    class="InfoIcon Horizontal"
+>
+    
+</div>,
+]
+`;
+
+exports[`FormElement text 1`] = `
+Array [
+  <label
+    class="Label Horizontal "
+    for="test"
+>
+    undefined
+</label>,
+  <div
+    class="InputContainer Horizontal"
+>
+    <input
+        class="InputText"
+        id="test"
+        type="text"
+        value="Test"
+    >
+        
+    </input>
+    <div
+        class="Message"
+    >
+        
+    </div>
+</div>,
+  <div
+    class="InfoIcon Horizontal"
+>
+    
+</div>,
+]
+`;
+
+exports[`FormElement unrecognized 1`] = `
+Array [
+  <label
+    class="Label Horizontal "
+    for="test"
+>
+    undefined
+</label>,
+  <div
+    class="InputContainer Horizontal"
+>
+    <span
+        class="Unrecognized"
+    >
+        Unrecognized type
+    </span>
+    <div
+        class="Message"
+    >
+        
+    </div>
+</div>,
+  <div
+    class="InfoIcon Horizontal"
+>
+    
+</div>,
+]
+`;

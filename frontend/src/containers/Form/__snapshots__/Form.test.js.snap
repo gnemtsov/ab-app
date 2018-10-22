@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form Basic render test 1`] = `
+Array [
+  <h1>
+    New department
+</h1>,
+  <div
+    class="Loader"
+>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+</div>,
+]
+`;

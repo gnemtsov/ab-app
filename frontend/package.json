@@ -108,13 +108,7 @@
       "enzyme-to-json/serializer"
     ],
     "reporters": [
-      "default",
-      [
-        "jest-snapshots-book",
-        {
-          "verbose": true
-        }
-      ]
+      "default"
     ]
   },
   "babel": {
