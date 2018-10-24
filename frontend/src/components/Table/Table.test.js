@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { configure, render, mount } from 'enzyme';
+import { configure, render, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import Table from './Table';
@@ -225,7 +225,7 @@ describe('Table', () => {
 			expect(tNames.at(i).text()).toEqual(descNames[i]);		
 	});
 	
-	it('Selection', () =>  {
+	it('Selection: Single mouse click', () =>  {
 		const conf = {};
 		const cols = [
 			{ name: 'name', title: 'Pet name' },
@@ -251,5 +251,13 @@ describe('Table', () => {
 				rows={rows}
 				filter={filter} />
 		);
+
+		let wRows = wrapper.find('tbody tr');
+		wRows.at(4).simulate('mousedown', {});
+		wRows = wrapper.find('tbody tr');	
+
+		for(let i=0; i<wRows.length; i++) {
+			expect(wRows.at(i).hasClass('Selected')).toEqual(i == 4);
+		}
 	});
 });
