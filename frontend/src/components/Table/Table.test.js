@@ -490,5 +490,82 @@ describe('Table', () => {
 		}
 	});
 
+	it('Selection: shift 1-5, ctrl 3', () =>  {
+		const conf = {};
+		const cols = [
+			{ name: 'name', title: 'Pet name' },
+			{ name: 'class', title: 'Animal class', sortOrder: 1, sortDirection: 'ASC' },
+			{ name: 'age', title: 'Age', sortOrder: 2, sortDirection: 'ASC' },
+			{ name: 'gender', title: 'Gender' }
+		];
+		const rows = [
+			{ name: 'Buddy', class: 'Dog', age: 3, gender: 'male' },
+			{ name: 'Molly', class: 'Cat', age: 15, gender: 'female' },
+			{ name: 'Bonnie', class: 'Cat', age: 2, gender: 'female' },
+			{ name: 'Coco', class: 'Parrot', age: 22, gender: 'male' },
+			{ name: 'Oscar', class: 'Dog', age: 5, gender: 'male' },
+			{ name: 'Max', class: 'Turtle', age: 15, gender: 'male' },
+			{ name: 'Jack', class: 'Varan', age: 1, gender: 'male' }
+		];
+		const filter = null;
+		
+		const wrapper = mount (
+			<Table
+				{...conf}
+				cols={cols}
+				rows={rows}
+				filter={filter} />
+		);
 
+		let wRows = wrapper.find('tbody tr');
+		wRows.at(1).simulate('mousedown', {shiftKey: true});
+		wRows.at(5).simulate('mousedown', {shiftKey: true});
+		wRows.at(3).simulate('mousedown', {ctrlKey: true});
+		
+		wRows = wrapper.find('tbody tr');	
+
+		for(let i=0; i<wRows.length; i++) {
+			expect(wRows.at(i).hasClass('Selected')).toEqual(i >= 1 && i <= 5 && i !== 3);
+		}
+	});
+
+	it('Selection: shift 1-6, ctrl 3, shift 5', () =>  {
+		const conf = {};
+		const cols = [
+			{ name: 'name', title: 'Pet name' },
+			{ name: 'class', title: 'Animal class', sortOrder: 1, sortDirection: 'ASC' },
+			{ name: 'age', title: 'Age', sortOrder: 2, sortDirection: 'ASC' },
+			{ name: 'gender', title: 'Gender' }
+		];
+		const rows = [
+			{ name: 'Buddy', class: 'Dog', age: 3, gender: 'male' },
+			{ name: 'Molly', class: 'Cat', age: 15, gender: 'female' },
+			{ name: 'Bonnie', class: 'Cat', age: 2, gender: 'female' },
+			{ name: 'Coco', class: 'Parrot', age: 22, gender: 'male' },
+			{ name: 'Oscar', class: 'Dog', age: 5, gender: 'male' },
+			{ name: 'Max', class: 'Turtle', age: 15, gender: 'male' },
+			{ name: 'Jack', class: 'Varan', age: 1, gender: 'male' }
+		];
+		const filter = null;
+		
+		const wrapper = mount (
+			<Table
+				{...conf}
+				cols={cols}
+				rows={rows}
+				filter={filter} />
+		);
+
+		let wRows = wrapper.find('tbody tr');
+		wRows.at(1).simulate('mousedown', {shiftKey: true});
+		wRows.at(6).simulate('mousedown', {shiftKey: true});
+		wRows.at(3).simulate('mousedown', {ctrlKey: true});
+		wRows.at(5).simulate('mousedown', {shiftKey: true});
+		
+		wRows = wrapper.find('tbody tr');	
+
+		for(let i=0; i<wRows.length; i++) {
+			expect(wRows.at(i).hasClass('Selected')).toEqual(i == 1 || i == 2 || i == 6);
+		}
+	});
 });

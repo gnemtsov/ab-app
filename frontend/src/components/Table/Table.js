@@ -40,6 +40,7 @@ class Table extends Component {
     state = {
         sortParams: [],
         selected: [], // array of selected rows
+		lastSelectedI: null, // index of last selected/unselected row on a page
         currentPage: 1,
         toolbarShow: false,
         bodyTop: 0,
@@ -215,7 +216,8 @@ class Table extends Component {
         });
     }
 
-    rowMouseDownHandler = (event, row, page) => { //select handler
+    rowMouseDownHandler = (event, row, rowI, page) => { //select handler
+		console.log(this.state);
         let selected = this.state.selected.slice();
 
         if (event.ctrlKey) {
@@ -225,11 +227,9 @@ class Table extends Component {
         } else if (event.shiftKey) {
 			// shift  -  select rows between last selected on this page and clicked row 
             event.preventDefault();
-            const selectedRowIndex = selected.indexOf(row);
-            const selectedOnPage = selected.filter(r => page.indexOf(r) !== -1);
-            const lastSelectedRow = selectedOnPage.length ? selectedOnPage[selectedOnPage.length - 1] : row;
-            const lastSelectedRowIndex = page.indexOf(lastSelectedRow);
             const rowOnPageIndex = page.indexOf(row);
+            const selectedRowIndex = selected.indexOf(row);
+            const lastSelectedRowIndex = this.state.lastSelectedI !== null ? this.state.lastSelectedI : rowOnPageIndex;
 			
             const selectAction = (r) => {
 				const selectedI = selected.indexOf(r);
@@ -258,17 +258,26 @@ class Table extends Component {
             selected.push(row);
         }
 
-        this.setState({ selected: selected });
+        this.setState({
+			selected: selected,
+			lastSelectedI: rowI
+		});
+
     }
 
     pageClickHandler = (event, button) => { //paginator handler
         event.preventDefault();
         this.setState(prevState => {
+			let newCurrentPage;
             switch (button) {
-                case 'back': return { currentPage: prevState.currentPage - 1 };
-                case 'forward': return { currentPage: prevState.currentPage + 1 };
-                default: return { currentPage: button }
+                case 'back': newCurrentPage = prevState.currentPage - 1; break;
+                case 'forward': newCurrentPage = prevState.currentPage + 1; break;
+                default: newCurrentPage = button;
             }
+			return {
+				currentPage: newCurrentPage,
+				lastSelectedI: null
+			}
         })
     }
 
@@ -444,7 +453,7 @@ class Table extends Component {
 					<tr
 						key={`tbr${i}`}
 						className={attachedClasses.join(' ')}
-						onMouseDown={selectable ? event => this.rowMouseDownHandler(event, row, page) : null}>
+						onMouseDown={selectable ? event => this.rowMouseDownHandler(event, row, i - pageFirstRow, page) : null}>
 						{cells}
 					</tr>
 				);
