@@ -95,7 +95,7 @@ class Table extends Component {
 	);
 	
 	getPage = memoize(
-		(rows, firstIndex, lastIndex) => rows.slice(firstIndex. lastIndex)
+		(rows, firstIndex, lastIndex) => rows.slice(firstIndex, lastIndex) 
 	);
 
     constructor(props) { //constructor updates initial state
@@ -217,7 +217,6 @@ class Table extends Component {
     }
 
     rowMouseDownHandler = (event, row, rowI, page) => { //select handler
-		console.log(this.state);
         let selected = this.state.selected.slice();
 
         if (event.ctrlKey) {
