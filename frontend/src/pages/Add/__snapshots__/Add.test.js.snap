@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Add Renders correctly 1`] = `
+<div
+  className="FormContainer"
+>
+  <Form
+    api="/departments/add"
+    conf={
+      Object {
+        "buttonText": Array [
+          "Add",
+          "Adding..",
+        ],
+        "doneText": "Department was added!",
+      }
+    }
+    submitted={true}
+    title="New department"
+  />
+</div>
+`;

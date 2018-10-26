@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Edit Renders correctly 1`] = `
+<div
+  className="FormContainer"
+>
+  <Form
+    api="/departments/edit?d_id=test"
+    conf={
+      Object {
+        "buttonText": Array [
+          "Save",
+          "Saving..",
+        ],
+      }
+    }
+    title="Edit department"
+  />
+</div>
+`;

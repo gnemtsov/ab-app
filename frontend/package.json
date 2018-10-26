@@ -120,6 +120,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "react-router-test-context": "^0.1.0"
+    "react-router-test-context": "^0.1.0",
+    "redux-mock-store": "^1.5.3"
   }
 }
