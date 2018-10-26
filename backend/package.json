@@ -11,6 +11,10 @@
     "rand-token": "^0.4.0"
   },
   "devDependencies": {
-    "dotenv": "^5.0.1"
+    "dotenv": "^5.0.1",
+    "jest": "^23.6.0"
+  },
+  "scripts": {
+    "test": "jest"
   }
 }
