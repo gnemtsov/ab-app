@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Formatters Render departmentLinker 1`] = `
+<a
+  href="/edit?d_id=1"
+  onClick={[Function]}
+>
+  test title
+</a>
+`;

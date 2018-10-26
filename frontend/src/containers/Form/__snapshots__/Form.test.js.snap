@@ -1,40 +1,209 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Form Basic render test 1`] = `
-Array [
+exports[`Form Renders correctly after loading 1`] = `
+<Fragment>
   <h1>
     New department
-</h1>,
-  <div
-    class="Loader"
->
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-</div>,
-]
+  </h1>
+  <ErrorBoundary>
+    <AbForm
+      buttonText={
+        Array [
+          "Add",
+          "Adding..",
+        ]
+      }
+      className="Form"
+      doneText="Department was added!"
+      doneTextDuration={2000}
+      fields={
+        Array [
+          Object {
+            "allowedValues": null,
+            "name": "d_id",
+            "required": false,
+            "table": "departments",
+            "type": "Hidden",
+            "validators": Array [
+              Object {
+                "f": "value => /^-?[0-9]*$/.test(value)",
+                "message": "Value must a number",
+                "name": "numType",
+              },
+              Object {
+                "f": "(value, min) => value >= min",
+                "message": "Value must be greater than %0%",
+                "name": "numMin",
+                "params": Array [
+                  -2147483648,
+                ],
+              },
+              Object {
+                "f": "(value, max) => value <= max",
+                "message": "Value must be smaller than %0%",
+                "name": "numMax",
+                "params": Array [
+                  2147483647,
+                ],
+              },
+            ],
+          },
+          Object {
+            "allowedValues": null,
+            "label": "Title",
+            "name": "d_title",
+            "placeholder": "Department title",
+            "required": true,
+            "table": "departments",
+            "type": "String",
+            "validators": Array [
+              Object {
+                "f": "(value, max) => value.length <= max",
+                "message": "String must be shorter or equal to %0% characters",
+                "name": "strMax",
+                "params": Array [
+                  128,
+                ],
+              },
+              Object {
+                "f": "(value, min, max) => value.length >= min && value.length <= max",
+                "message": "Title must be bigger than %0% and smaller than %1% chars",
+                "name": "strMinMax",
+                "params": Array [
+                  6,
+                  64,
+                ],
+              },
+            ],
+            "value": "Test title",
+          },
+          Object {
+            "allowedValues": null,
+            "label": "Head",
+            "name": "d_head",
+            "placeholder": "Department head's name",
+            "required": true,
+            "table": "departments",
+            "type": "String",
+            "validators": Array [
+              Object {
+                "f": "(value, max) => value.length <= max",
+                "message": "String must be shorter or equal to %0% characters",
+                "name": "strMax",
+                "params": Array [
+                  128,
+                ],
+              },
+              Object {
+                "f": "(value, min, max) => value.length >= min && value.length <= max",
+                "message": "Head must be bigger than %0% and smaller than %1% chars",
+                "name": "strMinMax",
+                "params": Array [
+                  3,
+                  32,
+                ],
+              },
+            ],
+            "value": "Test head",
+          },
+          Object {
+            "allowedValues": null,
+            "label": "Size",
+            "name": "d_size",
+            "placeholder": "Department size",
+            "required": true,
+            "table": "departments",
+            "type": "Number",
+            "validators": Array [
+              Object {
+                "f": "value => /^-?[0-9]*$/.test(value)",
+                "message": "Value must a number",
+                "name": "numType",
+              },
+              Object {
+                "f": "(value, min) => value >= min",
+                "message": "Value must be greater than %0%",
+                "name": "numMin",
+                "params": Array [
+                  0,
+                ],
+              },
+              Object {
+                "f": "(value, max) => value <= max",
+                "message": "Value must be smaller than %0%",
+                "name": "numMax",
+                "params": Array [
+                  255,
+                ],
+              },
+              Object {
+                "f": "(value, min) => value >= min",
+                "message": "There must be at least %0% computers",
+                "name": "numMin",
+                "params": Array [
+                  5,
+                ],
+              },
+            ],
+            "value": "13",
+          },
+          Object {
+            "allowedValues": null,
+            "label": "Created",
+            "name": "d_created",
+            "placeholder": "Department creation date",
+            "required": true,
+            "table": "departments",
+            "type": "Date",
+            "validators": Array [
+              Object {
+                "f": "value => /^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/.test(value)",
+                "message": "Value must be a date",
+                "name": "strIsDate",
+              },
+              Object {
+                "f": "(value, min) => new Date(value) >= new Date(min)",
+                "message": "Date must be bigger than %0%",
+                "name": "dateMin",
+                "params": Array [
+                  "1000-01-01",
+                ],
+              },
+              Object {
+                "f": "(value, max) => new Date(value) <= new Date(max)",
+                "message": "Date must be less than %0%",
+                "name": "dateMax",
+                "params": Array [
+                  "9999-12-31",
+                ],
+              },
+            ],
+            "value": "2018-05-01",
+          },
+        ]
+      }
+      infoIcon={
+        <Icon
+          height="26"
+          name="info"
+          stroke="#666666"
+          width="26"
+        />
+      }
+      layout="horizontal"
+      submitHandler={[Function]}
+    />
+  </ErrorBoundary>
+</Fragment>
+`;
+
+exports[`Form Renders correctly before loading 1`] = `
+<Fragment>
+  <h1>
+    New department
+  </h1>
+  <ErrorBoundary>
+    <spinner />
+  </ErrorBoundary>
+</Fragment>
 `;

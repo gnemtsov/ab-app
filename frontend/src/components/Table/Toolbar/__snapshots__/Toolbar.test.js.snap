@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toolbar Renders correctly 1`] = `
+<Toolbar>
+  <div
+    className="Container"
+  >
+    <div
+      className="Toolbar"
+      style={
+        Object {
+          "top": "undefinedpx",
+        }
+      }
+    />
+  </div>
+</Toolbar>
+`;

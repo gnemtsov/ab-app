@@ -1,32 +1,44 @@
 import React from 'react';
 
-import { configure, render, mount } from 'enzyme';
+import { configure, render, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import Table from './Form';
+import Form from './Form';
 
 configure({ adapter: new Adapter() });
 
 describe('Form', () => {
-    const snapshoot = (name, conf, title, submitted, api) => {
-        const wrapper = render(
-            <Table
+	it('Renders correctly before loading', () => {
+		const conf = {
+			buttonText: ['Add', 'Adding..'],
+			doneText: 'Department was added!'
+		};
+        const wrapper = shallow (
+            <Form
                 conf={conf}
-                title={title}
-                api={api} />
+                title="New department"
+                api="/departments/add" />
         );
-        it(name, () => {
-            expect(wrapper).toMatchSnapshot();
-        });
-    }
-
-    let conf = {
-        buttonText: ['Add', 'Adding..'],
-        doneText: 'Department was added!'
-    };
-    let title = "New department";
-    let submitted = true;
-    let api = "/departments/add";
-    snapshoot('Basic render test', conf, title, submitted, api); 
+		expect(wrapper).toMatchSnapshot();
+	});
+	it('Renders correctly after loading', () => {
+		const conf = {
+			buttonText: ['Add', 'Adding..'],
+			doneText: 'Department was added!'
+		};
+        const wrapper = shallow (
+            <Form
+                conf={conf}
+                title="New department"
+                api="/departments/add" />
+        );
+		return Promise.resolve(wrapper)
+			.then(
+				() => {
+					wrapper.update();
+					expect(wrapper).toMatchSnapshot();
+				}
+			);
+	});
 });
 

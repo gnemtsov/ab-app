@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal Renders correctly when hidden 1`] = `
+<Fragment>
+  <backdrop />
+  <div
+    className="Modal"
+    style={
+      Object {
+        "opacity": "0",
+        "transform": "translateY(-100vh)",
+      }
+    }
+  />
+</Fragment>
+`;
+
+exports[`Modal Renders correctly when shown 1`] = `
+<Fragment>
+  <backdrop
+    show={true}
+  />
+  <div
+    className="Modal"
+    style={
+      Object {
+        "opacity": "1",
+        "transform": "translateY(0)",
+      }
+    }
+  />
+</Fragment>
+`;
+
+exports[`Modal Renders correctly with children 1`] = `
+<Fragment>
+  <backdrop
+    show={true}
+  />
+  <div
+    className="Modal"
+    style={
+      Object {
+        "opacity": "1",
+        "transform": "translateY(0)",
+      }
+    }
+  >
+    test
+  </div>
+</Fragment>
+`;

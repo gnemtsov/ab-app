@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Renders correctly when disabled 1`] = `
+<button
+  className="Button"
+  disabled={true}
+/>
+`;
+
+exports[`Button Renders correctly when not disabled 1`] = `
+<button
+  className="Button"
+/>
+`;
+
+exports[`Button Renders correctly with children 1`] = `
+<button
+  className="Button"
+>
+  test
+</button>
+`;
+
+exports[`Button Renders correctly with className when disabled 1`] = `
+<button
+  className="Button test"
+  disabled={true}
+/>
+`;
+
+exports[`Button Renders correctly with className when not disabled 1`] = `
+<button
+  className="Button test"
+/>
+`;

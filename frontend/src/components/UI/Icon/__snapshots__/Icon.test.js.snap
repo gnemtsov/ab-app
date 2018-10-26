@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icon Renders correctly 1`] = `
+<svg
+  fill="none"
+  height={24}
+  name="test"
+  stroke="currentColor"
+  strokeLinecap="round"
+  strokeLinejoin="round"
+  strokeWidth={2}
+  width={24}
+>
+  <use
+    xlinkHref="test-pic-stub#test"
+  />
+</svg>
+`;

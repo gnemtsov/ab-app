@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DrawerToggle Basic render test 1`] = `
+<div
+  className="DrawerToggle"
+>
+  <div />
+  <div />
+  <div />
+</div>
+`;

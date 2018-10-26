@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { configure, render } from 'enzyme';
+import { configure, render, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import Paginator from './Paginator';
@@ -8,20 +8,12 @@ import Paginator from './Paginator';
 configure({ adapter: new Adapter() });
 
 describe('Paginator', () => {
-    const snapshoot = (tp, cp) => {
-        const wrapper = render(<Paginator tp={tp} cp={cp} />);
-        it(`Total = ${tp}, Current = ${cp}`, () => {
-            expect(wrapper).toMatchSnapshot();
-        });
-    }
-
-    snapshoot(0, 0);
-    snapshoot(1, -1);
-    snapshoot(1, 1);
-    snapshoot(2, 2);
-    snapshoot(3, 1);
-
-    for (let cp = 1; cp <= 10; cp++) {
-        snapshoot(10, cp);
-    }
-});
+	for (let tp=0; tp <= 10; tp++) {
+		for (let cp=-1; cp <= tp; cp++) {
+			it(`Renders correctly, Total = ${tp}, Current = ${cp}`, () => {
+				const wrapper = shallow(<Paginator tp={tp} cp={cp} />);
+				expect(wrapper).toMatchSnapshot();
+			});
+		}
+	}
+})

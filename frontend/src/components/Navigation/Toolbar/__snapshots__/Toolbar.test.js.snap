@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toolbar Render authenticated 1`] = `
+<header
+  className="Toolbar"
+>
+  <drawerToggle />
+  <Link
+    replace={false}
+    to="/"
+  >
+    <img
+      alt="AB-APP logo"
+      className="Logo"
+      src="test-pic-stub"
+    />
+  </Link>
+  <nav
+    className="DesktopOnly"
+  >
+    <navigationItems
+      isAuthenticated={true}
+    />
+  </nav>
+</header>
+`;
+
+exports[`Toolbar Render not authenticated 1`] = `
+<header
+  className="Toolbar"
+>
+  <drawerToggle />
+  <Link
+    replace={false}
+    to="/"
+  >
+    <img
+      alt="AB-APP logo"
+      className="Logo"
+      src="test-pic-stub"
+    />
+  </Link>
+  <nav
+    className="DesktopOnly"
+  >
+    <navigationItems
+      isAuthenticated={false}
+    />
+  </nav>
+</header>
+`;
