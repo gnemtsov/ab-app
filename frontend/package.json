@@ -34,6 +34,7 @@
     "html-webpack-plugin": "2.29.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "20.0.4",
+    "memoize-one": "^4.0.0",
     "moment": "^2.22.2",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
@@ -86,7 +87,7 @@
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
     ],
     "modulePathIgnorePatterns": [
-        "<rootDir>/snapshots-book"
+      "<rootDir>/snapshots-book"
     ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
@@ -107,8 +108,7 @@
       "enzyme-to-json/serializer"
     ],
     "reporters": [
-      "default",
-      ["jest-snapshots-book", {"verbose": true}]
+      "default"
     ]
   },
   "babel": {
@@ -118,5 +118,9 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "devDependencies": {
+    "react-router-test-context": "^0.1.0",
+    "redux-mock-store": "^1.5.3"
   }
 }

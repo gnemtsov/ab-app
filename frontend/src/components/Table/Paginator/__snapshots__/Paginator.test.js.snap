@@ -1,655 +1,4567 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Paginator Total = 0, Current = 0 1`] = `null`;
+exports[`Paginator Renders correctly, Total = 0, Current = -1 1`] = `""`;
 
-exports[`Paginator Total = 1, Current = -1 1`] = `
+exports[`Paginator Renders correctly, Total = 0, Current = 0 1`] = `""`;
+
+exports[`Paginator Renders correctly, Total = 1, Current = -1 1`] = `
 <div
-  class="Paginator"
+  className="Paginator"
 >
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
   >
     ←
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
   >
     1
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
   >
     →
   </button>
 </div>
 `;
 
-exports[`Paginator Total = 1, Current = 1 1`] = `
+exports[`Paginator Renders correctly, Total = 1, Current = 0 1`] = `
 <div
-  class="Paginator"
+  className="Paginator"
 >
   <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
   >
     ←
   </button>
   <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
   >
     1
   </button>
   <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
   >
     →
   </button>
 </div>
 `;
 
-exports[`Paginator Total = 2, Current = 2 1`] = `
+exports[`Paginator Renders correctly, Total = 1, Current = 1 1`] = `
 <div
-  class="Paginator"
+  className="Paginator"
 >
   <button
-    class="Button"
+    clicked={null}
+    disabled={true}
+    key="pback"
   >
     ←
   </button>
   <button
-    class="Button"
+    clicked={null}
+    disabled={true}
+    key="p1"
   >
     1
   </button>
   <button
-    class="Button"
-    disabled=""
+    clicked={null}
+    disabled={true}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 2, Current = -1 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
   >
     2
   </button>
   <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
   >
     →
   </button>
 </div>
 `;
 
-exports[`Paginator Total = 3, Current = 1 1`] = `
+exports[`Paginator Renders correctly, Total = 2, Current = 0 1`] = `
 <div
-  class="Paginator"
+  className="Paginator"
 >
   <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
   >
     ←
   </button>
   <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
   >
     1
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
   >
     2
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 2, Current = 1 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={null}
+    disabled={true}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 2, Current = 2 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 3, Current = -1 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
   >
     3
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
   >
     →
   </button>
 </div>
 `;
 
-exports[`Paginator Total = 10, Current = 1 1`] = `
+exports[`Paginator Renders correctly, Total = 3, Current = 0 1`] = `
 <div
-  class="Paginator"
+  className="Paginator"
 >
   <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
   >
     ←
   </button>
   <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
   >
     1
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
   >
     2
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
   >
     3
   </button>
   <button
-    class="Button"
-  >
-    4
-  </button>
-  <button
-    class="Button"
-  >
-    5
-  </button>
-  <button
-    class="Button Dots"
-    disabled=""
-  >
-    ...
-  </button>
-  <button
-    class="Button"
-  >
-    10
-  </button>
-  <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
   >
     →
   </button>
 </div>
 `;
 
-exports[`Paginator Total = 10, Current = 2 1`] = `
+exports[`Paginator Renders correctly, Total = 3, Current = 1 1`] = `
 <div
-  class="Paginator"
+  className="Paginator"
 >
   <button
-    class="Button"
+    clicked={null}
+    disabled={true}
+    key="pback"
   >
     ←
   </button>
   <button
-    class="Button"
+    clicked={null}
+    disabled={true}
+    key="p1"
   >
     1
   </button>
   <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
   >
     2
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
   >
     3
   </button>
   <button
-    class="Button"
-  >
-    4
-  </button>
-  <button
-    class="Button"
-  >
-    5
-  </button>
-  <button
-    class="Button Dots"
-    disabled=""
-  >
-    ...
-  </button>
-  <button
-    class="Button"
-  >
-    10
-  </button>
-  <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
   >
     →
   </button>
 </div>
 `;
 
-exports[`Paginator Total = 10, Current = 3 1`] = `
+exports[`Paginator Renders correctly, Total = 3, Current = 2 1`] = `
 <div
-  class="Paginator"
+  className="Paginator"
 >
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
   >
     ←
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
   >
     1
   </button>
   <button
-    class="Button"
+    clicked={null}
+    disabled={true}
+    key="p2"
   >
     2
   </button>
   <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
   >
     3
   </button>
   <button
-    class="Button"
-  >
-    4
-  </button>
-  <button
-    class="Button"
-  >
-    5
-  </button>
-  <button
-    class="Button Dots"
-    disabled=""
-  >
-    ...
-  </button>
-  <button
-    class="Button"
-  >
-    10
-  </button>
-  <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
   >
     →
   </button>
 </div>
 `;
 
-exports[`Paginator Total = 10, Current = 4 1`] = `
+exports[`Paginator Renders correctly, Total = 3, Current = 3 1`] = `
 <div
-  class="Paginator"
+  className="Paginator"
 >
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
   >
     ←
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
   >
     1
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
   >
     2
   </button>
   <button
-    class="Button"
+    clicked={null}
+    disabled={true}
+    key="p3"
   >
     3
   </button>
   <button
-    class="Button"
-    disabled=""
-  >
-    4
-  </button>
-  <button
-    class="Button"
-  >
-    5
-  </button>
-  <button
-    class="Button Dots"
-    disabled=""
-  >
-    ...
-  </button>
-  <button
-    class="Button"
-  >
-    10
-  </button>
-  <button
-    class="Button"
+    clicked={null}
+    disabled={true}
+    key="pforward"
   >
     →
   </button>
 </div>
 `;
 
-exports[`Paginator Total = 10, Current = 5 1`] = `
+exports[`Paginator Renders correctly, Total = 4, Current = -1 1`] = `
 <div
-  class="Paginator"
+  className="Paginator"
 >
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
   >
     ←
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
   >
     1
   </button>
   <button
-    class="Button Dots"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
   >
-    ...
+    2
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
   >
     4
   </button>
   <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 4, Current = 0 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 4, Current = 1 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={null}
+    disabled={true}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 4, Current = 2 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 4, Current = 3 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 4, Current = 4 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 5, Current = -1 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
   >
     5
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 5, Current = 0 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 5, Current = 1 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={null}
+    disabled={true}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 5, Current = 2 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 5, Current = 3 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 5, Current = 4 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 5, Current = 5 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 6, Current = -1 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
   >
     6
   </button>
   <button
-    class="Button Dots"
-    disabled=""
-  >
-    ...
-  </button>
-  <button
-    class="Button"
-  >
-    10
-  </button>
-  <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
   >
     →
   </button>
 </div>
 `;
 
-exports[`Paginator Total = 10, Current = 6 1`] = `
+exports[`Paginator Renders correctly, Total = 6, Current = 0 1`] = `
 <div
-  class="Paginator"
+  className="Paginator"
 >
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
   >
     ←
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
   >
     1
   </button>
   <button
-    class="Button Dots"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
   >
-    ...
+    2
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
   >
     5
   </button>
   <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
   >
     6
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 6, Current = 1 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={null}
+    disabled={true}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 6, Current = 2 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 6, Current = 3 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 6, Current = 4 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 6, Current = 5 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 6, Current = 6 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 7, Current = -1 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
   >
     7
   </button>
   <button
-    class="Button Dots"
-    disabled=""
-  >
-    ...
-  </button>
-  <button
-    class="Button"
-  >
-    10
-  </button>
-  <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
   >
     →
   </button>
 </div>
 `;
 
-exports[`Paginator Total = 10, Current = 7 1`] = `
+exports[`Paginator Renders correctly, Total = 7, Current = 0 1`] = `
 <div
-  class="Paginator"
+  className="Paginator"
 >
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
   >
     ←
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
   >
     1
   </button>
   <button
-    class="Button Dots"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
   >
-    ...
+    2
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
   >
     6
   </button>
   <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
   >
     7
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 7, Current = 1 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={null}
+    disabled={true}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 7, Current = 2 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 7, Current = 3 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 7, Current = 4 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 7, Current = 5 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 7, Current = 6 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 7, Current = 7 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 8, Current = -1 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p8"
   >
     8
   </button>
   <button
-    class="Button"
-  >
-    9
-  </button>
-  <button
-    class="Button"
-  >
-    10
-  </button>
-  <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
   >
     →
   </button>
 </div>
 `;
 
-exports[`Paginator Total = 10, Current = 8 1`] = `
+exports[`Paginator Renders correctly, Total = 8, Current = 0 1`] = `
 <div
-  class="Paginator"
+  className="Paginator"
 >
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
   >
     ←
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
   >
     1
   </button>
   <button
-    class="Button Dots"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
   >
     ...
   </button>
   <button
-    class="Button"
-  >
-    6
-  </button>
-  <button
-    class="Button"
-  >
-    7
-  </button>
-  <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="p8"
   >
     8
   </button>
   <button
-    class="Button"
-  >
-    9
-  </button>
-  <button
-    class="Button"
-  >
-    10
-  </button>
-  <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
   >
     →
   </button>
 </div>
 `;
 
-exports[`Paginator Total = 10, Current = 9 1`] = `
+exports[`Paginator Renders correctly, Total = 8, Current = 1 1`] = `
 <div
-  class="Paginator"
+  className="Paginator"
 >
   <button
-    class="Button"
+    clicked={null}
+    disabled={true}
+    key="pback"
   >
     ←
   </button>
   <button
-    class="Button"
+    clicked={null}
+    disabled={true}
+    key="p1"
   >
     1
   </button>
   <button
-    class="Button Dots"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
   >
     ...
   </button>
   <button
-    class="Button"
-  >
-    6
-  </button>
-  <button
-    class="Button"
-  >
-    7
-  </button>
-  <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p8"
   >
     8
   </button>
   <button
-    class="Button"
-    disabled=""
-  >
-    9
-  </button>
-  <button
-    class="Button"
-  >
-    10
-  </button>
-  <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
   >
     →
   </button>
 </div>
 `;
 
-exports[`Paginator Total = 10, Current = 10 1`] = `
+exports[`Paginator Renders correctly, Total = 8, Current = 2 1`] = `
 <div
-  class="Paginator"
+  className="Paginator"
 >
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
   >
     ←
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
   >
     1
   </button>
   <button
-    class="Button Dots"
-    disabled=""
+    clicked={null}
+    disabled={true}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
   >
     ...
   </button>
   <button
-    class="Button"
-  >
-    6
-  </button>
-  <button
-    class="Button"
-  >
-    7
-  </button>
-  <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="p8"
   >
     8
   </button>
   <button
-    class="Button"
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 8, Current = 3 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p8"
+  >
+    8
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 8, Current = 4 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p8"
+  >
+    8
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 8, Current = 5 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p8"
+  >
+    8
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 8, Current = 6 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p8"
+  >
+    8
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 8, Current = 7 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p8"
+  >
+    8
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 8, Current = 8 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p8"
+  >
+    8
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 9, Current = -1 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p9"
   >
     9
   </button>
   <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 9, Current = 0 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p9"
+  >
+    9
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 9, Current = 1 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={null}
+    disabled={true}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p9"
+  >
+    9
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 9, Current = 2 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p9"
+  >
+    9
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 9, Current = 3 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p9"
+  >
+    9
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 9, Current = 4 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p9"
+  >
+    9
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 9, Current = 5 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p7"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p9"
+  >
+    9
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 9, Current = 6 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p8"
+  >
+    8
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p9"
+  >
+    9
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 9, Current = 7 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p8"
+  >
+    8
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p9"
+  >
+    9
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 9, Current = 8 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p8"
+  >
+    8
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p9"
+  >
+    9
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 9, Current = 9 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p8"
+  >
+    8
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p9"
+  >
+    9
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 10, Current = -1 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p10"
   >
     10
   </button>
   <button
-    class="Button"
-    disabled=""
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 10, Current = 0 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p10"
+  >
+    10
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 10, Current = 1 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={null}
+    disabled={true}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p10"
+  >
+    10
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 10, Current = 2 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p10"
+  >
+    10
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 10, Current = 3 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p10"
+  >
+    10
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 10, Current = 4 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p2"
+  >
+    2
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p3"
+  >
+    3
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p6"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p10"
+  >
+    10
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 10, Current = 5 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p4"
+  >
+    4
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p7"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p10"
+  >
+    10
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 10, Current = 6 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p5"
+  >
+    5
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p8"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p10"
+  >
+    10
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 10, Current = 7 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p8"
+  >
+    8
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p9"
+  >
+    9
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p10"
+  >
+    10
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 10, Current = 8 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p8"
+  >
+    8
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p9"
+  >
+    9
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p10"
+  >
+    10
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 10, Current = 9 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p8"
+  >
+    8
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p9"
+  >
+    9
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p10"
+  >
+    10
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pforward"
+  >
+    →
+  </button>
+</div>
+`;
+
+exports[`Paginator Renders correctly, Total = 10, Current = 10 1`] = `
+<div
+  className="Paginator"
+>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="pback"
+  >
+    ←
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p1"
+  >
+    1
+  </button>
+  <button
+    className="Dots"
+    disabled={true}
+    key="p2"
+  >
+    ...
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p6"
+  >
+    6
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p7"
+  >
+    7
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p8"
+  >
+    8
+  </button>
+  <button
+    clicked={[Function]}
+    disabled={false}
+    key="p9"
+  >
+    9
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="p10"
+  >
+    10
+  </button>
+  <button
+    clicked={null}
+    disabled={true}
+    key="pforward"
   >
     →
   </button>

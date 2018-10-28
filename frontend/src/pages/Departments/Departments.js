@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Spinner from '../../components/UI/Spinner/Spinner';
-import Table from '../../containers/Table/Table';
+import Table from '../../components/Table/Table';
 import * as actionTypes from "../../store/actionTypes";
 
 import classes from './Departments.css';
 
-export class Departments extends Component {
+export class Departments extends Component {	
     componentDidMount() {
         this.props.onInitDepartments();
     }
@@ -15,12 +15,16 @@ export class Departments extends Component {
     render() {
         let departments = this.props.error ? <p>Departments can't be loaded!</p> : <Spinner />;
 
-        if (this.props.departments) {
+        if (this.props.departments.departments) {
             departments =
                 <Table
                     title="Departments"
-                    conf={{ emptyTableMessage: 'No departments found' }}
-                    {...this.props.departments} />;
+                    csvExport={true}
+                    conf={{ emptyTableMessage: 'No departments found', selectable: true }}
+                    rows={this.props.departments.departments.rows}
+                    cols={this.props.departments.departments.cols}
+                    filter={this.props.departments.filter}
+                    onSetFilter={this.props.onSetFilter} />;
         }
 
         return (
@@ -34,7 +38,7 @@ export class Departments extends Component {
 
 const mapStateToProps = state => {
     return {
-        departments: state.departments.departments,
+        departments: state.departments,
         error: state.departments.error,
         isAuthenticated: state.auth.isAuthenticated
     };
@@ -44,7 +48,11 @@ const mapDispatchToProps = dispatch => {
     return {
         onInitDepartments: () => dispatch({
             type: actionTypes.S_INIT_DEPARTMENTS
-        })
+        }),
+        onSetFilter: (filter) => dispatch({
+			type: actionTypes.R_SET_DEPARTMENTS_FILTER,
+			filter: filter
+		})
     }
 }
 

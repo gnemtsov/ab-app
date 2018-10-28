@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form render 1`] = `
+Array [
+  <form
+    class="Form Horizontal "
+>
+    <div>
+        
+    </div>
+    <input
+        id="d_id"
+        type="hidden"
+        value=""
+    >
+        
+    </input>
+    <div>
+        
+    </div>
+    <label
+        class="Label Horizontal "
+        for="d_title"
+    >
+        Title*
+    </label>
+    <div
+        class="InputContainer Horizontal"
+    >
+        <input
+            class="InputText"
+            id="d_title"
+            placeholder="Department title"
+            type="text"
+            value="Test title"
+        >
+            
+        </input>
+        <div
+            class="Message"
+        >
+            
+        </div>
+    </div>
+    <div
+        class="InfoIcon Horizontal"
+    >
+        
+    </div>
+    <label
+        class="Label Horizontal "
+        for="d_head"
+    >
+        Head*
+    </label>
+    <div
+        class="InputContainer Horizontal"
+    >
+        <input
+            class="InputText"
+            id="d_head"
+            placeholder="Department head's name"
+            type="text"
+            value="Test head"
+        >
+            
+        </input>
+        <div
+            class="Message"
+        >
+            
+        </div>
+    </div>
+    <div
+        class="InfoIcon Horizontal"
+    >
+        
+    </div>
+    <label
+        class="Label Horizontal "
+        for="d_size"
+    >
+        Size*
+    </label>
+    <div
+        class="InputContainer Horizontal"
+    >
+        <input
+            class="InputText"
+            id="d_size"
+            placeholder="Department size"
+            type="text"
+            value="13"
+        >
+            
+        </input>
+        <div
+            class="Message"
+        >
+            
+        </div>
+    </div>
+    <div
+        class="InfoIcon Horizontal"
+    >
+        
+    </div>
+    <label
+        class="Label Horizontal "
+        for="d_created"
+    >
+        Created*
+    </label>
+    <div
+        class="InputContainer Horizontal"
+    >
+        <div>
+            <div
+                class="react-datepicker-wrapper"
+            >
+                <div
+                    class="react-datepicker__input-container"
+                >
+                    <input
+                        class="InputText"
+                        type="text"
+                        value="05/01/2018"
+                    >
+                        
+                    </input>
+                </div>
+            </div>
+        </div>
+        <div
+            class="Message"
+        >
+            
+        </div>
+    </div>
+    <div
+        class="InfoIcon Horizontal"
+    >
+        
+    </div>
+    <div
+        class="SubmitButton"
+    >
+        <button
+            class="Button"
+        >
+            Submit
+        </button>
+        <span
+            class="DoneText"
+        >
+            Done!
+        </span>
+    </div>
+</form>,
+  <div
+    class="__react_component_tooltip place-right type-dark "
+    data-id="tooltip"
+>
+    
+</div>,
+]
+`;

@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search Basic render test 1`] = `
+<div
+  className="Search"
+>
+  <FormElement
+    bodyStyle={
+      Object {
+        "gridArea": "input",
+      }
+    }
+    id="search_search"
+    inputChanged={[Function]}
+    key="search_search"
+    label="search"
+    labelStyle={
+      Object {
+        "gridArea": "input-label",
+        "leftText": true,
+      }
+    }
+    message=""
+    placeholder="search"
+    type="String"
+  />
+  <FormElement
+    allowedValues={
+      Array [
+        "Pet name",
+        "Animal class",
+        "Age",
+        "Gender",
+      ]
+    }
+    bodyStyle={
+      Object {
+        "gridArea": "option",
+      }
+    }
+    id="search_select"
+    inputChanged={[Function]}
+    key="search_select"
+    label="search by"
+    labelStyle={
+      Object {
+        "gridArea": "option-label",
+        "leftText": true,
+      }
+    }
+    message=""
+    type="String"
+  />
+</div>
+`;

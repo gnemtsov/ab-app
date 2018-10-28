@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavigationItems render with authentication 1`] = `
+<ul
+  class="NavigationItems"
+>
+  <li
+    class="NavigationItem"
+  >
+    <a
+      aria-current="page"
+      class="active"
+      href="/"
+    >
+      Departments
+    </a>
+  </li>
+  <li
+    class="NavigationItem"
+  >
+    <a
+      href="/add"
+    >
+      Add
+    </a>
+  </li>
+  <li
+    class="NavigationItem"
+  >
+    <a
+      href="/logout"
+    >
+      Logout
+    </a>
+  </li>
+</ul>
+`;
+
+exports[`NavigationItems render without authentication 1`] = `
+<ul
+  class="NavigationItems"
+>
+  <li
+    class="NavigationItem"
+  >
+    <a
+      aria-current="page"
+      class="active"
+      href="/"
+    >
+      Departments
+    </a>
+  </li>
+  <li
+    class="NavigationItem"
+  >
+    <a
+      href="/auth"
+    >
+      Authenticate
+    </a>
+  </li>
+</ul>
+`;

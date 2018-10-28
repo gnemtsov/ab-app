@@ -1,5 +1,4 @@
-const expect = require('chai').expect;
-const regexps = require('../forms/dbs/mariadb');
+const regexps = require('./mariadb');
 
 describe('mariadb.js: regexp for integer types', () => {
 	const regexp = regexps[0];
@@ -12,20 +11,20 @@ describe('mariadb.js: regexp for integer types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'numType',
+					name: 'numType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [-2147483648]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [2147483647]
 				}
@@ -41,20 +40,20 @@ describe('mariadb.js: regexp for integer types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'numType',
+					name: 'numType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [-2147483648]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [2147483647]
 				}
@@ -70,20 +69,20 @@ describe('mariadb.js: regexp for integer types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'numType',
+					name: 'numType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [-9223372036854775808]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [9223372036854775807]
 				}
@@ -99,20 +98,20 @@ describe('mariadb.js: regexp for integer types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'numType',
+					name: 'numType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [-2147483648]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [2147483647]
 				}
@@ -128,20 +127,20 @@ describe('mariadb.js: regexp for integer types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'numType',
+					name: 'numType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [-2147483648]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [2147483647]
 				}
@@ -157,20 +156,20 @@ describe('mariadb.js: regexp for integer types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'numType',
+					name: 'numType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [-9223372036854775808]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [9223372036854775807]
 				}
@@ -191,11 +190,11 @@ describe('mariadb.js: regexp for string types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'String',
 			validators: [
 				{
-					f: 'strMax',
+					name: 'strMax',
 					message: 'String must be shorter or equal to %0% characters',
 					params: [5]
 				}
@@ -211,11 +210,11 @@ describe('mariadb.js: regexp for string types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'String',
 			validators: [
 				{
-					f: 'strMax',
+					name: 'strMax',
 					message: 'String must be shorter or equal to %0% characters',
 					params: [25]
 				}
@@ -231,11 +230,11 @@ describe('mariadb.js: regexp for string types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'String',
 			validators: [
 				{
-					f: 'strMax',
+					name: 'strMax',
 					message: 'String must be shorter or equal to %0% characters',
 					params: [65535]
 				}
@@ -251,11 +250,11 @@ describe('mariadb.js: regexp for string types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'String',
 			validators: [
 				{
-					f: 'strMax',
+					name: 'strMax',
 					message: 'String must be shorter or equal to %0% characters',
 					params: [256]
 				}
@@ -271,11 +270,11 @@ describe('mariadb.js: regexp for string types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'String',
 			validators: [
 				{
-					f: 'strMax',
+					name: 'strMax',
 					message: 'String must be shorter or equal to %0% characters',
 					params: [255]
 				}
@@ -291,11 +290,11 @@ describe('mariadb.js: regexp for string types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'String',
 			validators: [
 				{
-					f: 'strMax',
+					name: 'strMax',
 					message: 'String must be shorter or equal to %0% characters',
 					params: [16777215]
 				}
@@ -311,11 +310,11 @@ describe('mariadb.js: regexp for string types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'String',
 			validators: [
 				{
-					f: 'strMax',
+					name: 'strMax',
 					message: 'String must be shorter or equal to %0% characters',
 					params: [4294967295]
 				}
@@ -336,20 +335,20 @@ describe('mariadb.js: regexp for float types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'floatType',
+					name: 'floatType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [-9999999999]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [9999999999]
 				}
@@ -365,20 +364,20 @@ describe('mariadb.js: regexp for float types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'floatType',
+					name: 'floatType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [-99999]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [99999]
 				}
@@ -394,20 +393,20 @@ describe('mariadb.js: regexp for float types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'floatType',
+					name: 'floatType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [-99999]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [99999]
 				}
@@ -423,20 +422,20 @@ describe('mariadb.js: regexp for float types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'floatType',
+					name: 'floatType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [0]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [99999]
 				}
@@ -452,20 +451,20 @@ describe('mariadb.js: regexp for float types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'floatType',
+					name: 'floatType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [0]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [99999]
 				}
@@ -481,20 +480,20 @@ describe('mariadb.js: regexp for float types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'floatType',
+					name: 'floatType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [0]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [99999]
 				}
@@ -510,20 +509,20 @@ describe('mariadb.js: regexp for float types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'floatType',
+					name: 'floatType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [-999]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [999]
 				}
@@ -539,11 +538,11 @@ describe('mariadb.js: regexp for float types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'floatType',
+					name: 'floatType',
 					message: 'Value must a number'
 				}
 			]
@@ -558,20 +557,20 @@ describe('mariadb.js: regexp for float types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'floatType',
+					name: 'floatType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [-999]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [999]
 				}
@@ -587,20 +586,20 @@ describe('mariadb.js: regexp for float types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'floatType',
+					name: 'floatType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [-999]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [999]
 				}
@@ -616,20 +615,20 @@ describe('mariadb.js: regexp for float types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'Number',
 			validators: [
 				{
-					f: 'floatType',
+					name: 'floatType',
 					message: 'Value must a number'
 				},
 				{
-					f: 'numMin',
+					name: 'numMin',
 					message: 'Value must be greater than %0%',
 					params: [0]
 				},
 				{
-					f: 'numMax',
+					name: 'numMax',
 					message: 'Value must be smaller than %0%',
 					params: [999]
 				}
@@ -650,28 +649,28 @@ describe('mariadb.js: regexp for date types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
-			type: 'Datetime',
+		expect(output).toEqual({
+			type: 'Date',
 			validators: [
 				{
-					f: 'strIsShortDate',
+					name: 'strIsDate',
 					message: 'Value must be a date'
 				},
 				{
-					f: 'dateMin',
+					name: 'dateMin',
 					message: 'Date must be bigger than %0%',
-					params: ['1000-01-01 00:00:00.000000']
+					params: ['1000-01-01']
 				},
 				{
-					f: 'dateMax',
+					name: 'dateMax',
 					message: 'Date must be less than %0%',
-					params: ['9999-12-31 23:59:59.999999']
+					params: ['9999-12-31']
 				}
 			]
 		});
 	});
-	it('DATETIME', () => {
-		const input = 'DATETIME';
+	it('DATE(5)', () => {
+		const input = 'DATE(5)';
 		
 		let output = null;
 		const result = regexp.regexp.exec(input);
@@ -679,51 +678,22 @@ describe('mariadb.js: regexp for date types', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
-			type: 'Datetime',
+		expect(output).toEqual({
+			type: 'Date',
 			validators: [
 				{
-					f: 'strIsDate',
+					name: 'strIsDate',
 					message: 'Value must be a date'
 				},
 				{
-					f: 'dateMin',
+					name: 'dateMin',
 					message: 'Date must be bigger than %0%',
-					params: ['1000-01-01 00:00:00.000000']
+					params: ['1000-01-01']
 				},
 				{
-					f: 'dateMax',
+					name: 'dateMax',
 					message: 'Date must be less than %0%',
-					params: ['9999-12-31 23:59:59.999999']
-				}
-			]
-		});
-	});
-	it('DATETIME(5)', () => {
-		const input = 'DATETIME(5)';
-		
-		let output = null;
-		const result = regexp.regexp.exec(input);
-		if (result) {
-			output = regexp.f(result);
-		}
-		
-		expect(output).to.deep.equal({
-			type: 'Datetime',
-			validators: [
-				{
-					f: 'strIsDate',
-					message: 'Value must be a date'
-				},
-				{
-					f: 'dateMin',
-					message: 'Date must be bigger than %0%',
-					params: ['1000-01-01 00:00:00.000000']
-				},
-				{
-					f: 'dateMax',
-					message: 'Date must be less than %0%',
-					params: ['9999-12-31 23:59:59.999999']
+					params: ['9999-12-31']
 				}
 			]
 		});
@@ -742,7 +712,7 @@ describe('mariadb.js: regexp for enums', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'String',
 			validators: [],
 			allowedValues: ['x1']
@@ -757,7 +727,7 @@ describe('mariadb.js: regexp for enums', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'String',
 			validators: [],
 			allowedValues: ['x1', 'x2']
@@ -772,7 +742,7 @@ describe('mariadb.js: regexp for enums', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'String',
 			validators: [],
 			allowedValues: ['x1', 'x2']
@@ -787,7 +757,7 @@ describe('mariadb.js: regexp for enums', () => {
 			output = regexp.f(result);
 		}
 		
-		expect(output).to.deep.equal({
+		expect(output).toEqual({
 			type: 'String',
 			validators: [],
 			allowedValues: ['male', 'female']

@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SideDrawer Render closed, authenticated 1`] = `
+<Fragment>
+  <backdrop
+    show={false}
+  />
+  <div
+    className="SideDrawer Close"
+  >
+    <img
+      alt="AB-APP logo"
+      className="Logo"
+      src="test-pic-stub"
+    />
+    <nav>
+      <navigationItems
+        isAuthenticated={true}
+      />
+    </nav>
+  </div>
+</Fragment>
+`;
+
+exports[`SideDrawer Render closed, not authenticated 1`] = `
+<Fragment>
+  <backdrop
+    show={false}
+  />
+  <div
+    className="SideDrawer Close"
+  >
+    <img
+      alt="AB-APP logo"
+      className="Logo"
+      src="test-pic-stub"
+    />
+    <nav>
+      <navigationItems
+        isAuthenticated={false}
+      />
+    </nav>
+  </div>
+</Fragment>
+`;
+
+exports[`SideDrawer Render opened, authenticated 1`] = `
+<Fragment>
+  <backdrop
+    show={true}
+  />
+  <div
+    className="SideDrawer Open"
+  >
+    <img
+      alt="AB-APP logo"
+      className="Logo"
+      src="test-pic-stub"
+    />
+    <nav>
+      <navigationItems
+        isAuthenticated={true}
+      />
+    </nav>
+  </div>
+</Fragment>
+`;
+
+exports[`SideDrawer Render opened, not authenticated 1`] = `
+<Fragment>
+  <backdrop
+    show={true}
+  />
+  <div
+    className="SideDrawer Open"
+  >
+    <img
+      alt="AB-APP logo"
+      className="Logo"
+      src="test-pic-stub"
+    />
+    <nav>
+      <navigationItems
+        isAuthenticated={false}
+      />
+    </nav>
+  </div>
+</Fragment>
+`;

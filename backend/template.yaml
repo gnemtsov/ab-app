@@ -8,6 +8,7 @@ Resources:
     Properties:
       Runtime: nodejs6.10
       Handler: index.handler
+      Timeout: 10
       Events:
         ABAPI:
           Type: Api

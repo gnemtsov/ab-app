@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth Renders correctly when authenticated 1`] = `
+<div>
+  <h1>
+    Please, authenticate
+  </h1>
+  <div
+    class="Loader"
+  >
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Auth Renders correctly when not authenticated 1`] = `
+<div>
+  <h1>
+    Please, authenticate
+  </h1>
+  <div
+    class="Loader"
+  >
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Departments Renders correctly when error 1`] = `
+<div
+  class="TableContainer"
+>
+  <p>
+    Departments can't be loaded!
+  </p>
+</div>
+`;
+
+exports[`Departments Renders correctly when no error 1`] = `
+<div
+  class="TableContainer"
+>
+  <h1>
+    Departments
+  </h1>
+  <div
+    class="Loader"
+  >
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+    <div>
+      
+    </div>
+  </div>
+</div>
+`;
