@@ -7,6 +7,7 @@ AB-APP is deployed here: [d1v3l4fe3mshyi.cloudfront.net](http://d1v3l4fe3mshyi.c
 
 ## Current status
 AB-APP is still under development. **It is not finished**! Feel free to experiment with it, but don't use it in production as is.
+**Documentation might also be outdated**, but we try to keep it in a more or less actual state.
 
 ## Architecture
 
