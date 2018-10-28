@@ -21,9 +21,9 @@ AB-APP backend is written in Node.js. AB-APP frontend is written with React, Red
 ## Features implemented
 Authentication using **JWT tokens** + tokens refresh.
 
-**Tables** for viewing data with pagination, row selection, sorting and CSV export.
+[**Tables**](https://github.com/gnemtsov/ab-app/blob/master/TABLES.md) for viewing data with pagination, row selection, sorting and CSV export.
 
-**Forms** for adding and editing data with live, backend-frontend consistent validation.
+[**Forms**](https://github.com/gnemtsov/ab-app/blob/master/FORMS.md) for adding and editing data with live, backend-frontend consistent validation.
 
 ## TODO
 - Replace API Gateway with AppSync. AppSync provides a convenient way of communication between frontend and backend using GraphQL queries and is also responsible for offline and real-time functionality.
