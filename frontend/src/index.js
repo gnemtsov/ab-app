@@ -16,7 +16,7 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 
     process.env.NODE_ENV === "development" 
-        ? 'http://127.0.0.1:3000'
+        ? process.env.REACT_APP_LOCAL_APIGATEWAY_URL
         : 'https://kg0mslaalb.execute-api.eu-west-1.amazonaws.com/prod';
 
 const composeEnhancers =

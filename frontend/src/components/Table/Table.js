@@ -13,11 +13,6 @@ import ErrorBoundary from '../../hoc/errorBoundary/errorBoundary';
 import Spinner from '../UI/Spinner/Spinner';
 
 class Table extends Component {
-	conf = {
-        selectable: true
-    }
-	
-    defaultSortParams = []
 
     static defaultProps = {
         rowsPerPage: 10,
@@ -48,23 +43,59 @@ class Table extends Component {
         bodyHeight: 0
     }
 	
+    constructor(props) {
+        super(props);
+        
+        this.refHeader = React.createRef();
+        this.refBody = React.createRef();
+
+		this.defaultSortParams = []; //make defaultSortParams
+        let sortCols = props.cols.filter(col => col.sortDirection !== undefined);
+        if (sortCols.length) {
+            sortCols.sort((a, b) => a.sortOrder - b.sortOrder);
+
+            this.defaultSortParams = sortCols.map(
+            	col => ({
+                	name: col.name,
+                	dir: col.sortDirection
+            	})
+            );
+        }
+
+        this.state = {
+            ...this.state,
+            sortParams: this.defaultSortParams
+        };
+    }
+
+    componentDidMount() {
+        if (this.props.rows.length > 0) {
+            const headerRect = this.refHeader.current.getBoundingClientRect();
+            const bodyRect = this.refBody.current.getBoundingClientRect();
+
+            this.setState({
+                headerHeight: headerRect.height,
+                bodyTop: bodyRect.top + window.scrollY,
+                bodyHeight: bodyRect.height
+            });
+        }
+    }
+
 	filterRows = memoize(
 		(rows, cols, filter) => {
 			return rows.filter( this.useFilter.bind(null, filter, cols) )
 		}
 	);
 	
-	formattersToFunctions = memoize(
-		(cols) => {
-			return cols.map( col => { //make functions out of formatters
-				const newCol = {...col};
-				if (newCol.frontendFormatter !== undefined) {
-					newCol.formatter = Formatters[newCol.frontendFormatter];
-					delete newCol.frontendFormatter;
-				}
-				return newCol;
-			});
-		}
+	formattersToFunctions = memoize(  //make functions out of formatters
+		cols => cols.map( col => { 
+			const newCol = {...col};
+			if (newCol.frontendFormatter !== undefined) {
+				newCol.formatter = Formatters[newCol.frontendFormatter];
+				delete newCol.frontendFormatter;
+			}
+			return newCol;
+		})
 	);
 	
 	useFilter = memoize(
@@ -98,58 +129,14 @@ class Table extends Component {
 		(rows, firstIndex, lastIndex) => rows.slice(firstIndex, lastIndex) 
 	);
 
-    constructor(props) { //constructor updates initial state
-        super(props);
-        
-        this.conf = {
-            ...this.conf,
-            ...props.conf
-        }
-
-        this.refHeader = React.createRef()
-        this.refBody = React.createRef()
-
-        const cols = props.cols;
-
-        //make defaultSortParams
-        let sortCols = cols.filter(col => col.sortDirection !== undefined);
-        if (sortCols.length) {
-            sortCols.sort((a, b) => a.sortOrder - b.sortOrder);
-
-            this.defaultSortParams = sortCols.map((col) => ({
-                name: col.name,
-                dir: col.sortDirection
-            }));
-        }
-
-        this.state = {
-            ...this.state,
-            sortParams: this.defaultSortParams
-        };
-    }
-
-    componentDidMount() {
-        if (this.props.rows.length > 0) {
-            const bodyRect = this.refBody.current.getBoundingClientRect();
-            const headerRect = this.refHeader.current.getBoundingClientRect();
-
-            this.setState({
-                bodyTop: bodyRect.top + window.scrollY,
-                headerHeight: headerRect.height,
-                bodyHeight: bodyRect.height
-            });
-        }
-    }
-
-
     multiSort = memoize(
 		(arr, sortParams) => {
 			if (!sortParams.length) {
 				return arr.slice();
 			}
 
-			const cols = sortParams.map((col) => col.name);
-			const dirs = sortParams.map((col) => col.dir);
+			const cols = sortParams.map(col => col.name);
+			const dirs = sortParams.map(col => col.dir);
 
 			const sortRecursive = (a, b, cols, dirs, index) => {
 				const col = cols[index];
@@ -355,17 +342,12 @@ class Table extends Component {
 			
 			const {
 				rowsPerPage,
-				csvExport
-			} = this.props;
-			
-			const {
+				csvExport,
 				selectable
-			} = this.conf;
-			
-			const totalPages = Math.ceil(totalRows / rowsPerPage);
-			
+			} = this.props;			
+	
+			const totalPages = Math.ceil(totalRows / rowsPerPage);			
 			const currentPage = this.state.currentPage > totalPages ? 1 : this.state.currentPage;
-
 			const pageFirstRow = (currentPage - 1) * rowsPerPage;
 			const pageLastRow = totalRows < pageFirstRow + rowsPerPage ? totalRows : pageFirstRow + rowsPerPage;
 
@@ -435,7 +417,7 @@ class Table extends Component {
 					} else {
 						cells.push(
 							<td key={tdKey}>
-								{value.JSX ? value.JSX : value}
+								{value && value.JSX ? value.JSX : value}
 							</td>
 						);
 					}

@@ -56,6 +56,10 @@ INSERT INTO `users` (`u_id`, `u_login`, `u_password`, `u_firstname`, `u_lastname
 	(1, 'admin', '$2a$10$HW2PzCg5PHKpkVcZBjkflevMgogqZmmh5EvKeHZwMYfG/zLP.xuYK', 'Dmitri', 'Nekhludoff', 'Europe/Moscow', 1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
+CREATE USER 'abapp'@'%' IDENTIFIED BY 'abapp';
+GRANT ALL PRIVILEGES ON abapp.* TO 'abapp'@'%';
+FLUSH PRIVILEGES;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

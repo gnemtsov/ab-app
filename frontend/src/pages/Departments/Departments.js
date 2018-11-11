@@ -20,7 +20,8 @@ export class Departments extends Component {
                 <Table
                     title="Departments"
                     csvExport={true}
-                    conf={{ emptyTableMessage: 'No departments found', selectable: true }}
+                    emptyTableMessage={'No departments found'}
+                    selectable={true}
                     rows={this.props.departments.departments.rows}
                     cols={this.props.departments.departments.cols}
                     filter={this.props.departments.filter}

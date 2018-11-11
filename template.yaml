@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: An example RESTful service
+Resources:
+  ABLambdaRouter:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs8.10
+      Handler: index.handler
+      CodeUri: backend
+      Timeout: 10
+      Events:
+        ABAPI:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: any
