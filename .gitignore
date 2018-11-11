@@ -6,3 +6,5 @@ snapshots-book/
 npm-debug.log
 start-commands.txt
 abappDev.config.json
+build/
+.c9/
